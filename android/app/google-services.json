@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "662118066081",
+    "project_id": "x-buddy",
+    "storage_bucket": "x-buddy.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:662118066081:android:ba486b28188665ff06cde0",
+        "android_client_info": {
+          "package_name": "com.zephyrus.x_buddy"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBakIpS_9z5euiNRFsr6BN1VIzHT-joYXw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
