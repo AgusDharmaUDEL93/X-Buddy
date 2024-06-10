@@ -4,12 +4,16 @@ import '../modules/discussion/bindings/discussion_binding.dart';
 import '../modules/discussion/views/discussion_view.dart';
 import '../modules/event/bindings/event_binding.dart';
 import '../modules/event/views/event_view.dart';
+import '../modules/forgot_password/bindings/forgot_password_binding.dart';
+import '../modules/forgot_password/views/forgot_password_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/profile/bindings/profile_binding.dart';
 import '../modules/profile/views/profile_view.dart';
 import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
+import '../modules/register/bindings/register_binding.dart';
+import '../modules/register/views/register_view.dart';
 
 part 'app_routes.dart';
 
@@ -43,6 +47,16 @@ class AppPages {
       name: _Paths.LOGIN,
       page: () => const LoginView(),
       binding: LoginBinding(),
+    ),
+    GetPage(
+      name: _Paths.REGISTER,
+      page: () => const RegisterView(),
+      binding: RegisterBinding(),
+    ),
+    GetPage(
+      name: _Paths.FORGOT_PASSWORD,
+      page: () => const ForgotPasswordView(),
+      binding: ForgotPasswordBinding(),
     ),
   ];
 }
