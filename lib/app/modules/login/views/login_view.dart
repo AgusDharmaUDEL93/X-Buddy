@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:x_buddy/app/routes/app_pages.dart';
 
 import '../controllers/login_controller.dart';
 
@@ -9,6 +10,10 @@ class LoginView extends GetView<LoginController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+      ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Container(
@@ -94,9 +99,27 @@ class LoginView extends GetView<LoginController> {
                         ),
                       ),
                     ),
-                    SizedBox(
-                      height: 5,
-                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text("Don’t have an account?"),
+                        TextButton(
+                          onPressed: () {
+                            Get.toNamed(Routes.REGISTER);
+                          },
+                          child: Text(
+                            "Register",
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium
+                                ?.copyWith(
+                                  color: Theme.of(context).colorScheme.primary,
+                                ),
+                          ),
+                        )
+                      ],
+                    )
                   ],
                 ),
               ),
