@@ -16,6 +16,7 @@ void main() {
       title: "Application",
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
+      debugShowCheckedModeBanner: false,
       theme: theme.light(),
       darkTheme: theme.dark(),
       highContrastTheme: theme.lightHighContrast(),
