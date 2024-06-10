@@ -10,7 +10,7 @@ import 'app/routes/app_pages.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   getFirebaseInitial();
-  var theme = MaterialTheme(TextTheme());
+  var theme = const MaterialTheme(TextTheme());
   runApp(
     GetMaterialApp(
       title: "Application",
