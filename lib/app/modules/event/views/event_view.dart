@@ -31,8 +31,8 @@ class EventView extends GetView<EventController> {
                   backgroundColor: WidgetStatePropertyAll<Color?>(
                       Theme.of(context)
                           .colorScheme
-                          .onSurfaceVariant
-                          .withOpacity(0.2)),
+                          .onInverseSurface
+                          .withOpacity(0.8)),
                   leading: Icon(Icons.search,
                       color: Theme.of(context).colorScheme.onSurfaceVariant),
                   onChanged: (value) {},
