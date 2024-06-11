@@ -17,25 +17,45 @@ class EventView extends GetView<EventController> {
             children: [
               const SizedBox(height: 5),
               // Search bar
-              Container(
+              Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: TextFormField(
-                  decoration: InputDecoration(
-                    isDense: true,
-                    filled: true,
-                    fillColor: Theme.of(context)
-                        .colorScheme
-                        .onSurfaceVariant
-                        .withOpacity(0.3),
-                    prefixIcon: Icon(Icons.search,
-                        color: Theme.of(context).colorScheme.onSurfaceVariant),
-                    hintText: 'Hinted search text',
-                    border: const OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(25)),
-                        borderSide: BorderSide.none),
-                  ),
+                child: SearchBar(
+                  padding: const WidgetStatePropertyAll<EdgeInsets>(
+                      EdgeInsets.symmetric(horizontal: 16)),
+                  hintText: 'Hinted search text',
+                  hintStyle: WidgetStatePropertyAll<TextStyle>(TextStyle(
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500)),
+                  backgroundColor: WidgetStatePropertyAll<Color?>(
+                      Theme.of(context)
+                          .colorScheme
+                          .onSurfaceVariant
+                          .withOpacity(0.2)),
+                  leading: Icon(Icons.search,
+                      color: Theme.of(context).colorScheme.onSurfaceVariant),
+                  onChanged: (value) {},
                 ),
               ),
+              // Container(
+              //   padding: const EdgeInsets.symmetric(horizontal: 16),
+              //   child: TextFormField(
+              //     decoration: InputDecoration(
+              //       isDense: true,
+              //       filled: true,
+              //       fillColor: Theme.of(context)
+              //           .colorScheme
+              //           .onSurfaceVariant
+              //           .withOpacity(0.3),
+              //       prefixIcon: Icon(Icons.search,
+              //           color: Theme.of(context).colorScheme.onSurfaceVariant),
+              //       hintText: 'Hinted search text',
+              //       border: const OutlineInputBorder(
+              //           borderRadius: BorderRadius.all(Radius.circular(25)),
+              //           borderSide: BorderSide.none),
+              //     ),
+              //   ),
+              // ),
 
               //Feature List scroll horizontal
               Container(
