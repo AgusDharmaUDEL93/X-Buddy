@@ -1,9 +1,12 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../modules/discussion/bindings/discussion_binding.dart';
 import '../modules/discussion/views/discussion_view.dart';
 import '../modules/event/bindings/event_binding.dart';
 import '../modules/event/views/event_view.dart';
+import '../modules/eventDetail/bindings/event_detail_binding.dart';
+import '../modules/eventDetail/views/event_detail_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/profile/bindings/profile_binding.dart';
@@ -23,10 +26,11 @@ class AppPages {
       binding: HomeBinding(),
     ),
     GetPage(
-      name: _Paths.EVENT,
-      page: () => const EventView(),
-      binding: EventBinding(),
-    ),
+        name: _Paths.EVENT,
+        page: () => const EventView(),
+        binding: EventBinding(),
+        transition: Transition.circularReveal,
+        transitionDuration: Durations.extralong4),
     GetPage(
       name: _Paths.DISCUSSION,
       page: () => const DiscussionView(),
@@ -37,5 +41,11 @@ class AppPages {
       page: () => const ProfileView(),
       binding: ProfileBinding(),
     ),
+    GetPage(
+        name: _Paths.EVENT_DETAIL,
+        page: () => const EventDetailView(),
+        binding: EventDetailBinding(),
+        transition: Transition.zoom,
+        transitionDuration: Durations.long2),
   ];
 }
