@@ -97,21 +97,23 @@ class EventDetailView extends GetView<EventDetailController> {
                 ),
               ),
             ]),
-            Row(children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 13, top: 5),
-                child: Icon(Icons.access_time,
-                    size: 20,
-                    color: Theme.of(context).colorScheme.onSurfaceVariant),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 5, left: 5),
-                child: Text(
-                  '19:00 - 22:00',
-                  style: Theme.of(context).textTheme.labelSmall,
+            Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 13, top: 5),
+                  child: Icon(Icons.access_time,
+                      size: 20,
+                      color: Theme.of(context).colorScheme.onSurfaceVariant),
                 ),
-              ),
-            ]),
+                Padding(
+                  padding: const EdgeInsets.only(top: 5, left: 5),
+                  child: Text(
+                    '19:00 - 22:00',
+                    style: Theme.of(context).textTheme.labelSmall,
+                  ),
+                ),
+              ],
+            ),
             //description
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
