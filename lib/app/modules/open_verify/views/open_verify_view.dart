@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+
 import 'package:get/get.dart';
-import 'package:x_buddy/app/modules/profile/views/verify_screen.dart';
+import 'package:x_buddy/app/modules/verify/views/verify_view.dart';
 
-class OpenVerify extends StatelessWidget {
-  const OpenVerify({super.key});
+//import '../../profile/views/verify_view.dart';
+import '../controllers/open_verify_controller.dart';
 
+class OpenVerifyView extends GetView<OpenVerifyController> {
+  const OpenVerifyView({super.key});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -42,17 +45,17 @@ class OpenVerify extends StatelessWidget {
             const SizedBox(height: 100),
             Center(
               child: SizedBox(
-                width: 328,
+                width: Get.width,
                 child: Expanded(
                   child: ElevatedButton(
                     onPressed: () {
-                      Get.to(VerifyScreen());
+                      Get.to(const VerifyView());
                     },
                     style: ElevatedButton.styleFrom(
                         backgroundColor:
                             Theme.of(context).colorScheme.inversePrimary),
                     child: Text(
-                      'Login',
+                      'Verify Your Account',
                       textAlign: TextAlign.center,
                       style: Theme.of(context).textTheme.labelLarge,
                     ),

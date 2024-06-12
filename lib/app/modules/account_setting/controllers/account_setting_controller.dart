@@ -1,15 +1,9 @@
 import 'package:get/get.dart';
 
-class ProfileController extends GetxController {
-  //TODO: Implement ProfileController
+class AccountSettingController extends GetxController {
+  //TODO: Implement AccountSettingController
 
   final count = 0.obs;
-  var isLogin = true.obs;
-  var isVerify = false.obs;
-
-  void IsLogin() => isLogin;
-  void IsVerify() => isVerify.value = true;
-
   @override
   void onInit() {
     super.onInit();

@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
 
-class VerifyScreen extends StatelessWidget {
-  const VerifyScreen({super.key});
+import 'package:get/get.dart';
+import 'package:x_buddy/app/modules/profile/views/profile_view.dart';
 
+import '../controllers/password_setting_controller.dart';
+
+class PasswordSettingView extends GetView<PasswordSettingController> {
+  const PasswordSettingView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.inverseSurface,
+      backgroundColor: Colors.white,
       appBar: AppBar(
         iconTheme: IconThemeData(color: Theme.of(context).colorScheme.scrim),
-        backgroundColor: Theme.of(context).colorScheme.inverseSurface,
+        backgroundColor: Colors.white,
         title: Text(
-          "Verify Your Identity",
+          "Password Setting",
           style: Theme.of(context)
               .textTheme
               .headlineMedium
@@ -23,15 +27,17 @@ class VerifyScreen extends StatelessWidget {
         child: Column(
           children: [
             TextFormField(
+              obscureText: true,
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyLarge
+                  ?.copyWith(color: Theme.of(context).colorScheme.scrim),
               decoration: InputDecoration(
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(4)),
-                  hintText: "Insert Your Name Base Your Identity",
-                  hintStyle: Theme.of(context)
-                      .textTheme
-                      .bodyLarge
-                      ?.copyWith(color: Theme.of(context).colorScheme.scrim),
-                  label: Text("Name"),
+                  hintText: "Insert your old password",
+                  hintStyle: Theme.of(context).textTheme.bodyLarge,
+                  label: Text("Old Password"),
                   labelStyle: Theme.of(context)
                       .textTheme
                       .bodySmall
@@ -39,15 +45,35 @@ class VerifyScreen extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             TextFormField(
+              obscureText: true,
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyLarge
+                  ?.copyWith(color: Theme.of(context).colorScheme.scrim),
               decoration: InputDecoration(
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(4)),
-                  hintText: "Insert Your NIK Base Your Identity",
-                  hintStyle: Theme.of(context)
+                  hintText: "Insert your new password",
+                  hintStyle: Theme.of(context).textTheme.bodyLarge,
+                  label: Text("New Password"),
+                  labelStyle: Theme.of(context)
                       .textTheme
-                      .bodyLarge
-                      ?.copyWith(color: Theme.of(context).colorScheme.scrim),
-                  label: Text("NIK"),
+                      .bodySmall
+                      ?.copyWith(color: Theme.of(context).colorScheme.scrim)),
+            ),
+            const SizedBox(height: 16),
+            TextFormField(
+              obscureText: true,
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyLarge
+                  ?.copyWith(color: Theme.of(context).colorScheme.scrim),
+              decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(4)),
+                  hintText: "Confirm your new password",
+                  hintStyle: Theme.of(context).textTheme.bodyLarge,
+                  label: Text("New Password Confirm"),
                   labelStyle: Theme.of(context)
                       .textTheme
                       .bodySmall
@@ -56,17 +82,17 @@ class VerifyScreen extends StatelessWidget {
             const SizedBox(height: 55),
             Center(
               child: SizedBox(
-                width: 328,
+                width: Get.width,
                 child: Expanded(
                   child: ElevatedButton(
                     onPressed: () {
-                      // Get.to(VerifyScreen());
+                      Get.off(ProfileView());
                     },
                     style: ElevatedButton.styleFrom(
                         backgroundColor:
                             Theme.of(context).colorScheme.inversePrimary),
                     child: Text(
-                      'Login',
+                      'Update',
                       textAlign: TextAlign.center,
                       style: Theme.of(context).textTheme.labelLarge,
                     ),

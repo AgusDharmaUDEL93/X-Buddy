@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:x_buddy/app/modules/profile/views/open_verify.dart';
+import 'package:x_buddy/app/modules/account_setting/views/account_setting_view.dart';
+import 'package:x_buddy/app/modules/open_verify/views/open_verify_view.dart';
+//import 'package:x_buddy/app/modules/profile/views/open_verify.dart';
 
+import '../../password_setting/views/password_setting_view.dart';
 import '../controllers/profile_controller.dart';
 
 class ProfileView extends GetView<ProfileController> {
@@ -73,9 +76,8 @@ class ProfileView extends GetView<ProfileController> {
                                         .textTheme
                                         .titleMedium
                                         ?.copyWith(
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .onSecondaryContainer),
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.green),
                                   ),
                                 ),
                               ],
@@ -115,7 +117,9 @@ class ProfileView extends GetView<ProfileController> {
                                           ),
                                         ),
                                         IconButton(
-                                            onPressed: () {},
+                                            onPressed: () {
+                                              Get.to(AccountSettingView());
+                                            },
                                             icon: Icon(
                                               Icons.arrow_right,
                                               color: Theme.of(context)
@@ -178,7 +182,9 @@ class ProfileView extends GetView<ProfileController> {
                                           ),
                                         ),
                                         IconButton(
-                                            onPressed: () {},
+                                            onPressed: () {
+                                              Get.to(PasswordSettingView());
+                                            },
                                             icon: Icon(
                                               Icons.arrow_right,
                                               color: Theme.of(context)
@@ -348,7 +354,7 @@ class ProfileView extends GetView<ProfileController> {
                               const SizedBox(height: 50),
                               Center(
                                 child: SizedBox(
-                                  width: 328,
+                                  width: Get.width,
                                   child: Expanded(
                                     child: ElevatedButton(
                                       onPressed: () {},
@@ -386,7 +392,7 @@ class ProfileView extends GetView<ProfileController> {
                 padding: const EdgeInsets.only(top: 44, right: 16, left: 16),
                 clipBehavior: Clip.antiAlias,
                 decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.onSecondary),
+                    color: Theme.of(context).colorScheme.inverseSurface),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -439,20 +445,18 @@ class ProfileView extends GetView<ProfileController> {
                                         .textTheme
                                         .titleMedium
                                         ?.copyWith(
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .error,
+                                            color: Colors.red,
                                             fontWeight: FontWeight.bold),
                                   ),
                                 ),
                                 const SizedBox(height: 30),
                                 Center(
                                   child: SizedBox(
-                                    width: 328,
+                                    width: Get.width,
                                     child: Expanded(
                                       child: ElevatedButton(
                                         onPressed: () {
-                                          Get.to(OpenVerify());
+                                          Get.to(const OpenVerifyView());
                                         },
                                         style: ElevatedButton.styleFrom(
                                             backgroundColor: Theme.of(context)
@@ -514,7 +518,9 @@ class ProfileView extends GetView<ProfileController> {
                                           ),
                                         ),
                                         IconButton(
-                                            onPressed: () {},
+                                            onPressed: () {
+                                              Get.to(AccountSettingView());
+                                            },
                                             icon: Icon(
                                               Icons.arrow_right,
                                               color: Theme.of(context)
@@ -577,7 +583,9 @@ class ProfileView extends GetView<ProfileController> {
                                           ),
                                         ),
                                         IconButton(
-                                            onPressed: () {},
+                                            onPressed: () {
+                                              Get.to(PasswordSettingView());
+                                            },
                                             icon: Icon(
                                               Icons.arrow_right,
                                               color: Theme.of(context)
@@ -684,7 +692,7 @@ class ProfileView extends GetView<ProfileController> {
                               const SizedBox(height: 50),
                               Center(
                                 child: SizedBox(
-                                  width: 328,
+                                  width: Get.width,
                                   child: Expanded(
                                     child: ElevatedButton(
                                       onPressed: () {},
