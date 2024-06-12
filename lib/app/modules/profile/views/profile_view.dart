@@ -235,7 +235,7 @@ class ProfileView extends GetView<ProfileController> {
                                         Expanded(
                                           child: SizedBox(
                                             child: Text(
-                                              'Applied Event',
+                                              'Followed Event',
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .titleMedium
@@ -636,7 +636,7 @@ class ProfileView extends GetView<ProfileController> {
                                         Expanded(
                                           child: SizedBox(
                                             child: Text(
-                                              'Applied Event',
+                                              'Followed Event',
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .titleMedium
