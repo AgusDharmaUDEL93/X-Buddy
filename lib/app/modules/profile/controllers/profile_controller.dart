@@ -4,7 +4,7 @@ class ProfileController extends GetxController {
   //TODO: Implement ProfileController
 
   final count = 0.obs;
-  var isLogin = false.obs;
+  var isLogin = true.obs;
   var isVerify = false.obs;
 
   void IsLogin() => isLogin;

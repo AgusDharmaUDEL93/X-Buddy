@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:x_buddy/app/modules/profile/views/open_verify.dart';
 
 import '../controllers/profile_controller.dart';
 
@@ -384,7 +385,8 @@ class ProfileView extends GetView<ProfileController> {
               child: Container(
                 padding: const EdgeInsets.only(top: 44, right: 16, left: 16),
                 clipBehavior: Clip.antiAlias,
-                decoration: const BoxDecoration(color: Colors.white),
+                decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.onSecondary),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -449,7 +451,9 @@ class ProfileView extends GetView<ProfileController> {
                                     width: 328,
                                     child: Expanded(
                                       child: ElevatedButton(
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          Get.to(OpenVerify());
+                                        },
                                         style: ElevatedButton.styleFrom(
                                             backgroundColor: Theme.of(context)
                                                 .colorScheme
