@@ -57,28 +57,31 @@ class EventView extends GetView<EventController> {
                                 fontWeight: FontWeight.w600, fontSize: 18),
                       ),
                     ),
-                    Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 16),
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 8.14, vertical: 8.14),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Theme.of(context).cardColor,
-                        border: Border.all(
-                            color:
-                                Theme.of(context).colorScheme.outlineVariant),
-                      ),
-                      child: Column(
-                        children: [
-                          SvgPicture.asset('assets/svg/competition.svg'),
-                          Text(
-                            'Competition',
-                            style: Theme.of(context)
-                                .textTheme
-                                .labelLarge
-                                ?.copyWith(fontWeight: FontWeight.w600),
-                          ),
-                        ],
+                    InkWell(
+                      onTap: () => Get.toNamed(Routes.PER_FEATURE_EVENT),
+                      child: Container(
+                        margin: const EdgeInsets.symmetric(horizontal: 16),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 8.14, vertical: 8.14),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Theme.of(context).cardColor,
+                          border: Border.all(
+                              color:
+                                  Theme.of(context).colorScheme.outlineVariant),
+                        ),
+                        child: Column(
+                          children: [
+                            SvgPicture.asset('assets/svg/competition.svg'),
+                            Text(
+                              'Competition',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .labelLarge
+                                  ?.copyWith(fontWeight: FontWeight.w600),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ],
