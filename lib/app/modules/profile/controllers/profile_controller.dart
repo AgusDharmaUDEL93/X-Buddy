@@ -4,6 +4,12 @@ class ProfileController extends GetxController {
   //TODO: Implement ProfileController
 
   final count = 0.obs;
+  var isLogin = false.obs;
+  var isVerify = false.obs;
+
+  void IsLogin() => isLogin;
+  void IsVerify() => isVerify;
+
   @override
   void onInit() {
     super.onInit();
