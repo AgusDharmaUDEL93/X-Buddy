@@ -78,27 +78,12 @@ class LoginView extends GetView<LoginController> {
                   SizedBox(
                     height: 25,
                   ),
-                  Container(
-                    width: Get.width,
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.primary,
-                      borderRadius: BorderRadius.circular(100),
-                    ),
-                    child: TextButton(
-                      onPressed: () {},
-                      child: Center(
-                        child: Text(
-                          "Login",
-                          style: Theme.of(context)
-                              .textTheme
-                              .labelLarge
-                              ?.copyWith(
-                                color: Theme.of(context).colorScheme.onPrimary,
-                              ),
-                        ),
-                      ),
-                    ),
-                  ),
+                  SizedBox(
+                      width: Get.width,
+                      child: FilledButton(
+                        onPressed: () {},
+                        child: Text("Login"),
+                      )),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,

@@ -84,23 +84,9 @@ class RegisterView extends GetView<RegisterController> {
                   ),
                   Container(
                     width: Get.width,
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.primary,
-                      borderRadius: BorderRadius.circular(100),
-                    ),
-                    child: TextButton(
+                    child: FilledButton(
                       onPressed: () {},
-                      child: Center(
-                        child: Text(
-                          "Register",
-                          style: Theme.of(context)
-                              .textTheme
-                              .labelLarge
-                              ?.copyWith(
-                                color: Theme.of(context).colorScheme.onPrimary,
-                              ),
-                        ),
-                      ),
+                      child: Text("Register"),
                     ),
                   ),
                   Row(
@@ -110,7 +96,7 @@ class RegisterView extends GetView<RegisterController> {
                       Text("Already have an account?"),
                       TextButton(
                         onPressed: () {
-                          Get.offNamed(Routes.REGISTER);
+                          Get.back();
                         },
                         child: Text(
                           "Login",
