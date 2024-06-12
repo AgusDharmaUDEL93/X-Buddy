@@ -14,6 +14,8 @@ import '../modules/perFeatureEvent/bindings/per_feature_event_binding.dart';
 import '../modules/perFeatureEvent/views/per_feature_event_view.dart';
 import '../modules/profile/bindings/profile_binding.dart';
 import '../modules/profile/views/profile_view.dart';
+import '../modules/searchResult/bindings/search_result_binding.dart';
+import '../modules/searchResult/views/search_result_view.dart';
 
 part 'app_routes.dart';
 
@@ -54,6 +56,11 @@ class AppPages {
       name: _Paths.PER_FEATURE_EVENT,
       page: () => const PerFeatureEventView(),
       binding: PerFeatureEventBinding(),
+    ),
+    GetPage(
+      name: _Paths.SEARCH_RESULT,
+      page: () => const SearchResultView(),
+      binding: SearchResultBinding(),
     ),
   ];
 }

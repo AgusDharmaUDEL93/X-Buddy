@@ -21,6 +21,9 @@ class EventView extends GetView<EventController> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: SearchBar(
+                  onTap: () {
+                    Get.toNamed(Routes.SEARCH_RESULT);
+                  },
                   padding: const WidgetStatePropertyAll<EdgeInsets>(
                       EdgeInsets.symmetric(horizontal: 16)),
                   hintText: 'Hinted search text',
