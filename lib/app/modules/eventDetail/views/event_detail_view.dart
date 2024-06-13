@@ -66,7 +66,7 @@ class EventDetailView extends GetView<EventDetailController> {
               ),
             ),
             const SizedBox(height: 5),
-            //time, scheduled, location section
+            //time, scheduled, location section, people joined
             Row(children: [
               Padding(
                 padding: const EdgeInsets.only(left: 13, top: 5),
@@ -109,6 +109,23 @@ class EventDetailView extends GetView<EventDetailController> {
                   padding: const EdgeInsets.only(top: 5, left: 5),
                   child: Text(
                     '19:00 - 22:00',
+                    style: Theme.of(context).textTheme.labelSmall,
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 13, top: 5),
+                  child: Icon(Icons.people,
+                      size: 20,
+                      color: Theme.of(context).colorScheme.onSurfaceVariant),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 5, left: 5),
+                  child: Text(
+                    '100',
                     style: Theme.of(context).textTheme.labelSmall,
                   ),
                 ),
