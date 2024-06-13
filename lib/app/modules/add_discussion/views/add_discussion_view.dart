@@ -30,7 +30,7 @@ class AddDiscussionView extends GetView<AddDiscussionController> {
               TextFormField(
                 decoration: InputDecoration(
                   alignLabelWithHint: true,
-                  label: Text("Password"),
+                  label: Text("Description"),
                   border: OutlineInputBorder(),
                   hintText: "Insert Discussion Description",
                 ),
