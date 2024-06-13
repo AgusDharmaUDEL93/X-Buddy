@@ -11,6 +11,7 @@ abstract class Routes {
   static const PER_FEATURE_EVENT = _Paths.PER_FEATURE_EVENT;
   static const SEARCH_RESULT = _Paths.SEARCH_RESULT;
   static const APPLIED_EVENT = _Paths.APPLIED_EVENT;
+  static const YOUR_EVENT = _Paths.YOUR_EVENT;
 }
 
 abstract class _Paths {
@@ -23,4 +24,5 @@ abstract class _Paths {
   static const PER_FEATURE_EVENT = '/per-feature-event';
   static const SEARCH_RESULT = '/search-result';
   static const APPLIED_EVENT = '/applied-event';
+  static const YOUR_EVENT = '/your-event';
 }

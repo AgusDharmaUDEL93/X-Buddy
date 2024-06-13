@@ -18,13 +18,15 @@ import '../modules/profile/bindings/profile_binding.dart';
 import '../modules/profile/views/profile_view.dart';
 import '../modules/searchResult/bindings/search_result_binding.dart';
 import '../modules/searchResult/views/search_result_view.dart';
+import '../modules/yourEvent/bindings/your_event_binding.dart';
+import '../modules/yourEvent/views/your_event_view.dart';
 
 part 'app_routes.dart';
 
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.APPLIED_EVENT;
+  static const INITIAL = Routes.YOUR_EVENT;
 
   static final routes = [
     GetPage(
@@ -68,6 +70,11 @@ class AppPages {
       name: _Paths.APPLIED_EVENT,
       page: () => const AppliedEventView(),
       binding: AppliedEventBinding(),
+    ),
+    GetPage(
+      name: _Paths.YOUR_EVENT,
+      page: () => const YourEventView(),
+      binding: YourEventBinding(),
     ),
   ];
 }
