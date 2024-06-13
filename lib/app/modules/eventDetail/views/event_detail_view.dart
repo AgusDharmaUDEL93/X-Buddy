@@ -79,6 +79,7 @@ class EventDetailView extends GetView<EventDetailController> {
                 child: Text(
                   'Zoom (Online)',
                   style: Theme.of(context).textTheme.labelSmall,
+                  maxLines: 5,
                 ),
               ),
             ]),
@@ -92,7 +93,7 @@ class EventDetailView extends GetView<EventDetailController> {
               Padding(
                 padding: const EdgeInsets.only(top: 5, left: 5),
                 child: Text(
-                  '16 Juni 2024',
+                  '13-06-2024',
                   style: Theme.of(context).textTheme.labelSmall,
                 ),
               ),
@@ -108,7 +109,7 @@ class EventDetailView extends GetView<EventDetailController> {
                 Padding(
                   padding: const EdgeInsets.only(top: 5, left: 5),
                   child: Text(
-                    '19:00 - 22:00',
+                    '19:00',
                     style: Theme.of(context).textTheme.labelSmall,
                   ),
                 ),
