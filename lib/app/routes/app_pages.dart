@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
+import '../modules/appliedEvent/bindings/applied_event_binding.dart';
+import '../modules/appliedEvent/views/applied_event_view.dart';
 import '../modules/discussion/bindings/discussion_binding.dart';
 import '../modules/discussion/views/discussion_view.dart';
 import '../modules/event/bindings/event_binding.dart';
@@ -61,6 +63,11 @@ class AppPages {
       name: _Paths.SEARCH_RESULT,
       page: () => const SearchResultView(),
       binding: SearchResultBinding(),
+    ),
+    GetPage(
+      name: _Paths.APPLIED_EVENT,
+      page: () => const AppliedEventView(),
+      binding: AppliedEventBinding(),
     ),
   ];
 }
