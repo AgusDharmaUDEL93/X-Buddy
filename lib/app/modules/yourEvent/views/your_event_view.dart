@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
+import '../../../routes/app_pages.dart';
 import '../controllers/your_event_controller.dart';
 
 class YourEventView extends GetView<YourEventController> {
@@ -12,8 +13,12 @@ class YourEventView extends GetView<YourEventController> {
       appBar: AppBar(
         title:
             Text('Your Event', style: Theme.of(context).textTheme.titleLarge),
-        actions: const [
-          Icon(Icons.add),
+        actions: [
+          IconButton(
+              onPressed: () {
+                Get.toNamed(Routes.ADD_EVENT);
+              },
+              icon: const Icon(Icons.add)),
         ],
       ),
       body: Column(

@@ -12,6 +12,7 @@ abstract class Routes {
   static const SEARCH_RESULT = _Paths.SEARCH_RESULT;
   static const APPLIED_EVENT = _Paths.APPLIED_EVENT;
   static const YOUR_EVENT = _Paths.YOUR_EVENT;
+  static const ADD_EVENT = _Paths.ADD_EVENT;
 }
 
 abstract class _Paths {
@@ -25,4 +26,5 @@ abstract class _Paths {
   static const SEARCH_RESULT = '/search-result';
   static const APPLIED_EVENT = '/applied-event';
   static const YOUR_EVENT = '/your-event';
+  static const ADD_EVENT = '/add-event';
 }

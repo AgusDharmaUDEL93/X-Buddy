@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
+import '../modules/addEvent/bindings/add_event_binding.dart';
+import '../modules/addEvent/views/add_event_view.dart';
 import '../modules/appliedEvent/bindings/applied_event_binding.dart';
 import '../modules/appliedEvent/views/applied_event_view.dart';
 import '../modules/discussion/bindings/discussion_binding.dart';
@@ -75,6 +77,11 @@ class AppPages {
       name: _Paths.YOUR_EVENT,
       page: () => const YourEventView(),
       binding: YourEventBinding(),
+    ),
+    GetPage(
+      name: _Paths.ADD_EVENT,
+      page: () => const AddEventView(),
+      binding: AddEventBinding(),
     ),
   ];
 }
