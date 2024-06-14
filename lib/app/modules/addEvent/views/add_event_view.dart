@@ -45,7 +45,8 @@ class AddEventView extends GetView<AddEventController> {
                   builder: (controller) => TextFormField(
                     controller: controller.dateController,
                     decoration: InputDecoration(
-                      label: const Text("00 / 00 / 0000"),
+                      label: const Text("Event Date"),
+                      hintText: "00 - 00 - 0000",
                       suffixIcon: IconButton(
                           onPressed: () async {
                             print("Icons.calendar_month");
@@ -60,15 +61,21 @@ class AddEventView extends GetView<AddEventController> {
 
                 //Event (Time) Form
                 const SizedBox(height: 15),
-                TextFormField(
-                  decoration: InputDecoration(
-                    label: const Text("00 : 00"),
-                    suffixIcon: IconButton(
-                        onPressed: () {
-                          print('Icons.access_time');
-                        },
-                        icon: const Icon(Icons.access_time)),
-                    border: const OutlineInputBorder(),
+                GetBuilder<AddEventController>(
+                  builder: (controller) => TextFormField(
+                    controller: controller.timeController,
+                    decoration: InputDecoration(
+                      label: const Text("Event Time"),
+                      hintText: "00 : 00",
+                      suffixIcon: IconButton(
+                          onPressed: () {
+                            print('Icons.access_time');
+                            controller.timePicker(context);
+                            controller.update();
+                          },
+                          icon: const Icon(Icons.access_time)),
+                      border: const OutlineInputBorder(),
+                    ),
                   ),
                 ),
 
