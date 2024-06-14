@@ -22,110 +22,135 @@ class ProfileView extends GetView<ProfileController> {
             vertical: 30,
           ),
           child: Obx(
-            () => Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Giarty",
-                  style: Theme.of(context).textTheme.titleLarge,
-                ),
-                Text(
-                  "giarty.kireina@gmail.com",
-                  style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                        color: Theme.of(context).colorScheme.outline,
+            () => controller.isLogin.value
+                ? Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Giarty",
+                        style: Theme.of(context).textTheme.titleLarge,
                       ),
-                ),
-                Text(
-                  controller.isVerify.value ? "Verify" : "Not Verify",
-                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      color: controller.isVerify.value
-                          ? Colors.green
-                          : Colors.red),
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                !controller.isVerify.value
-                    ? Column(
-                        children: [
-                          SizedBox(
-                            width: Get.width,
-                            child: OutlinedButton(
-                              onPressed: () {
-                                Get.toNamed(Routes.OPEN_VERIFY);
-                              },
-                              child: Text("Verify Account"),
+                      Text(
+                        "giarty.kireina@gmail.com",
+                        style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                              color: Theme.of(context).colorScheme.outline,
                             ),
-                          ),
-                          SizedBox(
-                            height: 50,
-                          ),
-                        ],
+                      ),
+                      Text(
+                        controller.isVerify.value ? "Verify" : "Not Verify",
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleMedium
+                            ?.copyWith(
+                                color: controller.isVerify.value
+                                    ? Colors.green
+                                    : Colors.red),
+                      ),
+                      SizedBox(
+                        height: 30,
+                      ),
+                      !controller.isVerify.value
+                          ? Column(
+                              children: [
+                                SizedBox(
+                                  width: Get.width,
+                                  child: OutlinedButton(
+                                    onPressed: () {
+                                      Get.toNamed(Routes.OPEN_VERIFY);
+                                    },
+                                    child: Text("Verify Account"),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 50,
+                                ),
+                              ],
+                            )
+                          : SizedBox(),
+                      CardProfile(
+                        onTap: () {
+                          Get.toNamed(Routes.ACCOUNT_SETTING);
+                        },
+                        title: "Account Setting",
+                      ),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      Divider(),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      CardProfile(
+                        onTap: () {
+                          Get.toNamed(Routes.PASSWORD_SETTING);
+                        },
+                        title: "Password Setting",
+                      ),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      Divider(),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      CardProfile(
+                        onTap: () {},
+                        title: "Followed Event",
+                      ),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      Divider(),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      controller.isVerify.value
+                          ? Column(
+                              children: [
+                                CardProfile(
+                                  onTap: () {},
+                                  title: "Your Event",
+                                ),
+                                SizedBox(
+                                  height: 15,
+                                ),
+                                Divider(),
+                              ],
+                            )
+                          : SizedBox(),
+                      SizedBox(
+                        height: 50,
+                      ),
+                      SizedBox(
+                        width: Get.width,
+                        child: FilledButton(
+                          onPressed: () {},
+                          child: Text("Logout"),
+                        ),
                       )
-                    : SizedBox(),
-                CardProfile(
-                  onTap: () {
-                    Get.toNamed(Routes.ACCOUNT_SETTING);
-                  },
-                  title: "Account Setting",
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-                Divider(),
-                SizedBox(
-                  height: 15,
-                ),
-                CardProfile(
-                  onTap: () {
-                    Get.toNamed(Routes.PASSWORD_SETTING);
-                  },
-                  title: "Password Setting",
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-                Divider(),
-                SizedBox(
-                  height: 15,
-                ),
-                CardProfile(
-                  onTap: () {},
-                  title: "Followed Event",
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-                Divider(),
-                SizedBox(
-                  height: 15,
-                ),
-                controller.isVerify.value
-                    ? Column(
-                        children: [
-                          CardProfile(
-                            onTap: () {},
-                            title: "Your Event",
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          Divider(),
-                        ],
+                    ],
+                  )
+                : Column(
+                    children: [
+                      SizedBox(
+                        width: Get.width,
+                        child: FilledButton(
+                          onPressed: () {},
+                          child: Text("Login"),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 12,
+                      ),
+                      SizedBox(
+                        width: Get.width,
+                        child: OutlinedButton(
+                          onPressed: () {},
+                          child: Text("Register"),
+                        ),
                       )
-                    : SizedBox(),
-                SizedBox(
-                  height: 50,
-                ),
-                SizedBox(
-                  width: Get.width,
-                  child: FilledButton(
-                    onPressed: () {},
-                    child: Text("Logout"),
+                    ],
                   ),
-                )
-              ],
-            ),
           ),
         ),
       ),
