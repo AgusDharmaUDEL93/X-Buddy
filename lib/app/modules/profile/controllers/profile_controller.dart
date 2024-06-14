@@ -7,9 +7,6 @@ class ProfileController extends GetxController {
   var isLogin = true.obs;
   var isVerify = false.obs;
 
-  void IsLogin() => isLogin;
-  void IsVerify() => isVerify.value = true;
-
   @override
   void onInit() {
     super.onInit();

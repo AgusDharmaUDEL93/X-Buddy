@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:x_buddy/app/modules/account_setting/views/account_setting_view.dart';
 import 'package:x_buddy/app/modules/open_verify/views/open_verify_view.dart';
+import 'package:x_buddy/app/routes/app_pages.dart';
 //import 'package:x_buddy/app/modules/profile/views/open_verify.dart';
 
+import '../../../widgets/card_profile.dart';
 import '../../password_setting/views/password_setting_view.dart';
 import '../controllers/profile_controller.dart';
 
@@ -12,772 +14,120 @@ class ProfileView extends GetView<ProfileController> {
   const ProfileView({super.key});
   @override
   Widget build(BuildContext context) {
-    final page = Get.put(ProfileController());
     return Scaffold(
-      body:
-          //verify_account
-          Obx(
-        () {
-          if (page.isLogin.value == true && page.isVerify.value == true) {
-            return SingleChildScrollView(
-              child: Container(
-                padding: const EdgeInsets.only(top: 44, right: 16, left: 16),
-                clipBehavior: Clip.antiAlias,
-                decoration: const BoxDecoration(color: Colors.white),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      width: double.infinity,
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
+      body: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: 16,
+            vertical: 30,
+          ),
+          child: Obx(
+            () => Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Giarty",
+                  style: Theme.of(context).textTheme.titleLarge,
+                ),
+                Text(
+                  "giarty.kireina@gmail.com",
+                  style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                        color: Theme.of(context).colorScheme.outline,
+                      ),
+                ),
+                Text(
+                  controller.isVerify.value ? "Verify" : "Not Verify",
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      color: controller.isVerify.value
+                          ? Colors.green
+                          : Colors.red),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                !controller.isVerify.value
+                    ? Column(
                         children: [
                           SizedBox(
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                SizedBox(
-                                  width: double.infinity,
-                                  child: Text(
-                                    'Giarty',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .titleLarge
-                                        ?.copyWith(
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .scrim),
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: double.infinity,
-                                  child: Text(
-                                    'giarty.kireina@gmail.com',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .titleSmall
-                                        ?.copyWith(
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .outline),
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: double.infinity,
-                                  child: Text(
-                                    'Verified',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .titleMedium
-                                        ?.copyWith(
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.green),
-                                  ),
-                                ),
-                              ],
+                            width: Get.width,
+                            child: OutlinedButton(
+                              onPressed: () {
+                                Get.toNamed(Routes.OPEN_VERIFY);
+                              },
+                              child: Text("Verify Account"),
                             ),
                           ),
-                          const SizedBox(height: 30),
-                          Column(
-                            mainAxisSize: MainAxisSize.min,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Column(
-                                mainAxisSize: MainAxisSize.min,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  SizedBox(
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Expanded(
-                                          child: SizedBox(
-                                            child: Text(
-                                              'Account Setting',
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .titleMedium
-                                                  ?.copyWith(
-                                                      color: Theme.of(context)
-                                                          .colorScheme
-                                                          .scrim),
-                                            ),
-                                          ),
-                                        ),
-                                        IconButton(
-                                            onPressed: () {
-                                              Get.to(AccountSettingView());
-                                            },
-                                            icon: Icon(
-                                              Icons.arrow_right,
-                                              color: Theme.of(context)
-                                                  .colorScheme
-                                                  .scrim,
-                                              size: 34,
-                                            ))
-                                      ],
-                                    ),
-                                  ),
-                                  const SizedBox(height: 15),
-                                  SizedBox(
-                                    height: 1,
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Container(
-                                          width: double.infinity,
-                                          decoration: ShapeDecoration(
-                                            shape: RoundedRectangleBorder(
-                                              side: BorderSide(
-                                                width: 1,
-                                                strokeAlign: BorderSide
-                                                    .strokeAlignCenter,
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .onSurfaceVariant,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  const SizedBox(height: 15),
-                                  SizedBox(
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Expanded(
-                                          child: SizedBox(
-                                            child: Text(
-                                              'Password Setting',
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .titleMedium
-                                                  ?.copyWith(
-                                                      color: Theme.of(context)
-                                                          .colorScheme
-                                                          .scrim),
-                                            ),
-                                          ),
-                                        ),
-                                        IconButton(
-                                            onPressed: () {
-                                              Get.to(PasswordSettingView());
-                                            },
-                                            icon: Icon(
-                                              Icons.arrow_right,
-                                              color: Theme.of(context)
-                                                  .colorScheme
-                                                  .scrim,
-                                              size: 34,
-                                            ))
-                                      ],
-                                    ),
-                                  ),
-                                  const SizedBox(height: 15),
-                                  SizedBox(
-                                    height: 1,
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Container(
-                                          width: double.infinity,
-                                          decoration: ShapeDecoration(
-                                            shape: RoundedRectangleBorder(
-                                              side: BorderSide(
-                                                width: 1,
-                                                strokeAlign: BorderSide
-                                                    .strokeAlignCenter,
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .onSurfaceVariant,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  const SizedBox(height: 15),
-                                  SizedBox(
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Expanded(
-                                          child: SizedBox(
-                                            child: Text(
-                                              'Followed Event',
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .titleMedium
-                                                  ?.copyWith(
-                                                      color: Theme.of(context)
-                                                          .colorScheme
-                                                          .scrim),
-                                            ),
-                                          ),
-                                        ),
-                                        IconButton(
-                                            onPressed: () {},
-                                            icon: Icon(
-                                              Icons.arrow_right,
-                                              color: Theme.of(context)
-                                                  .colorScheme
-                                                  .scrim,
-                                              size: 34,
-                                            ))
-                                      ],
-                                    ),
-                                  ),
-                                  const SizedBox(height: 15),
-                                  SizedBox(
-                                    height: 1,
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Container(
-                                          width: double.infinity,
-                                          decoration: ShapeDecoration(
-                                            shape: RoundedRectangleBorder(
-                                              side: BorderSide(
-                                                width: 1,
-                                                strokeAlign: BorderSide
-                                                    .strokeAlignCenter,
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .onSurfaceVariant,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  const SizedBox(height: 15),
-                                  SizedBox(
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Expanded(
-                                          child: SizedBox(
-                                            child: Text(
-                                              'Your Event',
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .titleMedium
-                                                  ?.copyWith(
-                                                      color: Theme.of(context)
-                                                          .colorScheme
-                                                          .scrim),
-                                            ),
-                                          ),
-                                        ),
-                                        IconButton(
-                                            onPressed: () {},
-                                            icon: Icon(
-                                              Icons.arrow_right,
-                                              color: Theme.of(context)
-                                                  .colorScheme
-                                                  .scrim,
-                                              size: 34,
-                                            ))
-                                      ],
-                                    ),
-                                  ),
-                                  const SizedBox(height: 15),
-                                  SizedBox(
-                                    height: 1,
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Container(
-                                          width: double.infinity,
-                                          decoration: ShapeDecoration(
-                                            shape: RoundedRectangleBorder(
-                                              side: BorderSide(
-                                                width: 1,
-                                                strokeAlign: BorderSide
-                                                    .strokeAlignCenter,
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .onSurfaceVariant,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(height: 50),
-                              Center(
-                                child: SizedBox(
-                                  width: Get.width,
-                                  child: Expanded(
-                                    child: ElevatedButton(
-                                      onPressed: () {},
-                                      style: ElevatedButton.styleFrom(
-                                          backgroundColor: Theme.of(context)
-                                              .colorScheme
-                                              .inversePrimary),
-                                      child: Text(
-                                        'Logout',
-                                        textAlign: TextAlign.center,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .labelLarge,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 289.10),
-                  ],
-                ),
-              ),
-            );
-          }
-
-          //not_verify_page
-          else if (page.isLogin.value == true && page.isVerify.value == false) {
-            return SingleChildScrollView(
-              child: Container(
-                padding: const EdgeInsets.only(top: 44, right: 16, left: 16),
-                clipBehavior: Clip.antiAlias,
-                decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.inverseSurface),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      width: double.infinity,
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
                           SizedBox(
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                SizedBox(
-                                  width: double.infinity,
-                                  child: Text(
-                                    'Giarty',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .titleLarge
-                                        ?.copyWith(
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .scrim),
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: double.infinity,
-                                  child: Text(
-                                    'giarty.kireina@gmail.com',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .titleSmall
-                                        ?.copyWith(
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .outline),
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: double.infinity,
-                                  child: Text(
-                                    'Not Verified',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .titleMedium
-                                        ?.copyWith(
-                                            color: Colors.red,
-                                            fontWeight: FontWeight.bold),
-                                  ),
-                                ),
-                                const SizedBox(height: 30),
-                                Center(
-                                  child: SizedBox(
-                                    width: Get.width,
-                                    child: Expanded(
-                                      child: ElevatedButton(
-                                        onPressed: () {
-                                          Get.to(const OpenVerifyView());
-                                        },
-                                        style: ElevatedButton.styleFrom(
-                                            backgroundColor: Theme.of(context)
-                                                .colorScheme
-                                                .inverseSurface,
-                                            side: BorderSide(
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .primary)),
-                                        child: Text(
-                                          'Verify Account',
-                                          textAlign: TextAlign.center,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .labelLarge
-                                              ?.copyWith(
-                                                  color: Theme.of(context)
-                                                      .colorScheme
-                                                      .background),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                          const SizedBox(height: 30),
-                          Column(
-                            mainAxisSize: MainAxisSize.min,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Column(
-                                mainAxisSize: MainAxisSize.min,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  SizedBox(
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Expanded(
-                                          child: SizedBox(
-                                            child: Text(
-                                              'Account Setting',
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .titleMedium
-                                                  ?.copyWith(
-                                                      color: Theme.of(context)
-                                                          .colorScheme
-                                                          .scrim),
-                                            ),
-                                          ),
-                                        ),
-                                        IconButton(
-                                            onPressed: () {
-                                              Get.to(AccountSettingView());
-                                            },
-                                            icon: Icon(
-                                              Icons.arrow_right,
-                                              color: Theme.of(context)
-                                                  .colorScheme
-                                                  .scrim,
-                                              size: 34,
-                                            ))
-                                      ],
-                                    ),
-                                  ),
-                                  const SizedBox(height: 15),
-                                  SizedBox(
-                                    height: 1,
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Container(
-                                          width: double.infinity,
-                                          decoration: ShapeDecoration(
-                                            shape: RoundedRectangleBorder(
-                                              side: BorderSide(
-                                                width: 1,
-                                                strokeAlign: BorderSide
-                                                    .strokeAlignCenter,
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .onSurfaceVariant,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  const SizedBox(height: 15),
-                                  SizedBox(
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Expanded(
-                                          child: SizedBox(
-                                            child: Text(
-                                              'Password Setting',
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .titleMedium
-                                                  ?.copyWith(
-                                                      color: Theme.of(context)
-                                                          .colorScheme
-                                                          .scrim),
-                                            ),
-                                          ),
-                                        ),
-                                        IconButton(
-                                            onPressed: () {
-                                              Get.to(PasswordSettingView());
-                                            },
-                                            icon: Icon(
-                                              Icons.arrow_right,
-                                              color: Theme.of(context)
-                                                  .colorScheme
-                                                  .scrim,
-                                              size: 34,
-                                            ))
-                                      ],
-                                    ),
-                                  ),
-                                  const SizedBox(height: 15),
-                                  SizedBox(
-                                    height: 1,
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Container(
-                                          width: double.infinity,
-                                          decoration: ShapeDecoration(
-                                            shape: RoundedRectangleBorder(
-                                              side: BorderSide(
-                                                width: 1,
-                                                strokeAlign: BorderSide
-                                                    .strokeAlignCenter,
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .onSurfaceVariant,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  const SizedBox(height: 15),
-                                  SizedBox(
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Expanded(
-                                          child: SizedBox(
-                                            child: Text(
-                                              'Followed Event',
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .titleMedium
-                                                  ?.copyWith(
-                                                      color: Theme.of(context)
-                                                          .colorScheme
-                                                          .scrim),
-                                            ),
-                                          ),
-                                        ),
-                                        IconButton(
-                                            onPressed: () {},
-                                            icon: Icon(
-                                              Icons.arrow_right,
-                                              color: Theme.of(context)
-                                                  .colorScheme
-                                                  .scrim,
-                                              size: 34,
-                                            ))
-                                      ],
-                                    ),
-                                  ),
-                                  const SizedBox(height: 15),
-                                  SizedBox(
-                                    height: 1,
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Container(
-                                          width: double.infinity,
-                                          decoration: ShapeDecoration(
-                                            shape: RoundedRectangleBorder(
-                                              side: BorderSide(
-                                                width: 1,
-                                                strokeAlign: BorderSide
-                                                    .strokeAlignCenter,
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .onSurfaceVariant,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(height: 50),
-                              Center(
-                                child: SizedBox(
-                                  width: Get.width,
-                                  child: Expanded(
-                                    child: ElevatedButton(
-                                      onPressed: () {},
-                                      style: ElevatedButton.styleFrom(
-                                          backgroundColor: Theme.of(context)
-                                              .colorScheme
-                                              .inversePrimary),
-                                      child: Text(
-                                        'Logout',
-                                        textAlign: TextAlign.center,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .labelLarge,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              )
-                            ],
+                            height: 50,
                           ),
                         ],
-                      ),
-                    ),
-                    const SizedBox(height: 289.10),
-                  ],
+                      )
+                    : SizedBox(),
+                CardProfile(
+                  onTap: () {
+                    Get.toNamed(Routes.ACCOUNT_SETTING);
+                  },
+                  title: "Account Setting",
                 ),
-              ),
-            );
-          }
-
-          //login_page
-          return SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.only(top: 44.0, left: 16, right: 16),
-              child: Column(
-                children: [
-                  Center(
-                    child: SizedBox(
-                      width: 328,
-                      child: Expanded(
-                        child: ElevatedButton(
-                          onPressed: () {},
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor:
-                                  Theme.of(context).colorScheme.inversePrimary),
-                          child: Text('Login',
-                              textAlign: TextAlign.center,
-                              style: Theme.of(context).textTheme.labelLarge),
-                        ),
-                      ),
-                    ),
+                SizedBox(
+                  height: 15,
+                ),
+                Divider(),
+                SizedBox(
+                  height: 15,
+                ),
+                CardProfile(
+                  onTap: () {
+                    Get.toNamed(Routes.PASSWORD_SETTING);
+                  },
+                  title: "Password Setting",
+                ),
+                SizedBox(
+                  height: 15,
+                ),
+                Divider(),
+                SizedBox(
+                  height: 15,
+                ),
+                CardProfile(
+                  onTap: () {},
+                  title: "Followed Event",
+                ),
+                SizedBox(
+                  height: 15,
+                ),
+                Divider(),
+                SizedBox(
+                  height: 15,
+                ),
+                controller.isVerify.value
+                    ? Column(
+                        children: [
+                          CardProfile(
+                            onTap: () {},
+                            title: "Your Event",
+                          ),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          Divider(),
+                        ],
+                      )
+                    : SizedBox(),
+                SizedBox(
+                  height: 50,
+                ),
+                SizedBox(
+                  width: Get.width,
+                  child: FilledButton(
+                    onPressed: () {},
+                    child: Text("Logout"),
                   ),
-                  const SizedBox(height: 12),
-                  Center(
-                    child: SizedBox(
-                      width: 328,
-                      child: Expanded(
-                        child: ElevatedButton(
-                          onPressed: () {},
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor:
-                                  Theme.of(context).colorScheme.inverseSurface,
-                              side: BorderSide(
-                                  color:
-                                      Theme.of(context).colorScheme.primary)),
-                          child: Text(
-                            'Register',
-                            textAlign: TextAlign.center,
-                            style: Theme.of(context)
-                                .textTheme
-                                .labelLarge
-                                ?.copyWith(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .background),
-                          ),
-                        ),
-                      ),
-                    ),
-                  )
-                ],
-              ),
+                )
+              ],
             ),
-          );
-        },
+          ),
+        ),
       ),
     );
   }
