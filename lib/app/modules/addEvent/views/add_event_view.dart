@@ -43,6 +43,7 @@ class AddEventView extends GetView<AddEventController> {
                 const SizedBox(height: 15),
                 GetBuilder<AddEventController>(
                   builder: (controller) => TextFormField(
+                    readOnly: true,
                     controller: controller.dateController,
                     decoration: InputDecoration(
                       label: const Text("Event Date"),
@@ -63,6 +64,7 @@ class AddEventView extends GetView<AddEventController> {
                 const SizedBox(height: 15),
                 GetBuilder<AddEventController>(
                   builder: (controller) => TextFormField(
+                    readOnly: true,
                     controller: controller.timeController,
                     decoration: InputDecoration(
                       label: const Text("Event Time"),
