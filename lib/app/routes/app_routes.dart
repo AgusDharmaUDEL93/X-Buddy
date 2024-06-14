@@ -7,6 +7,8 @@ abstract class Routes {
   static const EVENT = _Paths.EVENT;
   static const DISCUSSION = _Paths.DISCUSSION;
   static const PROFILE = _Paths.PROFILE;
+  static const DISCUSSION_DETAIL = _Paths.DISCUSSION_DETAIL;
+  static const ADD_DISCUSSION = _Paths.ADD_DISCUSSION;
   static const LOGIN = _Paths.LOGIN;
   static const REGISTER = _Paths.REGISTER;
   static const FORGOT_PASSWORD = _Paths.FORGOT_PASSWORD;
@@ -18,6 +20,8 @@ abstract class _Paths {
   static const EVENT = '/event';
   static const DISCUSSION = '/discussion';
   static const PROFILE = '/profile';
+  static const DISCUSSION_DETAIL = '/discussion-detail';
+  static const ADD_DISCUSSION = '/add-discussion';
   static const LOGIN = '/login';
   static const REGISTER = '/register';
   static const FORGOT_PASSWORD = '/forgot-password';

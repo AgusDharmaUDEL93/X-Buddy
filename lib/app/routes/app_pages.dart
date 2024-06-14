@@ -1,7 +1,13 @@
 import 'package:get/get.dart';
 
+import '../modules/add_discussion/bindings/add_discussion_binding.dart';
+import '../modules/add_discussion/views/add_discussion_view.dart';
+import '../modules/discussion/bindings/discussion_binding.dart';
 import '../modules/discussion/bindings/discussion_binding.dart';
 import '../modules/discussion/views/discussion_view.dart';
+import '../modules/discussion/views/discussion_view.dart';
+import '../modules/discussion_detail/bindings/discussion_detail_binding.dart';
+import '../modules/discussion_detail/views/discussion_detail_view.dart';
 import '../modules/event/bindings/event_binding.dart';
 import '../modules/event/views/event_view.dart';
 import '../modules/forgot_password/bindings/forgot_password_binding.dart';
@@ -42,6 +48,16 @@ class AppPages {
       name: _Paths.PROFILE,
       page: () => const ProfileView(),
       binding: ProfileBinding(),
+    ),
+    GetPage(
+      name: _Paths.DISCUSSION_DETAIL,
+      page: () => const DiscussionDetailView(),
+      binding: DiscussionDetailBinding(),
+    ),
+    GetPage(
+      name: _Paths.ADD_DISCUSSION,
+      page: () => const AddDiscussionView(),
+      binding: AddDiscussionBinding(),
     ),
     GetPage(
       name: _Paths.LOGIN,
