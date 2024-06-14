@@ -17,42 +17,48 @@ class EventView extends GetView<EventController> {
           // backgroundColor: Theme.of(context).colorScheme.surface,
           flexibleSpace: // Search bar
               Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 16,
+              vertical: 5,
+            ),
             child: SearchAnchor(
-                builder: (BuildContext context, SearchController controller) {
-              return SearchBar(
-                hintText: 'Hinted search text',
-                controller: controller,
-                padding: const WidgetStatePropertyAll<EdgeInsets>(
-                    EdgeInsets.symmetric(horizontal: 16.0)),
-                onSubmitted: (value) {
-                  //Called when the user indicates that they are done editing the text in the field.
+                textInputAction: TextInputAction.search,
+                viewOnSubmitted: (value) {
                   print('Submitted: $value');
                   Get.toNamed(Routes.SEARCH_RESULT);
                 },
-                onTap: () {
-                  controller.openView();
+                builder: (BuildContext context, SearchController controller) {
+                  return SearchBar(
+                    hintText: 'Hinted search text',
+                    controller: controller,
+                    textInputAction: TextInputAction.search,
+                    padding: const WidgetStatePropertyAll<EdgeInsets>(
+                      EdgeInsets.symmetric(horizontal: 16.0),
+                    ),
+                    onTap: () {
+                      controller.openView();
+                    },
+                    onChanged: (_) {
+                      controller.openView();
+                    },
+                    leading: const Icon(Icons.search),
+                  );
                 },
-                onChanged: (_) {
-                  controller.openView();
-                },
-                leading: const Icon(Icons.search),
-              );
-            }, suggestionsBuilder:
+                suggestionsBuilder:
                     (BuildContext context, SearchController controller) {
-              return List<ListTile>.generate(
-                5,
-                (int index) {
-                  final String item = 'item $index';
-                  return ListTile(
-                      title: Text(item),
-                      onTap: () {
-                        // setState(() {
-                        controller.closeView(item);
-                      });
-                },
-              );
-            }),
+                  return List<ListTile>.generate(
+                    5,
+                    (int index) {
+                      final String item = 'item $index';
+                      return ListTile(
+                          title: Text(item),
+                          onTap: () {
+                            // setState(() {
+                            controller.closeView(item);
+                          });
+                    },
+                  );
+                }),
           ),
         ),
         body: SafeArea(
