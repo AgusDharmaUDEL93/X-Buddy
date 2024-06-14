@@ -17,7 +17,7 @@ class ProfileView extends GetView<ProfileController> {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(
+          padding: const EdgeInsets.symmetric(
             horizontal: 16,
             vertical: 30,
           ),
@@ -46,7 +46,7 @@ class ProfileView extends GetView<ProfileController> {
                                     ? Colors.green
                                     : Colors.red),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 30,
                       ),
                       !controller.isVerify.value
@@ -58,26 +58,26 @@ class ProfileView extends GetView<ProfileController> {
                                     onPressed: () {
                                       Get.toNamed(Routes.OPEN_VERIFY);
                                     },
-                                    child: Text("Verify Account"),
+                                    child: const Text("Verify Account"),
                                   ),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 50,
                                 ),
                               ],
                             )
-                          : SizedBox(),
+                          : const SizedBox(),
                       CardProfile(
                         onTap: () {
                           Get.toNamed(Routes.ACCOUNT_SETTING);
                         },
                         title: "Account Setting",
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 15,
                       ),
-                      Divider(),
-                      SizedBox(
+                      const Divider(),
+                      const SizedBox(
                         height: 15,
                       ),
                       CardProfile(
@@ -86,46 +86,50 @@ class ProfileView extends GetView<ProfileController> {
                         },
                         title: "Password Setting",
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 15,
                       ),
-                      Divider(),
-                      SizedBox(
+                      const Divider(),
+                      const SizedBox(
                         height: 15,
                       ),
                       CardProfile(
-                        onTap: () {},
+                        onTap: () {
+                          Get.toNamed(Routes.APPLIED_EVENT);
+                        },
                         title: "Followed Event",
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 15,
                       ),
-                      Divider(),
-                      SizedBox(
+                      const Divider(),
+                      const SizedBox(
                         height: 15,
                       ),
                       controller.isVerify.value
                           ? Column(
                               children: [
                                 CardProfile(
-                                  onTap: () {},
+                                  onTap: () {
+                                    Get.toNamed(Routes.YOUR_EVENT);
+                                  },
                                   title: "Your Event",
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 15,
                                 ),
-                                Divider(),
+                                const Divider(),
                               ],
                             )
-                          : SizedBox(),
-                      SizedBox(
+                          : const SizedBox(),
+                      const SizedBox(
                         height: 50,
                       ),
                       SizedBox(
                         width: Get.width,
                         child: FilledButton(
                           onPressed: () {},
-                          child: Text("Logout"),
+                          child: const Text("Logout"),
                         ),
                       )
                     ],
@@ -135,18 +139,22 @@ class ProfileView extends GetView<ProfileController> {
                       SizedBox(
                         width: Get.width,
                         child: FilledButton(
-                          onPressed: () {},
-                          child: Text("Login"),
+                          onPressed: () {
+                            Get.toNamed(Routes.LOGIN);
+                          },
+                          child: const Text("Login"),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 12,
                       ),
                       SizedBox(
                         width: Get.width,
                         child: OutlinedButton(
-                          onPressed: () {},
-                          child: Text("Register"),
+                          onPressed: () {
+                            Get.toNamed(Routes.REGISTER);
+                          },
+                          child: const Text("Register"),
                         ),
                       )
                     ],

@@ -14,7 +14,7 @@ class EventView extends GetView<EventController> {
       child: Scaffold(
         appBar: AppBar(
           elevation: 0,
-          // backgroundColor: Theme.of(context).colorScheme.surface,
+          automaticallyImplyLeading: false,
           flexibleSpace: // Search bar
               Container(
             padding: const EdgeInsets.symmetric(
@@ -22,43 +22,48 @@ class EventView extends GetView<EventController> {
               vertical: 5,
             ),
             child: SearchAnchor(
-                textInputAction: TextInputAction.search,
-                viewOnSubmitted: (value) {
-                  print('Submitted: $value');
-                  Get.toNamed(Routes.SEARCH_RESULT);
-                },
-                builder: (BuildContext context, SearchController controller) {
-                  return SearchBar(
-                    hintText: 'Hinted search text',
-                    controller: controller,
-                    textInputAction: TextInputAction.search,
-                    padding: const WidgetStatePropertyAll<EdgeInsets>(
-                      EdgeInsets.symmetric(horizontal: 16.0),
-                    ),
-                    onTap: () {
-                      controller.openView();
-                    },
-                    onChanged: (_) {
-                      controller.openView();
-                    },
-                    leading: const Icon(Icons.search),
-                  );
-                },
-                suggestionsBuilder:
-                    (BuildContext context, SearchController controller) {
-                  return List<ListTile>.generate(
-                    5,
-                    (int index) {
-                      final String item = 'item $index';
-                      return ListTile(
-                          title: Text(item),
-                          onTap: () {
-                            // setState(() {
-                            controller.closeView(item);
-                          });
-                    },
-                  );
-                }),
+              textInputAction: TextInputAction.search,
+              viewOnSubmitted: (value) {
+                print('Submitted: $value');
+                Get.toNamed(Routes.SEARCH_RESULT);
+              },
+              builder: (BuildContext context, SearchController controller) {
+                return SearchBar(
+                  hintText: 'Hinted search text',
+                  controller: controller,
+                  textInputAction: TextInputAction.search,
+                  padding: const WidgetStatePropertyAll<EdgeInsets>(
+                    EdgeInsets.symmetric(horizontal: 16.0),
+                  ),
+                  onSubmitted: (value) {
+                    print('Submitted: $value');
+                    Get.toNamed(Routes.SEARCH_RESULT);
+                  },
+                  onTap: () {
+                    controller.openView();
+                  },
+                  onChanged: (_) {
+                    controller.openView();
+                  },
+                  leading: const Icon(Icons.search),
+                );
+              },
+              suggestionsBuilder:
+                  (BuildContext context, SearchController controller) {
+                return List<ListTile>.generate(
+                  5,
+                  (int index) {
+                    final String item = 'item $index';
+                    return ListTile(
+                        title: Text(item),
+                        onTap: () {
+                          // setState(() {
+                          controller.closeView(item);
+                        });
+                  },
+                );
+              },
+            ),
           ),
         ),
         body: SafeArea(
