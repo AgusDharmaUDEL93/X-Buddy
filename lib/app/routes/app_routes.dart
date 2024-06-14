@@ -7,6 +7,12 @@ abstract class Routes {
   static const EVENT = _Paths.EVENT;
   static const DISCUSSION = _Paths.DISCUSSION;
   static const PROFILE = _Paths.PROFILE;
+  static const EVENT_DETAIL = _Paths.EVENT_DETAIL;
+  static const PER_FEATURE_EVENT = _Paths.PER_FEATURE_EVENT;
+  static const SEARCH_RESULT = _Paths.SEARCH_RESULT;
+  static const APPLIED_EVENT = _Paths.APPLIED_EVENT;
+  static const YOUR_EVENT = _Paths.YOUR_EVENT;
+  static const ADD_EVENT = _Paths.ADD_EVENT;
   static const OPEN_VERIFY = _Paths.OPEN_VERIFY;
   static const VERIFY = _Paths.VERIFY;
   static const KTP_VERIFY = _Paths.KTP_VERIFY;
@@ -25,6 +31,12 @@ abstract class _Paths {
   static const EVENT = '/event';
   static const DISCUSSION = '/discussion';
   static const PROFILE = '/profile';
+  static const EVENT_DETAIL = '/event-detail';
+  static const PER_FEATURE_EVENT = '/per-feature-event';
+  static const SEARCH_RESULT = '/search-result';
+  static const APPLIED_EVENT = '/applied-event';
+  static const YOUR_EVENT = '/your-event';
+  static const ADD_EVENT = '/add-event';
   static const OPEN_VERIFY = '/open-verify';
   static const VERIFY = '/verify';
   static const KTP_VERIFY = '/ktp-verify';
