@@ -1,0 +1,19 @@
+{
+  "collection": "post",
+  "document": "post_id",
+  "data": {
+    "title": "post title",
+    "description": "post_description",
+    "author_uid": "author by user id",
+    "comment": [
+      {
+        "author_uid": "author by user id",
+        "comment": "commentar of the author"
+      },
+      {
+        "author_uid": "author by user id",
+        "comment": "commentar of the author"
+      }
+    ]
+  }
+}

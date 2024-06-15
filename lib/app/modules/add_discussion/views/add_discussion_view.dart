@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import '../controllers/add_discussion_controller.dart';
 
 class AddDiscussionView extends GetView<AddDiscussionController> {
-  const AddDiscussionView({Key? key}) : super(key: key);
+  const AddDiscussionView({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,21 +14,24 @@ class AddDiscussionView extends GetView<AddDiscussionController> {
       ),
       body: Form(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 16,
+            vertical: 20,
+          ),
           child: Column(
             children: [
               TextFormField(
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   label: Text("Title"),
                   border: OutlineInputBorder(),
                   hintText: "Insert Discussion Title",
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               TextFormField(
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   alignLabelWithHint: true,
                   label: Text("Description"),
                   border: OutlineInputBorder(),
@@ -39,14 +42,14 @@ class AddDiscussionView extends GetView<AddDiscussionController> {
                 keyboardType: TextInputType.multiline,
                 maxLines: null,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               SizedBox(
                 width: Get.width,
                 child: FilledButton(
                   onPressed: () {},
-                  child: Text("Add Discussion"),
+                  child: const Text("Add Discussion"),
                 ),
               ),
             ],

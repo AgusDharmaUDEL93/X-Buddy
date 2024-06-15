@@ -1,0 +1,9 @@
+{
+  "collection": "user",
+  "document": "uid_user",
+  "data": {
+    "name": "Agus Dharma Kusuma",
+    "isVerify": true,
+    "event": ["id_event", "example", "eed8e23d-86de-408d-b84a-929084b95105"]
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "collection": "event",
+  "document": "event_id",
+  "data": {
+    "title": "title of event",
+    "category": "event category",
+    "author_uid": "event author id",
+    "location": "location event",
+    "date": "date of event",
+    "time": "time event started",
+    "participant": 100,
+    "description": "event description"
+  }
+}
