@@ -6,7 +6,7 @@ import 'package:x_buddy/app/routes/app_pages.dart';
 import '../controllers/login_controller.dart';
 
 class LoginView extends GetView<LoginController> {
-  const LoginView({Key? key}) : super(key: key);
+  const LoginView({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +25,7 @@ class LoginView extends GetView<LoginController> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Image.asset("assets/img/illustration_login.png"),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Text(
@@ -39,56 +39,56 @@ class LoginView extends GetView<LoginController> {
                     "Login in your account",
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 25,
                   ),
                   TextFormField(
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       label: Text("Email"),
                       border: OutlineInputBorder(),
                       hintText: "Insert Your Email",
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   TextFormField(
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       label: Text("Password"),
                       border: OutlineInputBorder(),
                       hintText: "Insert Your Password",
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 5,
                   ),
                   SizedBox(
                     width: Get.width,
                     child: TextButton(
                       style: TextButton.styleFrom(
-                        padding: EdgeInsets.symmetric(horizontal: 5),
+                        padding: const EdgeInsets.symmetric(horizontal: 5),
                         alignment: Alignment.centerLeft,
                       ),
                       onPressed: () {
                         Get.toNamed(Routes.FORGOT_PASSWORD);
                       },
-                      child: Text("Forgot Password?"),
+                      child: const Text("Forgot Password?"),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 25,
                   ),
                   SizedBox(
                       width: Get.width,
                       child: FilledButton(
                         onPressed: () {},
-                        child: Text("Login"),
+                        child: const Text("Login"),
                       )),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text("Don’t have an account?"),
+                      const Text("Don’t have an account?"),
                       TextButton(
                         onPressed: () {
                           Get.toNamed(Routes.REGISTER);

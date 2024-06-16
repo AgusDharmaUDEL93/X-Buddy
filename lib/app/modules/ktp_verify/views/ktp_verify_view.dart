@@ -1,22 +1,19 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:x_buddy/app/modules/profile/controllers/profile_controller.dart';
-import 'package:x_buddy/app/modules/profile/views/profile_view.dart';
-import 'package:x_buddy/app/routes/app_pages.dart';
 
 import '../controllers/ktp_verify_controller.dart';
 
 class KtpVerifyView extends GetView<KtpVerifyController> {
-  const KtpVerifyView({Key? key}) : super(key: key);
+  const KtpVerifyView({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("KTP Verify"),
+        title: const Text("KTP Verify"),
       ),
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16),
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -63,14 +60,14 @@ class KtpVerifyView extends GetView<KtpVerifyController> {
                               Get.back();
                               Get.back();
                             },
-                            child: Text('Okay'),
+                            child: const Text('Okay'),
                           )
                         ],
                       );
                     },
                   );
                 },
-                child: Text("Upload"),
+                child: const Text("Upload"),
               ),
             )
           ],

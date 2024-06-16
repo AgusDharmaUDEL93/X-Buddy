@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:x_buddy/app/modules/verify/views/verify_view.dart';
 import 'package:x_buddy/app/routes/app_pages.dart';
 
 //import '../../profile/views/verify_view.dart';
@@ -14,7 +13,7 @@ class OpenVerifyView extends GetView<OpenVerifyController> {
     return Scaffold(
       appBar: AppBar(),
       body: Padding(
-        padding: EdgeInsets.symmetric(
+        padding: const EdgeInsets.symmetric(
           horizontal: 16,
         ),
         child: Column(
@@ -22,7 +21,7 @@ class OpenVerifyView extends GetView<OpenVerifyController> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Image.asset("assets/img/open_verify.png"),
-            SizedBox(
+            const SizedBox(
               height: 8,
             ),
             Text(
@@ -33,7 +32,7 @@ class OpenVerifyView extends GetView<OpenVerifyController> {
                   ?.copyWith(fontWeight: FontWeight.w500),
               textAlign: TextAlign.center,
             ),
-            SizedBox(
+            const SizedBox(
               height: 8,
             ),
             Text(
@@ -41,7 +40,7 @@ class OpenVerifyView extends GetView<OpenVerifyController> {
               style: Theme.of(context).textTheme.bodyMedium,
               textAlign: TextAlign.center,
             ),
-            SizedBox(
+            const SizedBox(
               height: 100,
             ),
             SizedBox(
@@ -50,7 +49,7 @@ class OpenVerifyView extends GetView<OpenVerifyController> {
                 onPressed: () {
                   Get.toNamed(Routes.VERIFY);
                 },
-                child: Text("Verify Your Account"),
+                child: const Text("Verify Your Account"),
               ),
             )
           ],

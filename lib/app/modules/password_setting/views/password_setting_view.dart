@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:x_buddy/app/modules/profile/views/profile_view.dart';
 
 import '../controllers/password_setting_controller.dart';
 

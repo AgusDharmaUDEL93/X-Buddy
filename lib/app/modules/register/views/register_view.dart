@@ -6,7 +6,7 @@ import '../../../routes/app_pages.dart';
 import '../controllers/register_controller.dart';
 
 class RegisterView extends GetView<RegisterController> {
-  const RegisterView({Key? key}) : super(key: key);
+  const RegisterView({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +25,7 @@ class RegisterView extends GetView<RegisterController> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Image.asset("assets/img/illustration_register.png"),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Text(
@@ -39,61 +39,61 @@ class RegisterView extends GetView<RegisterController> {
                     "Create your account",
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 25,
                   ),
                   TextFormField(
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       label: Text("Name"),
                       border: OutlineInputBorder(),
                       hintText: "Insert Your Name",
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   TextFormField(
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       label: Text("Email"),
                       border: OutlineInputBorder(),
                       hintText: "Insert Your Email",
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   TextFormField(
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       label: Text("Password"),
                       border: OutlineInputBorder(),
                       hintText: "Insert Your Password",
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   TextFormField(
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       label: Text("Confirm Password"),
                       border: OutlineInputBorder(),
                       hintText: "Repeat Your Password",
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 25,
                   ),
-                  Container(
+                  SizedBox(
                     width: Get.width,
                     child: FilledButton(
                       onPressed: () {},
-                      child: Text("Register"),
+                      child: const Text("Register"),
                     ),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text("Already have an account?"),
+                      const Text("Already have an account?"),
                       TextButton(
                         onPressed: () {
                           Get.back();

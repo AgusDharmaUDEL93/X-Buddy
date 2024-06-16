@@ -12,7 +12,7 @@ import '../../event/views/event_view.dart';
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
-  const HomeView({Key? key}) : super(key: key);
+  const HomeView({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,7 +20,7 @@ class HomeView extends GetView<HomeController> {
         () => NavigationBar(
           selectedIndex: controller.tabIndex.value,
           onDestinationSelected: controller.changeTabIndex,
-          destinations: [
+          destinations: const [
             NavigationDestination(icon: Icon(Icons.home), label: "Event"),
             NavigationDestination(icon: Icon(Icons.chat), label: "Discussion"),
             NavigationDestination(icon: Icon(Icons.people), label: "Profile"),

@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:x_buddy/app/modules/account_setting/views/account_setting_view.dart';
-import 'package:x_buddy/app/modules/open_verify/views/open_verify_view.dart';
 import 'package:x_buddy/app/routes/app_pages.dart';
 //import 'package:x_buddy/app/modules/profile/views/open_verify.dart';
 
 import '../../../widgets/card_profile.dart';
-import '../../password_setting/views/password_setting_view.dart';
 import '../controllers/profile_controller.dart';
 
 class ProfileView extends GetView<ProfileController> {
