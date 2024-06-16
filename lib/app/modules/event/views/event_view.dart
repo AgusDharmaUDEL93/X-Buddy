@@ -32,6 +32,7 @@ class EventView extends GetView<EventController> {
                 return SearchBar(
                   hintText: 'Hinted search text',
                   controller: controller,
+                  focusNode: FocusNode(),
                   textInputAction: TextInputAction.search,
                   padding: const WidgetStatePropertyAll<EdgeInsets>(
                     EdgeInsets.symmetric(horizontal: 16.0),
