@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 import 'package:get/get.dart';
 import 'package:x_buddy/app/routes/app_pages.dart';
@@ -51,14 +52,12 @@ class SearchResultView extends GetView<SearchResultController> {
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: GridView.builder(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            childAspectRatio: 1 / 1.93,
-            mainAxisSpacing: 16,
-            crossAxisSpacing: 16,
-          ),
+        child: MasonryGridView.builder(
+          gridDelegate: const SliverSimpleGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2),
           itemCount: 5,
+          mainAxisSpacing: 10,
+          crossAxisSpacing: 10,
           itemBuilder: (context, index) {
             return CardEvent(
               category: "Seminar",
@@ -66,7 +65,9 @@ class SearchResultView extends GetView<SearchResultController> {
                   'DevCoach 155 : Data Science | Memahami Algoritma Machine Learning untuk Data Science',
               author: 'GDSC Universitas Muhammadiyah Surakarta',
               image: "",
-              onTap: () {},
+              onTap: () {
+                Get.toNamed(Routes.EVENT_DETAIL);
+              },
             );
           },
         ),
