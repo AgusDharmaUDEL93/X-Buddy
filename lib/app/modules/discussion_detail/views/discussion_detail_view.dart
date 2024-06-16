@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart';
 
 import 'package:get/get.dart';
 
-import '../../../widgets/CardComment.dart';
+import '../../../widgets/card_comment.dart';
 import '../controllers/discussion_detail_controller.dart';
 
 class DiscussionDetailView extends GetView<DiscussionDetailController> {

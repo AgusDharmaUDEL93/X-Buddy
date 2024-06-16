@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
 import 'package:x_buddy/app/routes/app_pages.dart';
 
+import '../../../widgets/card_event.dart';
+import '../../../widgets/card_feature.dart';
 import '../controllers/event_controller.dart';
 
 class EventView extends GetView<EventController> {
@@ -57,8 +60,8 @@ class EventView extends GetView<EventController> {
                     return ListTile(
                         title: Text(item),
                         onTap: () {
-                          // setState(() {
                           controller.closeView(item);
+                          Get.toNamed(Routes.SEARCH_RESULT);
                         });
                   },
                 );
@@ -66,242 +69,168 @@ class EventView extends GetView<EventController> {
             ),
           ),
         ),
-        body: SafeArea(
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                //Feature List scroll horizontal
-                Container(
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                const SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  "Feature",
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                SizedBox(
+                  width: Get.width,
+                  child: Wrap(
+                    alignment: WrapAlignment.center,
+                    spacing: 16,
+                    runSpacing: 16,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 16, vertical: 8),
-                        child: Text(
-                          'Feature',
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleMedium
-                              ?.copyWith(
-                                  fontWeight: FontWeight.w600, fontSize: 18),
-                        ),
+                      CardFeature(
+                        image: "assets/svg/competition.svg",
+                        label: "Competition",
+                        onTap: () {
+                          Get.toNamed(Routes.PER_FEATURE_EVENT);
+                        },
                       ),
-                      InkWell(
-                        onTap: () => Get.toNamed(Routes.PER_FEATURE_EVENT),
-                        child: Container(
-                          margin: const EdgeInsets.symmetric(horizontal: 16),
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 8.14, vertical: 8.14),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: Theme.of(context).cardColor,
-                            border: Border.all(
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .outlineVariant),
-                          ),
-                          child: Column(
-                            children: [
-                              SvgPicture.asset('assets/svg/competition.svg'),
-                              Text(
-                                'Competition',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .labelLarge
-                                    ?.copyWith(fontWeight: FontWeight.w600),
-                              ),
-                            ],
-                          ),
-                        ),
+                      CardFeature(
+                        image: "assets/svg/seminar.svg",
+                        label: "Seminar",
+                        onTap: () {
+                          Get.toNamed(Routes.PER_FEATURE_EVENT);
+                        },
+                      ),
+                      CardFeature(
+                        image: "assets/svg/tech_talk.svg",
+                        label: "Tech Talk",
+                        onTap: () {
+                          Get.toNamed(Routes.PER_FEATURE_EVENT);
+                        },
+                      ),
+                      CardFeature(
+                        image: "assets/svg/workshop.svg",
+                        label: "Workshop",
+                        onTap: () {
+                          Get.toNamed(Routes.PER_FEATURE_EVENT);
+                        },
                       ),
                     ],
                   ),
                 ),
-
-                //Populer List Event scroll horizontal
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  child: Text(
-                    'Populer Event',
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleMedium
-                        ?.copyWith(fontWeight: FontWeight.w600, fontSize: 18),
-                  ),
+                const SizedBox(
+                  height: 16,
                 ),
-                InkWell(
-                  onTap: () => Get.toNamed(Routes.EVENT_DETAIL),
-                  child: Container(
-                    width: 155,
-                    margin: const EdgeInsets.symmetric(horizontal: 16),
-                    clipBehavior: Clip.hardEdge,
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                          width: 0.8,
-                          color: Theme.of(context).colorScheme.outlineVariant,
-                          style: BorderStyle.solid),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Image.asset(
-                          "assets/img/event 1.jpeg",
-                          fit: BoxFit.cover,
-                        ),
-                        Wrap(
-                          children: [
-                            Container(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 5),
-                              margin: const EdgeInsets.symmetric(
-                                  vertical: 5, horizontal: 5),
-                              decoration: BoxDecoration(
-                                  border: Border.all(
-                                      width: 0.8,
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .outline),
-                                  borderRadius: BorderRadius.circular(5)),
-                              child: Text(
-                                'Seminar',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .labelLarge
-                                    ?.copyWith(
-                                        fontWeight: FontWeight.w600,
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .outline,
-                                        fontSize: 12),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 5, vertical: 5),
-                              child: Text(
-                                'DevCoach 155 : Data Science | Memahami Algoritma Machine Learning untuk Data Science',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .titleMedium
-                                    ?.copyWith(fontWeight: FontWeight.w600),
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 2,
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 5, vertical: 5),
-                              child: Text(
-                                'Oleh: GDSC Universitas Muhammadiyah Surakarta',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .labelMedium
-                                    ?.copyWith(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .outline,
-                                        fontSize: 8),
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 2,
-                              ),
-                            )
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
+                Text(
+                  "Popular Event",
+                  style: Theme.of(context).textTheme.titleMedium,
                 ),
-
-                //Seminar list Event scroll horizontal
-                const SizedBox(height: 8),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  child: Text(
-                    'Seminar Event',
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleMedium
-                        ?.copyWith(fontWeight: FontWeight.w600, fontSize: 18),
-                  ),
+                const SizedBox(
+                  height: 8,
                 ),
-                Container(
-                  width: 155,
-                  margin: const EdgeInsets.symmetric(horizontal: 16),
-                  clipBehavior: Clip.hardEdge,
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                        width: 0.8,
-                        color: Theme.of(context).colorScheme.outlineVariant,
-                        style: BorderStyle.solid),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
                     children: [
-                      Image.asset(
-                        "assets/img/event 1.jpeg",
-                        fit: BoxFit.cover,
+                      CardEvent(
+                        category: "Seminar",
+                        title:
+                            'DevCoach 155 : Data Science | Memahami Algoritma Machine Learning untuk Data Science',
+                        author: 'GDSC Universitas Muhammadiyah Surakarta',
+                        image: "",
+                        onTap: () {
+                          Get.toNamed(Routes.EVENT_DETAIL);
+                        },
                       ),
-                      Wrap(
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 5),
-                            margin: const EdgeInsets.symmetric(
-                                vertical: 5, horizontal: 5),
-                            decoration: BoxDecoration(
-                                border: Border.all(
-                                    width: 0.8,
-                                    color:
-                                        Theme.of(context).colorScheme.outline),
-                                borderRadius: BorderRadius.circular(5)),
-                            child: Text(
-                              'Seminar',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .labelLarge
-                                  ?.copyWith(
-                                      fontWeight: FontWeight.w600,
-                                      color:
-                                          Theme.of(context).colorScheme.outline,
-                                      fontSize: 12),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 5, vertical: 5),
-                            child: Text(
-                              'DevCoach 155 : Data Science | Memahami Algoritma Machine Learning untuk Data Science',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleMedium
-                                  ?.copyWith(fontWeight: FontWeight.w600),
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 2,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 5, vertical: 5),
-                            child: Text(
-                              'Oleh: GDSC Universitas Muhammadiyah Surakarta',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .labelMedium
-                                  ?.copyWith(
-                                      color:
-                                          Theme.of(context).colorScheme.outline,
-                                      fontSize: 8),
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 2,
-                            ),
-                          )
-                        ],
+                      const SizedBox(
+                        width: 16,
+                      ),
+                      CardEvent(
+                        category: "Seminar",
+                        title:
+                            'DevCoach 155 : Data Science | Memahami Algoritma Machine Learning untuk Data Science',
+                        author: 'GDSC Universitas Muhammadiyah Surakarta',
+                        image: "",
+                        onTap: () {
+                          Get.toNamed(Routes.EVENT_DETAIL);
+                        },
+                      ),
+                      const SizedBox(
+                        width: 16,
+                      ),
+                      CardEvent(
+                        category: "Seminar",
+                        title:
+                            'DevCoach 155 : Data Science | Memahami Algoritma Machine Learning untuk Data Science',
+                        author: 'GDSC Universitas Muhammadiyah Surakarta',
+                        image: "",
+                        onTap: () {
+                          Get.toNamed(Routes.EVENT_DETAIL);
+                        },
+                      ),
+                      const SizedBox(
+                        width: 16,
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                Text(
+                  "Seminar Event",
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: [
+                      CardEvent(
+                        category: "Seminar",
+                        title:
+                            'DevCoach 155 : Data Science | Memahami Algoritma Machine Learning untuk Data Science',
+                        author: 'GDSC Universitas Muhammadiyah Surakarta',
+                        image: "",
+                        onTap: () {
+                          Get.toNamed(Routes.EVENT_DETAIL);
+                        },
+                      ),
+                      const SizedBox(
+                        width: 16,
+                      ),
+                      CardEvent(
+                        category: "Seminar",
+                        title:
+                            'DevCoach 155 : Data Science | Memahami Algoritma Machine Learning untuk Data Science',
+                        author: 'GDSC Universitas Muhammadiyah Surakarta',
+                        image: "",
+                        onTap: () {
+                          Get.toNamed(Routes.EVENT_DETAIL);
+                        },
+                      ),
+                      const SizedBox(
+                        width: 16,
+                      ),
+                      CardEvent(
+                        category: "Seminar",
+                        title:
+                            'DevCoach 155 : Data Science | Memahami Algoritma Machine Learning untuk Data Science',
+                        author: 'GDSC Universitas Muhammadiyah Surakarta',
+                        image: "",
+                        onTap: () {
+                          Get.toNamed(Routes.EVENT_DETAIL);
+                        },
+                      ),
+                      const SizedBox(
+                        width: 16,
                       ),
                     ],
                   ),
