@@ -1,9 +1,19 @@
+import 'dart:io';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
 class AddEventController extends GetxController {
-  final dateController = TextEditingController();
-  final timeController = TextEditingController();
+  final eventTitleController = TextEditingController();
+  final eventCategoryController = TextEditingController();
+  final eventLocationController = TextEditingController();
+  final eventDateController = TextEditingController();
+  final eventTimeController = TextEditingController();
+  final eventDescriptionController = TextEditingController();
+  final images = XFile('').obs;
 
   // Membuat Widget Date Picker
   datePicker(BuildContext context) async {
@@ -14,7 +24,7 @@ class AddEventController extends GetxController {
       lastDate: DateTime(2025),
     );
     if (pickerDate != null) {
-      dateController.text =
+      eventDateController.text =
           "${pickerDate.day.toString().padLeft(2, '0')} - ${pickerDate.month.toString().padLeft(2, '0')} - ${pickerDate.year}";
       update();
     } else {
@@ -29,12 +39,79 @@ class AddEventController extends GetxController {
       initialTime: TimeOfDay.now(),
     );
     if (pickerTime != null) {
-      timeController.text =
+      eventTimeController.text =
           "${pickerTime.hour.toString().padLeft(2, '0')} : ${pickerTime.minute.toString().padLeft(2, '0')}";
       update();
     } else {
       print('Time is not selected');
     }
+  }
+
+  //Fungsi Untuk Mendapatkan Images dari penyimpanan lokal Handphone
+  Future getImages(bool galery) async {
+    ImagePicker imagePicker = ImagePicker();
+    XFile? pickedFile;
+
+    if (galery) {
+      pickedFile = await imagePicker.pickImage(
+        source: ImageSource.gallery,
+      );
+    } else {
+      pickedFile = await imagePicker.pickImage(source: ImageSource.camera);
+    }
+
+    if (pickedFile != null) {
+      images.value = pickedFile;
+    }
+  }
+
+  //method untuk meng-upload images ke dalam storage (cloud_storage)
+  //Akan mengembalikan string berupa path dari foto yang telah di-upload di cloud_storage
+  Future<String> uploadImages(File images) async {
+    final storageRef =
+        FirebaseStorage.instance.ref().child('eventImages/${images.path}');
+    await storageRef.putFile(images);
+    String returnUrl = '';
+    await storageRef.getDownloadURL().then((fileUrl) {
+      returnUrl = fileUrl;
+    });
+
+    return returnUrl;
+  }
+
+  //Method digunakan untuk menyimpan data dan images ke dalam database
+  Future<void> saveData(
+    String eventTitle,
+    String eventCategory,
+    String eventLocation,
+    String eventDate,
+    String eventTime,
+    String eventDescription,
+    File images,
+  ) async {
+    //Menampilkan loading indicator
+    Get.dialog(
+      const Center(
+        child: CircularProgressIndicator(),
+      ),
+      barrierDismissible: false,
+    );
+    ////upload file ke cloud_storage dan simpan pada imageURl
+    String imageURL = await uploadImages(images);
+    final refDoc = FirebaseFirestore.instance.collection('events').doc();
+
+    //upload data ke database(cloud_firestore)
+    final eventData = {
+      'eventTitle': eventTitle,
+      'eventCategory': eventCategory,
+      'eventLocation': eventLocation,
+      'eventDate': eventDate,
+      'eventTime': eventTime,
+      'eventDescription': eventDescription,
+      'imageURL': imageURL,
+    };
+    refDoc.set(eventData);
+    Get.back();
   }
 
   // final count = 0.obs;
@@ -50,7 +127,11 @@ class AddEventController extends GetxController {
 
   @override
   void onClose() {
-    dateController.dispose();
+    eventTitleController.dispose();
+    eventLocationController.dispose();
+    eventDescriptionController.dispose();
+    eventDateController.dispose();
+    eventTimeController.dispose();
     super.onClose();
   }
 }

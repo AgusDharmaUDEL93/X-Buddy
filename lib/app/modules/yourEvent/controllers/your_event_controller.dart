@@ -1,23 +1,43 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
+import 'package:x_buddy/app/data/model/event.dart';
 
 class YourEventController extends GetxController {
-  //TODO: Implement YourEventController
+  //Membaca seluruh data yang telah ditambahkan oleh user dari database(cloud_firestore) dan menampilkannya pada halaman ini
+  Stream<List<Event>> getYourEvent() {
+    User? currentUser = FirebaseAuth.instance.currentUser;
 
-  final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
+    if (currentUser != null) {
+      return FirebaseFirestore.instance
+          .collection('events')
+          .where('author_uid', isEqualTo: currentUser.uid)
+          .snapshots()
+          .map((snapshot) =>
+              snapshot.docs.map((doc) => Event.fromJson(doc.data())).toList());
+    } else {
+      // Mengembalikan stream kosong atau mengelola kondisi pengguna yang tidak masuk
+      return FirebaseFirestore.instance.collection('events').snapshots().map(
+          (snapshot) =>
+              snapshot.docs.map((doc) => Event.fromJson(doc.data())).toList());
+    }
   }
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
+  // final count = 0.obs;
+  // @override
+  // void onInit() {
+  //   super.onInit();
+  // }
 
-  @override
-  void onClose() {
-    super.onClose();
-  }
+  // @override
+  // void onReady() {
+  //   super.onReady();
+  // }
 
-  void increment() => count.value++;
+  // @override
+  // void onClose() {
+  //   super.onClose();
+  // }
+
+  // void increment() => count.value++;
 }

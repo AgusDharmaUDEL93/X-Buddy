@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 import 'package:get/get.dart';
+import 'package:x_buddy/app/data/model/event.dart';
 
 import '../../../routes/app_pages.dart';
 import '../../../widgets/card_event.dart';
@@ -25,23 +26,46 @@ class YourEventView extends GetView<YourEventController> {
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: MasonryGridView.builder(
-          gridDelegate: const SliverSimpleGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2),
-          itemCount: 5,
-          mainAxisSpacing: 10,
-          crossAxisSpacing: 10,
-          itemBuilder: (context, index) {
-            return CardEvent(
-              category: "",
-              title: '',
-              author: '',
-              image: "",
-              onTap: () {
-                // Get.toNamed(Routes.EVENT_DETAIL);
-              },
-            );
-          },
+        child: GetBuilder<YourEventController>(
+          builder: (_) => StreamBuilder<List<Event>>(
+              stream: controller.getYourEvent(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(
+                      child: CircularProgressIndicator(
+                          color: Theme.of(context).colorScheme.primary));
+                } else if (snapshot.hasError) {
+                  return Center(
+                    child: Text(snapshot.error.toString()),
+                  );
+                } else if (snapshot.hasData) {
+                  for (var event in snapshot.data!) {
+                    print(
+                        'Event: ${event.title}, ${event.category}, ${event.authorUid}');
+                  }
+                  return MasonryGridView.builder(
+                    gridDelegate:
+                        const SliverSimpleGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2),
+                    itemCount: snapshot.data!.length,
+                    mainAxisSpacing: 10,
+                    crossAxisSpacing: 10,
+                    itemBuilder: (context, index) {
+                      return CardEvent(
+                        category: snapshot.data![index].category,
+                        title: snapshot.data![index].title,
+                        author: snapshot.data![index].authorUid,
+                        image: snapshot.data![index].imageUrl ?? '',
+                        onTap: () {
+                          // Get.toNamed(Routes.EVENT_DETAIL);
+                        },
+                      );
+                    },
+                  );
+                } else {
+                  return Container();
+                }
+              }),
         ),
       ),
     );

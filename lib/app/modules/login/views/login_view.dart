@@ -42,37 +42,57 @@ class LoginView extends GetView<LoginController> {
                   const SizedBox(
                     height: 25,
                   ),
-                  TextFormField(
-                    decoration: const InputDecoration(
-                      label: Text("Email"),
-                      border: OutlineInputBorder(),
-                      hintText: "Insert Your Email",
-                    ),
+                  GetBuilder<LoginController>(
+                    // init: MyController(),
+                    initState: (_) {},
+                    builder: (_) {
+                      return TextFormField(
+                        controller: controller.emailController,
+                        decoration: const InputDecoration(
+                          label: Text("Email"),
+                          border: OutlineInputBorder(),
+                          hintText: "Insert Your Email",
+                        ),
+                      );
+                    },
                   ),
                   const SizedBox(
                     height: 20,
                   ),
-                  TextFormField(
-                    decoration: const InputDecoration(
-                      label: Text("Password"),
-                      border: OutlineInputBorder(),
-                      hintText: "Insert Your Password",
-                    ),
+                  GetBuilder<LoginController>(
+                    // init: MyController(),
+                    initState: (_) {},
+                    builder: (_) {
+                      return TextFormField(
+                        controller: controller.passwordController,
+                        decoration: const InputDecoration(
+                          label: Text("Password"),
+                          border: OutlineInputBorder(),
+                          hintText: "Insert Your Password",
+                        ),
+                      );
+                    },
                   ),
                   const SizedBox(
                     height: 5,
                   ),
                   SizedBox(
                     width: Get.width,
-                    child: TextButton(
-                      style: TextButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(horizontal: 5),
-                        alignment: Alignment.centerLeft,
-                      ),
-                      onPressed: () {
-                        Get.toNamed(Routes.FORGOT_PASSWORD);
+                    child: GetBuilder<LoginController>(
+                      // init: MyController(),
+                      initState: (_) {},
+                      builder: (_) {
+                        return TextButton(
+                          style: TextButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(horizontal: 5),
+                            alignment: Alignment.centerLeft,
+                          ),
+                          onPressed: () {
+                            Get.toNamed(Routes.FORGOT_PASSWORD);
+                          },
+                          child: const Text("Forgot Password?"),
+                        );
                       },
-                      child: const Text("Forgot Password?"),
                     ),
                   ),
                   const SizedBox(
@@ -81,7 +101,10 @@ class LoginView extends GetView<LoginController> {
                   SizedBox(
                       width: Get.width,
                       child: FilledButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          controller.login(controller.emailController.text,
+                              controller.passwordController.text);
+                        },
                         child: const Text("Login"),
                       )),
                   Row(
