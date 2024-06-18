@@ -175,39 +175,48 @@ class AddEventView extends GetView<AddEventController> {
                 const SizedBox(height: 15),
                 SizedBox(
                   width: Get.width,
-                  child: FilledButton(
-                    onPressed: () async {
-                      if (controller.eventTitleController.text.isEmpty ||
-                          controller.eventCategoryController.text.isEmpty ||
-                          controller.eventLocationController.text.isEmpty ||
-                          controller.eventDateController.text.isEmpty ||
-                          controller.eventTimeController.text.isEmpty ||
-                          controller.eventDescriptionController.text.isEmpty ||
-                          controller.images.value.path.isEmpty) {
-                        Get.snackbar('Error', 'Lengkapi data terlebih dahulu',
-                            snackPosition: SnackPosition.BOTTOM,
-                            backgroundColor: Colors.red,
-                            colorText: Colors.white,
-                            borderRadius: 10,
-                            margin: const EdgeInsets.all(10),
-                            snackStyle: SnackStyle.FLOATING);
-                      } else {
-                        await controller.saveData(
-                          controller.eventTitleController.text,
-                          controller.eventCategoryController.text,
-                          controller.eventLocationController.text,
-                          controller.eventDateController.text,
-                          controller.eventTimeController.text,
-                          controller.eventDescriptionController.text,
-                          File(controller.images.value.path),
-                        );
-                        Get.back();
-                        Get.snackbar("Berhasil", "Event berhasil ditambahkan.",
-                            backgroundColor: Colors.green,
-                            colorText: Colors.white);
-                      }
+                  child: GetBuilder<AddEventController>(
+                    // init: MyController(),
+                    initState: (_) {},
+                    builder: (_) {
+                      return FilledButton(
+                        onPressed: () async {
+                          if (controller.eventTitleController.text.isEmpty ||
+                              controller.eventCategoryController.text.isEmpty ||
+                              controller.eventLocationController.text.isEmpty ||
+                              controller.eventDateController.text.isEmpty ||
+                              controller.eventTimeController.text.isEmpty ||
+                              controller
+                                  .eventDescriptionController.text.isEmpty ||
+                              controller.images.value.path.isEmpty) {
+                            Get.snackbar(
+                                'Error', 'Lengkapi data terlebih dahulu',
+                                snackPosition: SnackPosition.BOTTOM,
+                                backgroundColor: Colors.red,
+                                colorText: Colors.white,
+                                borderRadius: 10,
+                                margin: const EdgeInsets.all(10),
+                                snackStyle: SnackStyle.FLOATING);
+                          } else {
+                            await controller.saveData(
+                              controller.eventTitleController.text,
+                              controller.eventCategoryController.text,
+                              controller.eventLocationController.text,
+                              controller.eventDateController.text,
+                              controller.eventTimeController.text,
+                              controller.eventDescriptionController.text,
+                              File(controller.images.value.path),
+                            );
+                            Get.back();
+                            Get.snackbar(
+                                "Berhasil", "Event berhasil ditambahkan.",
+                                backgroundColor: Colors.green,
+                                colorText: Colors.white);
+                          }
+                        },
+                        child: const Text("Create Event"),
+                      );
                     },
-                    child: const Text("Create Event"),
                   ),
                 ),
               ],

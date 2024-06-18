@@ -197,7 +197,8 @@ class EventView extends GetView<EventController> {
                         title:
                             'DevCoach 155 : Data Science | Memahami Algoritma Machine Learning untuk Data Science',
                         author: 'GDSC Universitas Muhammadiyah Surakarta',
-                        image: "",
+                        image:
+                            'https://firebasestorage.googleapis.com/v0/b/x-buddy.appspot.com/o/eventImages%2Fdata%2Fuser%2F0%2Fcom.zephyrus.x_buddy%2Fcache%2F990f831d-d693-44af-b24e-fd362e3752e4%2F1000138808.jpg?alt=media&token=b307e56d-e83c-4fdd-b3ad-6920bd8269b4',
                         onTap: () {
                           Get.toNamed(Routes.EVENT_DETAIL);
                         },
@@ -210,7 +211,8 @@ class EventView extends GetView<EventController> {
                         title:
                             'DevCoach 155 : Data Science | Memahami Algoritma Machine Learning untuk Data Science',
                         author: 'GDSC Universitas Muhammadiyah Surakarta',
-                        image: "",
+                        image:
+                            "https://firebasestorage.googleapis.com/v0/b/x-buddy.appspot.com/o/eventImages%2Fdata%2Fuser%2F0%2Fcom.zephyrus.x_buddy%2Fcache%2F990f831d-d693-44af-b24e-fd362e3752e4%2F1000138808.jpg?alt=media&token=b307e56d-e83c-4fdd-b3ad-6920bd8269b4",
                         onTap: () {
                           Get.toNamed(Routes.EVENT_DETAIL);
                         },
@@ -223,7 +225,8 @@ class EventView extends GetView<EventController> {
                         title:
                             'DevCoach 155 : Data Science | Memahami Algoritma Machine Learning untuk Data Science',
                         author: 'GDSC Universitas Muhammadiyah Surakarta',
-                        image: "",
+                        image:
+                            'https://firebasestorage.googleapis.com/v0/b/x-buddy.appspot.com/o/eventImages%2Fdata%2Fuser%2F0%2Fcom.zephyrus.x_buddy%2Fcache%2F990f831d-d693-44af-b24e-fd362e3752e4%2F1000138808.jpg?alt=media&token=b307e56d-e83c-4fdd-b3ad-6920bd8269b4',
                         onTap: () {
                           Get.toNamed(Routes.EVENT_DETAIL);
                         },

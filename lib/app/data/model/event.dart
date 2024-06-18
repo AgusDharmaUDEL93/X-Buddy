@@ -17,7 +17,8 @@ class Event {
   String time;
   int participant;
   String description;
-  String? imageUrl;
+  String imageUrl;
+  String authorName;
 
   Event({
     required this.title,
@@ -28,19 +29,21 @@ class Event {
     required this.time,
     required this.participant,
     required this.description,
-    this.imageUrl,
+    required this.imageUrl,
+    required this.authorName,
   });
 
   factory Event.fromJson(Map<String, dynamic> json) => Event(
-        title: json["title"],
-        category: json["category"],
-        authorUid: json["author_uid"],
-        location: json["location"],
-        date: json["date"],
-        time: json["time"],
-        participant: json["participant"],
-        description: json["description"],
-        imageUrl: json["image_url"],
+        title: json["title"] ?? "",
+        category: json["category"] ?? "",
+        authorUid: json["author_uid"] ?? "",
+        location: json["location"] ?? "",
+        date: json["date"] ?? "",
+        time: json["time"] ?? "",
+        participant: json["participant"] ?? 0,
+        description: json["description"] ?? "",
+        imageUrl: json["image_url"] ?? "",
+        authorName: json["author_name"] ?? "",
       );
 
   Map<String, dynamic> toJson() => {
@@ -53,5 +56,6 @@ class Event {
         "participant": participant,
         "description": description,
         "image_url": imageUrl,
+        "author_name": authorName,
       };
 }

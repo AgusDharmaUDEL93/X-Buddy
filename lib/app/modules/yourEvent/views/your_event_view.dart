@@ -34,28 +34,31 @@ class YourEventView extends GetView<YourEventController> {
                   return Center(
                       child: CircularProgressIndicator(
                           color: Theme.of(context).colorScheme.primary));
-                } else if (snapshot.hasError) {
+                }
+                if (snapshot.hasError) {
+                  print('Error: ${snapshot.error}');
+                  print('Snapshot has data: ${snapshot.data}');
                   return Center(
                     child: Text(snapshot.error.toString()),
                   );
-                } else if (snapshot.hasData) {
-                  for (var event in snapshot.data!) {
-                    print(
-                        'Event: ${event.title}, ${event.category}, ${event.authorUid}');
-                  }
+                }
+                if (snapshot.hasData) {
+                  print('ini dijalankan');
+                  print('Snapshot has data: ${snapshot.data}');
+
                   return MasonryGridView.builder(
                     gridDelegate:
                         const SliverSimpleGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2),
-                    itemCount: snapshot.data!.length,
+                    itemCount: snapshot.data?.length,
                     mainAxisSpacing: 10,
                     crossAxisSpacing: 10,
-                    itemBuilder: (context, index) {
+                    itemBuilder: (_, index) {
                       return CardEvent(
                         category: snapshot.data![index].category,
                         title: snapshot.data![index].title,
-                        author: snapshot.data![index].authorUid,
-                        image: snapshot.data![index].imageUrl ?? '',
+                        author: snapshot.data![index].authorName,
+                        image: snapshot.data![index].imageUrl.toString(),
                         onTap: () {
                           // Get.toNamed(Routes.EVENT_DETAIL);
                         },
@@ -63,7 +66,8 @@ class YourEventView extends GetView<YourEventController> {
                     },
                   );
                 } else {
-                  return Container();
+                  print('No data available');
+                  return const Center(child: Text('No data available'));
                 }
               }),
         ),

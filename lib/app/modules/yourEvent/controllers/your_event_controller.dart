@@ -13,13 +13,13 @@ class YourEventController extends GetxController {
           .collection('events')
           .where('author_uid', isEqualTo: currentUser.uid)
           .snapshots()
-          .map((snapshot) =>
-              snapshot.docs.map((doc) => Event.fromJson(doc.data())).toList());
+          .map((snapshot) {
+        print('Snapshot data length: ${snapshot.docs.length}');
+        return snapshot.docs.map((doc) => Event.fromJson(doc.data())).toList();
+      });
     } else {
       // Mengembalikan stream kosong atau mengelola kondisi pengguna yang tidak masuk
-      return FirebaseFirestore.instance.collection('events').snapshots().map(
-          (snapshot) =>
-              snapshot.docs.map((doc) => Event.fromJson(doc.data())).toList());
+      return const Stream.empty();
     }
   }
 

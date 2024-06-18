@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -79,6 +80,19 @@ class AddEventController extends GetxController {
     return returnUrl;
   }
 
+  //Method untuk mengambil data name dari user yang sedang login
+  Future<String> getUserName(String uid) async {
+    String userName = '';
+    try {
+      DocumentSnapshot userDoc =
+          await FirebaseFirestore.instance.collection('users').doc(uid).get();
+      userName = userDoc['name'];
+    } catch (e) {
+      print('Error getting user name: $e');
+    }
+    return userName;
+  }
+
   //Method digunakan untuk menyimpan data dan images ke dalam database
   Future<void> saveData(
     String eventTitle,
@@ -89,6 +103,14 @@ class AddEventController extends GetxController {
     String eventDescription,
     File images,
   ) async {
+    var currentUser = FirebaseAuth.instance.currentUser;
+    if (currentUser == null) {
+      Get.snackbar('Error', 'User is not logged in');
+      return;
+    }
+    String authorUid = currentUser.uid;
+    //Mendapatkan nama user yang sedang login
+    String userName = await getUserName(authorUid);
     //Menampilkan loading indicator
     Get.dialog(
       const Center(
@@ -102,13 +124,15 @@ class AddEventController extends GetxController {
 
     //upload data ke database(cloud_firestore)
     final eventData = {
-      'eventTitle': eventTitle,
-      'eventCategory': eventCategory,
-      'eventLocation': eventLocation,
-      'eventDate': eventDate,
-      'eventTime': eventTime,
-      'eventDescription': eventDescription,
-      'imageURL': imageURL,
+      'title': eventTitle,
+      'category': eventCategory,
+      'location': eventLocation,
+      'date': eventDate,
+      'time': eventTime,
+      'description': eventDescription,
+      'image_url': imageURL,
+      'author_uid': userName,
+      'author_name': userName,
     };
     refDoc.set(eventData);
     Get.back();

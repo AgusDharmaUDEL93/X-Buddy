@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -37,9 +38,11 @@ class CardEvent extends StatelessWidget {
                 topLeft: Radius.circular(5),
                 topRight: Radius.circular(5),
               ),
-              child: Image.asset(
-                "assets/img/event 1.jpeg",
+              child: CachedNetworkImage(
+                imageUrl: image,
                 fit: BoxFit.cover,
+                width: Get.width,
+                errorWidget: (context, url, error) => const Icon(Icons.error),
               ),
             ),
             Padding(
