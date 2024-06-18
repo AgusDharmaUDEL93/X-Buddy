@@ -9,45 +9,29 @@ Event eventFromJson(String str) => Event.fromJson(json.decode(str));
 String eventToJson(Event data) => json.encode(data.toJson());
 
 class Event {
-  String title;
-  String category;
-  String authorUid;
-  String location;
-  String date;
-  String time;
-  int participant;
-  String description;
+  String name;
+  bool isVerify;
+  List<String> event;
+  List<String> followedEvent;
 
   Event({
-    required this.title,
-    required this.category,
-    required this.authorUid,
-    required this.location,
-    required this.date,
-    required this.time,
-    required this.participant,
-    required this.description,
+    required this.name,
+    required this.isVerify,
+    required this.event,
+    required this.followedEvent,
   });
 
   factory Event.fromJson(Map<String, dynamic> json) => Event(
-        title: json["title"],
-        category: json["category"],
-        authorUid: json["author_uid"],
-        location: json["location"],
-        date: json["date"],
-        time: json["time"],
-        participant: json["participant"],
-        description: json["description"],
+        name: json["name"],
+        isVerify: json["isVerify"],
+        event: List<String>.from(json["event"].map((x) => x)),
+        followedEvent: List<String>.from(json["followed_event"].map((x) => x)),
       );
 
   Map<String, dynamic> toJson() => {
-        "title": title,
-        "category": category,
-        "author_uid": authorUid,
-        "location": location,
-        "date": date,
-        "time": time,
-        "participant": participant,
-        "description": description,
+        "name": name,
+        "isVerify": isVerify,
+        "event": List<dynamic>.from(event.map((x) => x)),
+        "followed_event": List<dynamic>.from(followedEvent.map((x) => x)),
       };
 }

@@ -4,6 +4,11 @@
   "data": {
     "name": "Agus Dharma Kusuma",
     "isVerify": true,
-    "event": ["id_event", "example", "eed8e23d-86de-408d-b84a-929084b95105"]
+    "event": ["id_event", "example", "eed8e23d-86de-408d-b84a-929084b95105"],
+    "followed_event": [
+      "id_event",
+      "example",
+      "eed8e23d-86de-408d-b84a-929084b95105"
+    ]
   }
 }
