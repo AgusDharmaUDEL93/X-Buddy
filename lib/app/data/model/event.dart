@@ -34,16 +34,16 @@ class Event {
   });
 
   factory Event.fromJson(Map<String, dynamic> json) => Event(
-        title: json["title"] ?? "",
-        category: json["category"] ?? "",
-        authorUid: json["author_uid"] ?? "",
-        location: json["location"] ?? "",
-        date: json["date"] ?? "",
-        time: json["time"] ?? "",
+        title: json["title"],
+        category: json["category"],
+        authorUid: json["author_uid"],
+        location: json["location"],
+        date: json["date"],
+        time: json["time"],
         participant: json["participant"] ?? 0,
-        description: json["description"] ?? "",
-        imageUrl: json["image_url"] ?? "",
-        authorName: json["author_name"] ?? "",
+        description: json["description"],
+        imageUrl: json["image_url"],
+        authorName: json["author_name"],
       );
 
   Map<String, dynamic> toJson() => {

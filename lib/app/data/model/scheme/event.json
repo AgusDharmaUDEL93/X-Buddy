@@ -14,31 +14,3 @@
   }
 }
 
-{
-  "collection": "event",
-  "document": "event_id",
-  "data": {
-    "name": "title of event",
-    "isVerify": true,
-    "event": [
-      "title of event",
-      "event category",
-      "event author id",
-      "location event",
-      "date of event",
-      "time event started",
-      100,
-      "event description"
-    ],
-    "followedEvent": [
-      "title of event",
-      "event category",
-      "event author id",
-      "location event",
-      "date of event",
-      "time event started",
-      100,
-      "event description"
-    ]
-  }
-}
