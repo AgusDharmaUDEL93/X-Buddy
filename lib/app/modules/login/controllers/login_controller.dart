@@ -3,14 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class LoginController extends GetxController {
-  RxBool isLoading = false.obs;
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
-  Future<User?> login(String email, String password) async {
-    try {
-      final credential = await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: email, password: password);
-
   final formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
@@ -22,16 +14,18 @@ class LoginController extends GetxController {
   final auth = FirebaseAuth.instance;
 
   void onLogin() async {
-    try {} on FirebaseAuthException catch (e) {
+    if (!formKey.currentState!.validate()) {
+      return;
+    }
+    isLoading.value = true;
+    try {
+      await auth.signInWithEmailAndPassword(
+          email: emailController.text, password: passwordController.text);
+    } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
-        await auth.signInWithEmailAndPassword(
-            email: emailController.text, password: passwordController.text);
+        errorMessage = 'No user found for that email.';
       } else if (e.code == 'wrong-password') {
-        if (e.code == 'user-not-found') {
-          errorMessage = 'No user found for that email.';
-        } else if (e.code == 'wrong-password') {
-          errorMessage = 'Wrong password provided for that user.';
-        }
+        errorMessage = 'Wrong password provided for that user.';
       }
     } catch (e) {
       errorMessage = e.toString();
@@ -56,7 +50,7 @@ class LoginController extends GetxController {
 
   String? onEmailValidation(String? value) {
     if (value == null || value.isEmpty) {
-      return "Password can't be empty";
+      return "Email can't be empty";
     }
     if (!GetUtils.isEmail(value)) {
       return "Please input the correct email";
