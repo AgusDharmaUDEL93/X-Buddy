@@ -4,7 +4,6 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
 import 'package:x_buddy/app/data/model/event.dart';
 
-import '../../../routes/app_pages.dart';
 import '../../../widgets/card_event.dart';
 import '../controllers/your_event_controller.dart';
 
@@ -12,6 +11,7 @@ class YourEventView extends GetView<YourEventController> {
   const YourEventView({super.key});
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(YourEventController());
     return Scaffold(
       appBar: AppBar(
         title:
@@ -19,7 +19,7 @@ class YourEventView extends GetView<YourEventController> {
         actions: [
           IconButton(
               onPressed: () {
-                Get.toNamed(Routes.ADD_EVENT);
+                controller.checkUserVerification();
               },
               icon: const Icon(Icons.add)),
         ],
@@ -44,7 +44,6 @@ class YourEventView extends GetView<YourEventController> {
                 }
                 if (snapshot.hasData) {
                   print('ini dijalankan');
-                  print('Snapshot has data: ${snapshot.data}');
 
                   return MasonryGridView.builder(
                     gridDelegate:
@@ -58,7 +57,7 @@ class YourEventView extends GetView<YourEventController> {
                         category: snapshot.data![index].category,
                         title: snapshot.data![index].title,
                         author: snapshot.data![index].authorName,
-                        image: snapshot.data![index].imageUrl.toString(),
+                        image: snapshot.data![index].imageUrl,
                         onTap: () {
                           // Get.toNamed(Routes.EVENT_DETAIL);
                         },

@@ -21,6 +21,9 @@ class CardEvent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Validate the image URL
+    bool isValidUrl = Uri.tryParse(image)?.hasAbsolutePath ?? false;
+
     return InkWell(
       onTap: onTap,
       child: Container(
@@ -38,12 +41,22 @@ class CardEvent extends StatelessWidget {
                 topLeft: Radius.circular(5),
                 topRight: Radius.circular(5),
               ),
-              child: CachedNetworkImage(
-                imageUrl: image,
-                fit: BoxFit.cover,
-                width: Get.width,
-                errorWidget: (context, url, error) => const Icon(Icons.error),
-              ),
+              child: isValidUrl
+                  ? CachedNetworkImage(
+                      imageUrl: image,
+                      fit: BoxFit.cover,
+                      width: Get.width,
+                      placeholder: (context, url) =>
+                          const CircularProgressIndicator(),
+                      errorWidget: (context, url, error) =>
+                          const Icon(Icons.error),
+                    )
+                  : Container(
+                      width: Get.width,
+                      height: 100,
+                      color: Colors.grey,
+                      child: const Icon(Icons.broken_image),
+                    ),
             ),
             Padding(
               padding: const EdgeInsets.all(10),
