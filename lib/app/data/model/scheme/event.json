@@ -5,6 +5,7 @@
     "title": "title of event",
     "category": "event category",
     "author_uid": "event author id",
+    "author_name": "event author name",
     "location": "location event",
     "date": "date of event",
     "time": "time event started",

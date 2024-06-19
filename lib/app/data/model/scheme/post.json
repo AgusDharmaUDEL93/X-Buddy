@@ -5,13 +5,16 @@
     "title": "post title",
     "description": "post_description",
     "author_uid": "author by user id",
+    "author_name": "author name",
     "comment": [
       {
         "author_uid": "author by user id",
+        "author_name": "author name",
         "comment": "commentar of the author"
       },
       {
         "author_uid": "author by user id",
+        "author_name": "author name",
         "comment": "commentar of the author"
       }
     ]
