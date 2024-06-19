@@ -42,36 +42,35 @@ class LoginView extends GetView<LoginController> {
                   const SizedBox(
                     height: 25,
                   ),
-                  GetBuilder<LoginController>(
-                    // init: MyController(),
-                    initState: (_) {},
-                    builder: (_) {
-                      return TextFormField(
-                        controller: controller.emailController,
-                        decoration: const InputDecoration(
-                          label: Text("Email"),
-                          border: OutlineInputBorder(),
-                          hintText: "Insert Your Email",
-                        ),
-                      );
-                    },
+                  TextFormField(
+                    controller: controller.emailController,
+                    validator: controller.onEmailValidation,
+                    decoration: const InputDecoration(
+                      label: Text("Email"),
+                      border: OutlineInputBorder(),
+                      hintText: "Insert Your Email",
+                    ),
                   ),
                   const SizedBox(
                     height: 20,
                   ),
-                  GetBuilder<LoginController>(
-                    // init: MyController(),
-                    initState: (_) {},
-                    builder: (_) {
-                      return TextFormField(
-                        controller: controller.passwordController,
-                        decoration: const InputDecoration(
-                          label: Text("Password"),
-                          border: OutlineInputBorder(),
-                          hintText: "Insert Your Password",
+                  Obx(
+                    () => TextFormField(
+                      controller: controller.passwordController,
+                      obscureText: controller.isPasswordObscure.value,
+                      validator: controller.onPasswordValidation,
+                      decoration: InputDecoration(
+                        label: const Text("Password"),
+                        border: const OutlineInputBorder(),
+                        hintText: "Insert Your Password",
+                        suffixIcon: IconButton(
+                          icon: controller.isPasswordObscure.value
+                              ? const Icon(Icons.visibility)
+                              : const Icon(Icons.visibility_off),
+                          onPressed: controller.onChangeVisibilitPassword,
                         ),
-                      );
-                    },
+                      ),
+                    ),
                   ),
                   const SizedBox(
                     height: 5,
@@ -101,10 +100,7 @@ class LoginView extends GetView<LoginController> {
                   SizedBox(
                       width: Get.width,
                       child: FilledButton(
-                        onPressed: () {
-                          controller.login(controller.emailController.text,
-                              controller.passwordController.text);
-                        },
+                        onPressed: controller.onLogin,
                         child: const Text("Login"),
                       )),
                   Row(
