@@ -57,7 +57,7 @@ class YourEventView extends GetView<YourEventController> {
                         category: snapshot.data![index].category,
                         title: snapshot.data![index].title,
                         author: snapshot.data![index].authorName,
-                        image: snapshot.data![index].imageUrl,
+                        image: snapshot.data![index].imageUrl, //Ini images url
                         onTap: () {
                           // Get.toNamed(Routes.EVENT_DETAIL);
                         },
