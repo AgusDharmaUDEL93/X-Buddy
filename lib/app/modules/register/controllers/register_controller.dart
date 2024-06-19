@@ -59,7 +59,7 @@ class RegisterController extends GetxController {
 
   String? onEmailValidation(String? value) {
     if (value == null || value.isEmpty) {
-      return "Password can't be empty";
+      return "Email can't be empty";
     }
     if (!GetUtils.isEmail(value)) {
       return "Please input the correct email";
@@ -82,7 +82,7 @@ class RegisterController extends GetxController {
 
   String? onConfirmPasswordValidation(String? value) {
     if (value == null || value.isEmpty) {
-      return "Password can't be empty";
+      return "Confirm Password can't be empty";
     }
     if (value != passwordController.text) {
       return "Password doesn't match";
