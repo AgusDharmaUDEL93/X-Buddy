@@ -12,22 +12,26 @@ class User {
   String name;
   bool isVerify;
   List<String> event;
+  List<String> followedEvent;
 
   User({
     required this.name,
-    this.isVerify = false,
+    required this.isVerify,
     required this.event,
+    required this.followedEvent,
   });
 
   factory User.fromJson(Map<String, dynamic> json) => User(
         name: json["name"],
         isVerify: json["isVerify"],
         event: List<String>.from(json["event"].map((x) => x)),
+        followedEvent: List<String>.from(json["followed_event"].map((x) => x)),
       );
 
   Map<String, dynamic> toJson() => {
         "name": name,
         "isVerify": isVerify,
         "event": List<dynamic>.from(event.map((x) => x)),
+        "followed_event": List<dynamic>.from(followedEvent.map((x) => x)),
       };
 }
