@@ -66,7 +66,9 @@ class YourEventView extends GetView<YourEventController> {
                   );
                 } else {
                   print('No data available');
-                  return const Center(child: Text('No data available'));
+                  return const Center(
+                    child: Text('No data available'),
+                  );
                 }
               }),
         ),
