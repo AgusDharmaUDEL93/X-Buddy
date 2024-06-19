@@ -9,7 +9,10 @@ Post postFromJson(String str) => Post.fromJson(json.decode(str));
 String postToJson(Post data) => json.encode(data.toJson());
 
 class Post {
+<<<<<<< HEAD
     String postId;
+=======
+>>>>>>> 53a4dec (fixing some model configuration)
     String title;
     String description;
     String authorUid;
@@ -17,7 +20,10 @@ class Post {
     List<Comment> comment;
 
     Post({
+<<<<<<< HEAD
         required this.postId,
+=======
+>>>>>>> 53a4dec (fixing some model configuration)
         required this.title,
         required this.description,
         required this.authorUid,
@@ -26,7 +32,10 @@ class Post {
     });
 
     factory Post.fromJson(Map<String, dynamic> json) => Post(
+<<<<<<< HEAD
         postId: json["post_id"],
+=======
+>>>>>>> 53a4dec (fixing some model configuration)
         title: json["title"],
         description: json["description"],
         authorUid: json["author_uid"],
@@ -35,7 +44,10 @@ class Post {
     );
 
     Map<String, dynamic> toJson() => {
+<<<<<<< HEAD
         "post_id": postId,
+=======
+>>>>>>> 53a4dec (fixing some model configuration)
         "title": title,
         "description": description,
         "author_uid": authorUid,
