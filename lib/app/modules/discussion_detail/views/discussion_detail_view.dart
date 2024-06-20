@@ -7,21 +7,12 @@ import '../../../widgets/card_comment.dart';
 import '../controllers/discussion_detail_controller.dart';
 
 class DiscussionDetailView extends GetView<DiscussionDetailController> {
-  const DiscussionDetailView({Key? key}) : super(key: key);
+  const DiscussionDetailView({super.key});
   @override
   Widget build(BuildContext context) {
     var dummyList = [0, 1, 2, 3, 4];
     return Scaffold(
-      appBar: AppBar(
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.delete,
-            ),
-          )
-        ],
-      ),
+      appBar: AppBar(),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: SingleChildScrollView(
@@ -29,56 +20,57 @@ class DiscussionDetailView extends GetView<DiscussionDetailController> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Menggunakan @inject constructor pada interactor class di domain layer",
+                controller.post.title,
                 style: Theme.of(context).textTheme.titleLarge?.copyWith(
                       fontWeight: FontWeight.w500,
                     ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 5,
               ),
               Text(
-                "by Agus Dharma",
+                "by ${controller.post.authorName}",
                 style: Theme.of(context).textTheme.titleSmall?.copyWith(
                       color: Theme.of(context).colorScheme.outline,
                     ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 12,
               ),
               Text(
-                "Pada domain layer kita tidak disarankan untuk menambahkan framework/library sehingga hanya menggunakan pure kotlin. Namun pada implementasinya dari modul, kita  menggunakan dagger untuk kelas interactor yang berada pada domain layer  dengan menambahkan @inject constructor yang merupakan bagian dari dagger. Apakah ini tidak menyalahi rule dari clean architecture ? terimakasih, mohon penjelasannya",
+                controller.post.description,
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
               Row(
                 children: [
                   Expanded(
                     child: TextFormField(
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                         label: Text("Comment"),
                         hintText: "Insert Your Comment",
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
-                  IconButton.filled(onPressed: () {}, icon: Icon(Icons.send))
+                  IconButton.filled(
+                      onPressed: () {}, icon: const Icon(Icons.send))
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 12,
               ),
-              Divider(),
-              SizedBox(
+              const Divider(),
+              const SizedBox(
                 height: 12,
               ),
               ...dummyList.map(
-                (item) => Column(
+                (item) => const Column(
                   children: [
                     CardComment(
                       author: "Siswadi Perdana",
@@ -91,7 +83,7 @@ class DiscussionDetailView extends GetView<DiscussionDetailController> {
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 100,
               )
             ],

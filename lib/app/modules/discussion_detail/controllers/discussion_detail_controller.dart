@@ -1,23 +1,19 @@
 import 'package:get/get.dart';
+import 'package:x_buddy/app/data/model/post.dart';
 
 class DiscussionDetailController extends GetxController {
-  //TODO: Implement DiscussionDetailController
+  var isLoading = false.obs;
+  String? errorMessage;
 
-  final count = 0.obs;
+  late Post post;
+
   @override
   void onInit() {
     super.onInit();
-  }
+    isLoading.value = true;
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
+    post = Get.arguments();
 
-  @override
-  void onClose() {
-    super.onClose();
+    isLoading.value = false;
   }
-
-  void increment() => count.value++;
 }

@@ -6,7 +6,7 @@ class DiscussionController extends GetxController {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   Stream<List<Post>> getDiscussion() {
-    return firestore.collection('post').snapshots().map((snapshot) =>
+    return firestore.collection('posts').snapshots().map((snapshot) =>
         snapshot.docs.map((doc) => Post.fromJson(doc.data())).toList());
   }
 }

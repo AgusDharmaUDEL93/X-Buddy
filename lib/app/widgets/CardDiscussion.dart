@@ -8,21 +8,21 @@ class CardDiscussion extends StatelessWidget {
     required this.title,
     required this.author,
     required this.description,
+    required this.onTap,
   });
 
   final String title;
   final String author;
   final String description;
+  final void Function() onTap;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        Get.toNamed(Routes.DISCUSSION_DETAIL);
-      },
+      onTap: onTap,
       child: Container(
         width: Get.width,
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
           border:
               Border.all(color: Theme.of(context).colorScheme.outlineVariant),

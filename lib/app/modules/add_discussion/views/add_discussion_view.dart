@@ -21,6 +21,8 @@ class AddDiscussionView extends GetView<AddDiscussionController> {
           child: Column(
             children: [
               TextFormField(
+                controller: controller.titleController,
+                validator: controller.onTitleValidation,
                 decoration: const InputDecoration(
                   label: Text("Title"),
                   border: OutlineInputBorder(),
@@ -31,6 +33,8 @@ class AddDiscussionView extends GetView<AddDiscussionController> {
                 height: 20,
               ),
               TextFormField(
+                controller: controller.descriptionController,
+                validator: controller.onDescriptionValidation,
                 decoration: const InputDecoration(
                   alignLabelWithHint: true,
                   label: Text("Description"),
@@ -48,7 +52,7 @@ class AddDiscussionView extends GetView<AddDiscussionController> {
               SizedBox(
                 width: Get.width,
                 child: FilledButton(
-                  onPressed: () {},
+                  onPressed: controller.onAddDiscussion,
                   child: const Text("Add Discussion"),
                 ),
               ),

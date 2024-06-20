@@ -42,21 +42,24 @@ class DiscussionView extends GetView<DiscussionController> {
                 child: Text("Error"),
               );
             }
+
+            if (snapshot.data?.length == 0) {
+              return const Center(
+                child: Text("No Discussion"),
+              );
+            }
             return ListView.separated(
               itemCount: snapshot.data?.length ?? 0,
               itemBuilder: (context, index) {
-                if (snapshot.data?.length == 0) {
-                  return const Center(
-                    child: Text("No Discussion"),
-                  );
-                } else {
-                  return CardDiscussion(
-                    title: snapshot.data?[index].title ?? "No Title",
-                    author: "Agus Dharma",
-                    description:
-                        "Pada domain layer kita tidak disarankan untuk menambahkan framework/library sehingga hanya menggunakan pure kotlin. Namun pada implementasinya dari modul, kita  menggunakan dagger untuk kelas interactor yang berada pada domain layer  dengan menambahkan @inject constructor yang merupakan bagian dari dagger. Apakah ini tidak menyalahi rule dari clean architecture ? terimakasih, mohon penjelasannya",
-                  );
-                }
+                return CardDiscussion(
+                  title: snapshot.data?[index].title ?? "No Title",
+                  author: snapshot.data?[index].authorName ?? "Anonim",
+                  description: snapshot.data?[index].description ?? "No Desc",
+                  onTap: () {
+                    Get.toNamed(Routes.DISCUSSION_DETAIL,
+                        arguments: snapshot.data);
+                  },
+                );
               },
               separatorBuilder: (context, index) => const SizedBox(
                 height: 16,
