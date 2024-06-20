@@ -56,8 +56,10 @@ class DiscussionView extends GetView<DiscussionController> {
                   author: snapshot.data?[index].authorName ?? "Anonim",
                   description: snapshot.data?[index].description ?? "No Desc",
                   onTap: () {
-                    Get.toNamed(Routes.DISCUSSION_DETAIL,
-                        arguments: snapshot.data);
+                    Get.toNamed(
+                      Routes.DISCUSSION_DETAIL,
+                      parameters: {"id": snapshot.data?[index].postId ?? ""},
+                    );
                   },
                 );
               },

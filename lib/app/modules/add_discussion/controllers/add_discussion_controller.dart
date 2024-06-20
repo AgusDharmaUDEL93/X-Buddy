@@ -33,14 +33,20 @@ class AddDiscussionController extends GetxController {
           errorMessage = 'Document does not exist on the database';
         }
       });
+
       var post = Post(
+        postId: "",
         title: titleController.text,
         description: descriptionController.text,
         authorUid: auth.currentUser!.uid,
         authorName: name,
         comment: [],
       );
-      firestore.collection("posts").add(post.toJson());
+      var docRef = await firestore.collection("posts").add(post.toJson());
+      await firestore
+          .collection("posts")
+          .doc(docRef.id)
+          .update({"post_id": docRef.id});
     } catch (e) {
       errorMessage = e.toString();
     }

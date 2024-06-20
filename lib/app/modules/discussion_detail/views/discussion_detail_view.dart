@@ -13,82 +13,116 @@ class DiscussionDetailView extends GetView<DiscussionDetailController> {
     var dummyList = [0, 1, 2, 3, 4];
     return Scaffold(
       appBar: AppBar(),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                controller.post.title,
-                style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.w500,
-                    ),
-              ),
-              const SizedBox(
-                height: 5,
-              ),
-              Text(
-                "by ${controller.post.authorName}",
-                style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                      color: Theme.of(context).colorScheme.outline,
-                    ),
-              ),
-              const SizedBox(
-                height: 12,
-              ),
-              Text(
-                controller.post.description,
-                style: Theme.of(context).textTheme.bodyMedium,
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              Row(
-                children: [
-                  Expanded(
-                    child: TextFormField(
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        label: Text("Comment"),
-                        hintText: "Insert Your Comment",
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  IconButton.filled(
-                      onPressed: () {}, icon: const Icon(Icons.send))
-                ],
-              ),
-              const SizedBox(
-                height: 12,
-              ),
-              const Divider(),
-              const SizedBox(
-                height: 12,
-              ),
-              ...dummyList.map(
-                (item) => const Column(
-                  children: [
-                    CardComment(
-                      author: "Siswadi Perdana",
-                      comment:
-                          "Halo kak, saya jawab sepengetahuan saya ya bisa di koreksi kalo salah kak, DI atau Dependency Injection sendiri merupakan suatu design pattern OOP yang bisa kita aplikasikan untuk membuat kode yang baik dan Dagger sendiri merupakan library yang menyediakan DI itu sendiri sehingga tidak masalah dan tidak melanggar aturan untuk berada di domain layer, Clean Arch sendiri yaitu untuk memisahkan kode bisnis dengan kode infrastruktur agar modul tingkat tinggi tidak saling bergantungan langsung. Jadi tidak masalah jika menggunakan library Dependecy Injection di dalam domain.",
-                    ),
-                    SizedBox(
-                      height: 12,
-                    )
-                  ],
+      body: Obx(
+        () => controller.isLoading.value
+            ? const Center(
+                child: CircularProgressIndicator(),
+              )
+            : Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: SingleChildScrollView(
+                  child: StreamBuilder(
+                      stream: controller.getDiscussionDetail(),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        }
+                        if (snapshot.hasError) {
+                          return const Center(
+                            child: Text("Error"),
+                          );
+                        }
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              snapshot.data?.title ?? "No Title",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleLarge
+                                  ?.copyWith(
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Text(
+                              "by ${snapshot.data?.authorName}",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall
+                                  ?.copyWith(
+                                    color:
+                                        Theme.of(context).colorScheme.outline,
+                                  ),
+                            ),
+                            const SizedBox(
+                              height: 12,
+                            ),
+                            Text(
+                              snapshot.data?.description ?? "No Description",
+                              style: Theme.of(context).textTheme.bodyMedium,
+                            ),
+                            const SizedBox(
+                              height: 30,
+                            ),
+                            Form(
+                              key: controller.formKey,
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: TextFormField(
+                                      controller: controller.commentController,
+                                      validator: controller.onCommentValidation,
+                                      decoration: const InputDecoration(
+                                        border: OutlineInputBorder(),
+                                        label: Text("Comment"),
+                                        hintText: "Insert Your Comment",
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 10,
+                                  ),
+                                  IconButton.filled(
+                                    onPressed: controller.onSubmitComment,
+                                    icon: const Icon(Icons.send),
+                                  )
+                                ],
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 12,
+                            ),
+                            const Divider(),
+                            const SizedBox(
+                              height: 12,
+                            ),
+                            ...snapshot.data!.comment.map(
+                              (item) => Column(
+                                children: [
+                                  CardComment(
+                                    author: item.authorName,
+                                    comment: item.comment,
+                                  ),
+                                  const SizedBox(
+                                    height: 12,
+                                  )
+                                ],
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 100,
+                            )
+                          ],
+                        );
+                      }),
                 ),
               ),
-              const SizedBox(
-                height: 100,
-              )
-            ],
-          ),
-        ),
       ),
     );
   }
