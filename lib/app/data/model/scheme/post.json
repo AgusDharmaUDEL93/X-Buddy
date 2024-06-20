@@ -2,6 +2,7 @@
   "collection": "post",
   "document": "post_id",
   "data": {
+    "post_id" : "sdaadasadadawad",
     "title": "post title",
     "description": "post_description",
     "author_uid": "author by user id",
