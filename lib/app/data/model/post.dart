@@ -31,8 +31,9 @@ class Post {
         description: json["description"],
         authorUid: json["author_uid"],
         authorName: json["author_name"],
-        comment: List<Comment>.from(json["comment"].map((x) => Comment.fromJson(x))),
-    );
+        comment:
+            List<Comment>.from(json["comment"].map((x) => Comment.fromJson(x))),
+      );
 
     Map<String, dynamic> toJson() => {
         "post_id": postId,
@@ -41,29 +42,29 @@ class Post {
         "author_uid": authorUid,
         "author_name": authorName,
         "comment": List<dynamic>.from(comment.map((x) => x.toJson())),
-    };
+      };
 }
 
 class Comment {
-    String authorUid;
-    String authorName;
-    String comment;
+  String authorUid;
+  String authorName;
+  String comment;
 
-    Comment({
-        required this.authorUid,
-        required this.authorName,
-        required this.comment,
-    });
+  Comment({
+    required this.authorUid,
+    required this.authorName,
+    required this.comment,
+  });
 
-    factory Comment.fromJson(Map<String, dynamic> json) => Comment(
+  factory Comment.fromJson(Map<String, dynamic> json) => Comment(
         authorUid: json["author_uid"],
         authorName: json["author_name"],
         comment: json["comment"],
-    );
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "author_uid": authorUid,
         "author_name": authorName,
         "comment": comment,
-    };
+      };
 }
