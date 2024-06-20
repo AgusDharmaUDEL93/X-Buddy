@@ -4,11 +4,87 @@
   "data": {
     "name": "Agus Dharma Kusuma",
     "isVerify": true,
-    "event": ["id_event", "example", "eed8e23d-86de-408d-b84a-929084b95105"],
+    "your_event": [
+      {
+        "event_id": "event_id",
+        "title": "title of event",
+        "image": "image",
+        "category": "event category",
+        "author_uid": "eed8e23d-86de-408d-b84a-929084b95105",
+        "author_name": "Agus Dharma",
+        "location": "location event",
+        "date": "date of event",
+        "time": "time event started",
+        "participant": 100,
+        "description": "event description"
+      },
+      {
+        "event_id": "event_id",
+        "title": "title of event",
+        "image": "image",
+        "category": "event category",
+        "author_uid": "eed8e23d-86de-408d-b84a-929084b95105",
+        "author_name": "Agus Dharma",
+        "location": "location event",
+        "date": "date of event",
+        "time": "time event started",
+        "participant": 100,
+        "description": "event description"
+      },
+      {
+        "event_id": "event_id",
+        "title": "title of event",
+        "image": "image",
+        "category": "event category",
+        "author_uid": "eed8e23d-86de-408d-b84a-929084b95105",
+        "author_name": "Agus Dharma",
+        "location": "location event",
+        "date": "date of event",
+        "time": "time event started",
+        "participant": 100,
+        "description": "event description"
+      }
+    ],
     "followed_event": [
-      "id_event",
-      "example",
-      "eed8e23d-86de-408d-b84a-929084b95105"
+      {
+        "event_id": "event_id",
+        "title": "title of event",
+        "image": "image",
+        "category": "event category",
+        "author_uid": "eed8e23d-86de-408d-b84a-929084b95105",
+        "author_name": "Agus Dharma",
+        "location": "location event",
+        "date": "date of event",
+        "time": "time event started",
+        "participant": 100,
+        "description": "event description"
+      },
+      {
+        "event_id": "event_id",
+        "title": "title of event",
+        "image": "image",
+        "category": "event category",
+        "author_uid": "eed8e23d-86de-408d-b84a-929084b95105",
+        "author_name": "Agus Dharma",
+        "location": "location event",
+        "date": "date of event",
+        "time": "time event started",
+        "participant": 100,
+        "description": "event description"
+      },
+      {
+        "event_id": "event_id",
+        "title": "title of event",
+        "image": "image",
+        "category": "event category",
+        "author_uid": "eed8e23d-86de-408d-b84a-929084b95105",
+        "author_name": "Agus Dharma",
+        "location": "location event",
+        "date": "date of event",
+        "time": "time event started",
+        "participant": 100,
+        "description": "event description"
+      }
     ]
   }
 }
