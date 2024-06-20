@@ -76,8 +76,8 @@ class EditEventView extends GetView<EditEventController> {
                       suffixIcon: IconButton(
                           onPressed: () async {
                             print("Icons.calendar_month");
-                            // controller.datePicker(context);
-                            // controller.update();
+                            controller.datePicker(context);
+                            controller.update();
                           },
                           icon: const Icon(Icons.calendar_month)),
                       border: const OutlineInputBorder(),
@@ -98,8 +98,8 @@ class EditEventView extends GetView<EditEventController> {
                       suffixIcon: IconButton(
                           onPressed: () {
                             print('Icons.access_time');
-                            // controller.timePicker(context);
-                            // controller.update();
+                            controller.timePicker(context);
+                            controller.update();
                           },
                           icon: const Icon(Icons.access_time)),
                       border: const OutlineInputBorder(),
