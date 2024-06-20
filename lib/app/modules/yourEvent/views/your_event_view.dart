@@ -4,6 +4,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
 import 'package:x_buddy/app/data/model/event.dart';
 
+import '../../../routes/app_pages.dart';
 import '../../../widgets/card_event.dart';
 import '../controllers/your_event_controller.dart';
 
@@ -53,13 +54,15 @@ class YourEventView extends GetView<YourEventController> {
                     mainAxisSpacing: 10,
                     crossAxisSpacing: 10,
                     itemBuilder: (_, index) {
+                      final event = snapshot.data![index];
                       return CardEvent(
-                        category: snapshot.data![index].category,
-                        title: snapshot.data![index].title,
-                        author: snapshot.data![index].authorName,
-                        image: snapshot.data![index].imageUrl, //Ini images url
+                        category: event.category,
+                        title: event.title,
+                        author: event.authorName,
+                        image: event.imageUrl,
                         onTap: () {
-                          // Get.toNamed(Routes.EVENT_DETAIL);
+                          Get.toNamed(Routes.EDIT_EVENT,
+                              arguments: event.toJson());
                         },
                       );
                     },

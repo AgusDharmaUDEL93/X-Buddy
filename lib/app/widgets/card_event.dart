@@ -46,8 +46,6 @@ class CardEvent extends StatelessWidget {
                       imageUrl: image,
                       fit: BoxFit.cover,
                       width: Get.width,
-                      placeholder: (context, url) =>
-                          const CircularProgressIndicator(),
                       errorWidget: (context, url, error) =>
                           const Icon(Icons.error),
                     )
