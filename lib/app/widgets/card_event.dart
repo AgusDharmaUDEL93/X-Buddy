@@ -39,6 +39,8 @@ class CardEvent extends StatelessWidget {
               ),
               child: Image.network(
                 image,
+                width: 155,
+                height: 155,
                 fit: BoxFit.cover,
               ),
             ),
