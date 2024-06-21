@@ -1,23 +1,69 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class LoginController extends GetxController {
-  //TODO: Implement LoginController
+  final formKey = GlobalKey<FormState>();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
 
-  final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
+  var isPasswordObscure = true.obs;
+  var isLoading = false.obs;
+  String? errorMessage;
+
+  final auth = FirebaseAuth.instance;
+
+  void onLogin() async {
+    if (!formKey.currentState!.validate()) {
+      return;
+    }
+    isLoading.value = true;
+    try {
+      await auth.signInWithEmailAndPassword(
+          email: emailController.text, password: passwordController.text);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        errorMessage = 'No user found for that email.';
+      } else if (e.code == 'wrong-password') {
+        errorMessage = 'Wrong password provided for that user.';
+      }
+    } catch (e) {
+      errorMessage = e.toString();
+    }
+    isLoading.value = false;
+    Get.defaultDialog(
+      title: errorMessage == null ? "Succes" : "Error",
+      middleText: errorMessage == null
+          ? "Success to login on X buddy enjoy"
+          : "Failed to login because : $errorMessage",
+      onConfirm: () {
+        Get.back();
+        Get.back();
+      },
+    );
   }
 
-  @override
-  void onReady() {
-    super.onReady();
+  void onChangeVisibilitPassword() {
+    isPasswordObscure.value = !isPasswordObscure.value;
   }
 
-  @override
-  void onClose() {
-    super.onClose();
+  String? onEmailValidation(String? value) {
+    if (value == null || value.isEmpty) {
+      return "Email can't be empty";
+    }
+    if (!GetUtils.isEmail(value)) {
+      return "Please input the correct email";
+    }
+    return null;
   }
 
-  void increment() => count.value++;
+  String? onPasswordValidation(String? value) {
+    if (value == null || value.isEmpty) {
+      return "Password can't be empty";
+    }
+    if (value.length < 8) {
+      return "Password can't be less than 8 char";
+    }
+    return null;
+  }
 }
