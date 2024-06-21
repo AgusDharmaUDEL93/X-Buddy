@@ -4,6 +4,8 @@
 
 import 'dart:convert';
 
+import 'event.dart';
+
 User userFromJson(String str) => User.fromJson(json.decode(str));
 
 String userToJson(User data) => json.encode(data.toJson());
@@ -11,27 +13,30 @@ String userToJson(User data) => json.encode(data.toJson());
 class User {
   String name;
   bool isVerify;
-  List<String> event;
-  List<String> followedEvent;
+  List<Event> yourEvent;
+  List<Event> followedEvent;
 
   User({
     required this.name,
     required this.isVerify,
-    required this.event,
+    required this.yourEvent,
     required this.followedEvent,
   });
 
   factory User.fromJson(Map<String, dynamic> json) => User(
         name: json["name"],
         isVerify: json["isVerify"],
-        event: List<String>.from(json["event"].map((x) => x)),
-        followedEvent: List<String>.from(json["followed_event"].map((x) => x)),
+        yourEvent:
+            List<Event>.from(json["your_event"].map((x) => Event.fromJson(x))),
+        followedEvent: List<Event>.from(
+            json["followed_event"].map((x) => Event.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
         "name": name,
         "isVerify": isVerify,
-        "event": List<dynamic>.from(event.map((x) => x)),
-        "followed_event": List<dynamic>.from(followedEvent.map((x) => x)),
+        "your_event": List<dynamic>.from(yourEvent.map((x) => x.toJson())),
+        "followed_event":
+            List<dynamic>.from(followedEvent.map((x) => x.toJson())),
       };
 }

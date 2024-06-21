@@ -2,10 +2,17 @@
   "collection": "event",
   "document": "event_id",
   "data": {
+    "event_id": "event_id",
     "title": "title of event",
+    "image": "image",
     "category": "event category",
+<<<<<<< HEAD
     "author_uid": "event author id",
     "author_name": "event author name",
+=======
+    "author_uid": "eed8e23d-86de-408d-b84a-929084b95105",
+    "author_name": "Agus Dharma",
+>>>>>>> 2f2bdcf1d370d41f9c6df5d3108f86b7a4ef447a
     "location": "location event",
     "date": "date of event",
     "time": "time event started",
