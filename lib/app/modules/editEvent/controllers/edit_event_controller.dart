@@ -1,3 +1,7 @@
+import 'dart:io';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -5,29 +9,100 @@ import 'package:x_buddy/app/data/model/event.dart';
 
 class EditEventController extends GetxController {
   TextEditingController eventTitleController = TextEditingController();
-  TextEditingController eventCategoryController = TextEditingController();
   TextEditingController eventLocationController = TextEditingController();
   TextEditingController eventDateController = TextEditingController();
   TextEditingController eventTimeController = TextEditingController();
   TextEditingController eventDescriptionController = TextEditingController();
   final images = XFile('').obs;
+  final selectedCategory = ''.obs;
+  late String keyword;
 
-  //Method untuk mengambil data dari halaman sebelumnya
+  final categoryList = ["Competition", "Seminar", "Tech Talk", "Workshop"];
+
   void loadEventData(Event event) {
     eventTitleController.text = event.title;
-    eventCategoryController.text = event.category;
+    selectedCategory.value = event.category;
     eventLocationController.text = event.location;
     eventDateController.text = event.date;
     eventTimeController.text = event.time;
     eventDescriptionController.text = event.description;
-    //load images dari halaman sebelumnya
-    images.value = XFile(event.imageUrl);
-    // Load other fields as necessary
+    // images.value = XFile(event.image);
     update();
   }
 
-  // Membuat Widget Date Picker
-  datePicker(BuildContext context) async {
+  Future<String> uploadFile(File? image, bool isFileChanged) async {
+    if (isFileChanged && image != null) {
+      final storageReference =
+          FirebaseStorage.instance.ref().child('eventImages/${image.path}');
+
+      try {
+        await storageReference.putFile(image);
+        String fileURL = await storageReference.getDownloadURL();
+        return fileURL;
+      } catch (e) {
+        print('Error uploading image: $e');
+        return '';
+      }
+    } else {
+      return images.value.path;
+    }
+  }
+
+  Future<String> uploadImages(File image, bool isFileChanged) async {
+    final storageRef =
+        FirebaseStorage.instance.ref().child('eventImages/${image.path}');
+    await storageRef.putFile(image);
+    String returnUrl = '';
+    await storageRef.getDownloadURL().then((fileUrl) {
+      returnUrl = fileUrl;
+    });
+
+    return returnUrl;
+  }
+
+  Future<void> updateEventDataWithEditImage(
+      String eventTitle,
+      String eventCategory,
+      String eventLocation,
+      String eventDate,
+      String eventTime,
+      String eventDescription,
+      File images,
+      bool isFileChanged) async {
+    String imageURL = await uploadImages(images, isFileChanged);
+
+    final refDoc = FirebaseFirestore.instance.collection('events').doc(keyword);
+    await refDoc.update({
+      'title': eventTitle,
+      'category': eventCategory,
+      'location': eventLocation,
+      'date': eventDate,
+      'time': eventTime,
+      'description': eventDescription,
+      'image': imageURL,
+    });
+  }
+
+  Future<void> updateEventDataWithoutEditImage(
+      String eventTitle,
+      String eventCategory,
+      String eventLocation,
+      String eventDate,
+      String eventTime,
+      String eventDescription,
+      bool isFileChanged) async {
+    final refDoc = FirebaseFirestore.instance.collection('events').doc(keyword);
+    await refDoc.update({
+      'title': eventTitle,
+      'category': eventCategory,
+      'location': eventLocation,
+      'date': eventDate,
+      'time': eventTime,
+      'description': eventDescription,
+    });
+  }
+
+  void datePicker(BuildContext context) async {
     DateTime? pickerDate = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
@@ -43,8 +118,7 @@ class EditEventController extends GetxController {
     }
   }
 
-  // Membuat Widget Time Picker
-  timePicker(BuildContext context) async {
+  void timePicker(BuildContext context) async {
     TimeOfDay? pickerTime = await showTimePicker(
       context: context,
       initialTime: TimeOfDay.now(),
@@ -58,12 +132,11 @@ class EditEventController extends GetxController {
     }
   }
 
-  //Fungsi Untuk Mendapatkan Images dari penyimpanan lokal Handphone
-  Future getImages(bool galery) async {
+  Future<void> getImages(bool gallery) async {
     ImagePicker imagePicker = ImagePicker();
     XFile? pickedFile;
 
-    if (galery) {
+    if (gallery) {
       pickedFile = await imagePicker.pickImage(
         source: ImageSource.gallery,
       );
@@ -81,18 +154,13 @@ class EditEventController extends GetxController {
     final eventJson = Get.arguments as Map<String, dynamic>;
     final event = Event.fromJson(eventJson);
     loadEventData(event);
+    keyword = Get.parameters['event_id'].toString();
     super.onInit();
   }
-
-  // @override
-  // void onReady() {
-  //   super.onReady();
-  // }
 
   @override
   void onClose() {
     eventTitleController.dispose();
-    eventCategoryController.dispose();
     eventLocationController.dispose();
     eventDateController.dispose();
     eventTimeController.dispose();
