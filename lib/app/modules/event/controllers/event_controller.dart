@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
+import 'package:x_buddy/app/data/model/event.dart';
 
 class EventController extends GetxController {
   // Daftar fitur
@@ -8,6 +10,22 @@ class EventController extends GetxController {
     {"name": "Tech Talk", "icon": "tech_talk.svg"},
     {"name": "Workshop", "icon": "workshop.svg"},
   ];
+
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+  Stream<List<Event>> getPopularEvent() {
+    return firestore
+        .collection('events')
+        .orderBy("participant")
+        .snapshots()
+        .map((snapshot) =>
+            snapshot.docs.map((doc) => Event.fromJson(doc.data())).toList());
+  }
+
+  Stream<List<Event>> getEvent() {
+    return firestore.collection('events').snapshots().map((snapshot) =>
+        snapshot.docs.map((doc) => Event.fromJson(doc.data())).toList());
+  }
 
   // final count = 0.obs;
   // @override

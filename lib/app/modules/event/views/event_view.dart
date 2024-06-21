@@ -132,52 +132,53 @@ class EventView extends GetView<EventController> {
                 const SizedBox(
                   height: 8,
                 ),
-                SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: [
-                      CardEvent(
-                        category: "Seminar",
-                        title:
-                            'DevCoach 155 : Data Science | Memahami Algoritma Machine Learning untuk Data Science',
-                        author: 'GDSC Universitas Muhammadiyah Surakarta',
-                        image: "",
-                        onTap: () {
-                          Get.toNamed(Routes.EVENT_DETAIL);
-                        },
-                      ),
-                      const SizedBox(
-                        width: 16,
-                      ),
-                      CardEvent(
-                        category: "Seminar",
-                        title:
-                            'DevCoach 155 : Data Science | Memahami Algoritma Machine Learning untuk Data Science',
-                        author: 'GDSC Universitas Muhammadiyah Surakarta',
-                        image: "",
-                        onTap: () {
-                          Get.toNamed(Routes.EVENT_DETAIL);
-                        },
-                      ),
-                      const SizedBox(
-                        width: 16,
-                      ),
-                      CardEvent(
-                        category: "Seminar",
-                        title:
-                            'DevCoach 155 : Data Science | Memahami Algoritma Machine Learning untuk Data Science',
-                        author: 'GDSC Universitas Muhammadiyah Surakarta',
-                        image: "",
-                        onTap: () {
-                          Get.toNamed(Routes.EVENT_DETAIL);
-                        },
-                      ),
-                      const SizedBox(
-                        width: 16,
-                      ),
-                    ],
-                  ),
-                ),
+                StreamBuilder(
+                    stream: controller.getPopularEvent(),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                      if (snapshot.hasError) {
+                        return const Center(
+                          child: Text("Error"),
+                        );
+                      }
+
+                      if (snapshot.data?.length == 0) {
+                        return const Center(
+                          child: Text("No Event"),
+                        );
+                      }
+
+                      return SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: [
+                            ...snapshot.data!.map(
+                              (item) => Row(
+                                children: [
+                                  CardEvent(
+                                    category: item.category,
+                                    title: item.title,
+                                    author: item.authorName,
+                                    image: item.image,
+                                    onTap: () {
+                                      Get.toNamed(Routes.EVENT_DETAIL,
+                                          parameters: {"id": item.eventId});
+                                    },
+                                  ),
+                                  const SizedBox(
+                                    width: 16,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    }),
                 const SizedBox(
                   height: 16,
                 ),
