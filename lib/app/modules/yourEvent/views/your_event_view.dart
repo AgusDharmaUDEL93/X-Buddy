@@ -59,10 +59,11 @@ class YourEventView extends GetView<YourEventController> {
                         category: event.category,
                         title: event.title,
                         author: event.authorName,
-                        image: event.imageUrl,
+                        image: event.image,
                         onTap: () {
                           Get.toNamed(Routes.EDIT_EVENT,
-                              arguments: event.toJson());
+                              arguments: event.toJson(),
+                              parameters: {'event_id': event.eventId});
                         },
                       );
                     },

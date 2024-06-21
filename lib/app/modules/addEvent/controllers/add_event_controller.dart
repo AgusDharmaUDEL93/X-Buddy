@@ -6,15 +6,24 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:x_buddy/app/data/model/event.dart';
 
 class AddEventController extends GetxController {
   final eventTitleController = TextEditingController();
-  final eventCategoryController = TextEditingController();
   final eventLocationController = TextEditingController();
   final eventDateController = TextEditingController();
   final eventTimeController = TextEditingController();
   final eventDescriptionController = TextEditingController();
   final images = XFile('').obs;
+  final selectedCategory = ''.obs;
+
+  //Pilihan Fiter Category berdasarkan Jenisnya
+  final categoryList = [
+    "Competition",
+    "Seminar",
+    "Tech Talk",
+    "Workshop",
+  ];
 
   // Membuat Widget Date Picker
   datePicker(BuildContext context) async {
@@ -122,19 +131,21 @@ class AddEventController extends GetxController {
     String imageURL = await uploadImages(images);
     final refDoc = FirebaseFirestore.instance.collection('events').doc();
 
-    //upload data ke database(cloud_firestore)
-    final eventData = {
-      'title': eventTitle,
-      'category': eventCategory,
-      'location': eventLocation,
-      'date': eventDate,
-      'time': eventTime,
-      'description': eventDescription,
-      'image_url': imageURL,
-      'author_uid': userName,
-      'author_name': userName,
-    };
-    refDoc.set(eventData);
+    await FirebaseFirestore.instance.collection('events').doc(refDoc.id).set(
+        Event(
+                eventId: refDoc.id,
+                title: eventTitle,
+                image: imageURL,
+                category: selectedCategory.value,
+                authorUid: authorUid,
+                authorName: userName,
+                location: eventLocation,
+                date: eventDate,
+                time: eventTime,
+                participant: 0,
+                description: eventDescription)
+            .toJson());
+    // refDoc.set(eventData);
     Get.back();
   }
 

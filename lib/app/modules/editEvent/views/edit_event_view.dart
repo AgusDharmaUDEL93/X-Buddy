@@ -12,7 +12,7 @@ class EditEventView extends GetView<EditEventController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Create Event'),
+        title: const Text('Edit Event'),
       ),
       body: Container(
         width: Get.width,
@@ -35,16 +35,27 @@ class EditEventView extends GetView<EditEventController> {
                   ),
                 ),
 
-                //Event Category Form
+                //Event Category Form (Dropdown)
                 const SizedBox(height: 15),
                 GetBuilder<EditEventController>(
-                  builder: (controller) => TextFormField(
-                    focusNode: FocusNode(),
-                    controller: controller.eventCategoryController,
+                  builder: (controller) => DropdownButtonFormField<String>(
+                    value: controller.selectedCategory.value.isEmpty
+                        ? null
+                        : controller.selectedCategory.value,
+                    items: controller.categoryList.map((String item) {
+                      return DropdownMenuItem<String>(
+                        value: item,
+                        child: Text(item),
+                      );
+                    }).toList(),
+                    onChanged: (String? newValue) {
+                      controller.selectedCategory.value = newValue.toString();
+                      controller.update();
+                    },
                     decoration: const InputDecoration(
                       label: Text("Event Category"),
                       border: OutlineInputBorder(),
-                      hintText: "Insert Your Event Category",
+                      hintText: "Select Your Event Category",
                     ),
                   ),
                 ),
@@ -177,40 +188,44 @@ class EditEventView extends GetView<EditEventController> {
                   width: Get.width,
                   child: FilledButton(
                     onPressed: () async {
-                      // if (controller.eventTitleController.text.isEmpty ||
-                      //     controller.eventCategoryController.text.isEmpty ||
-                      //     controller.eventLocationController.text.isEmpty ||
-                      //     controller.eventDateController.text.isEmpty ||
-                      //     controller.eventTimeController.text.isEmpty ||
-                      //     controller
-                      //         .eventDescriptionController.text.isEmpty ||
-                      //     controller.images.value.path.isEmpty) {
-                      //   Get.snackbar(
-                      //       'Error', 'Lengkapi data terlebih dahulu',
-                      //       snackPosition: SnackPosition.BOTTOM,
-                      //       backgroundColor: Colors.red,
-                      //       colorText: Colors.white,
-                      //       borderRadius: 10,
-                      //       margin: const EdgeInsets.all(10),
-                      //       snackStyle: SnackStyle.FLOATING);
-                      // } else {
-                      // print('save data');
-                      // await controller.saveData(
-                      //   controller.eventTitleController.text,
-                      //   controller.eventCategoryController.text,
-                      //   controller.eventLocationController.text,
-                      //   controller.eventDateController.text,
-                      //   controller.eventTimeController.text,
-                      //   controller.eventDescriptionController.text,
-                      //   File(controller.images.value.path),
-                      // );
-                      // Get.back();
-                      // Get.snackbar(
-                      //     "Berhasil", "Event berhasil ditambahkan.",
-                      //     backgroundColor: Colors.green,
-                      //     colorText: Colors.white);
+                      //Menyimpan data ke database dengan kondisi dengan kondisi tidak edit gambar
+                      print(controller.images.value.path);
+                      if (controller.images.value.path.isEmpty) {
+                        await controller.updateEventDataWithoutEditImage(
+                          controller.eventTitleController.text,
+                          controller.selectedCategory.value,
+                          controller.eventLocationController.text,
+                          controller.eventDateController.text,
+                          controller.eventTimeController.text,
+                          controller.eventDescriptionController.text,
+                          true,
+                        );
+                        print('ini data tanpa edit gambar');
+                        Get.back();
+                        Get.snackbar("Berhasil", "Event berhasil di update.",
+                            backgroundColor: Colors.green,
+                            colorText: Colors.white);
+                      } else {
+                        print('ini data edit gambar');
+                        // menyimpan data ke database dengan kondisi edit gambar
+                        await controller.updateEventDataWithEditImage(
+                          controller.eventTitleController.text,
+                          controller.selectedCategory.value,
+                          controller.eventLocationController.text,
+                          controller.eventDateController.text,
+                          controller.eventTimeController.text,
+                          controller.eventDescriptionController.text,
+                          File(controller.images.value.path),
+                          false,
+                        );
+                        print('ini data edit gambar');
+                        Get.back();
+                        Get.snackbar("Berhasil", "Event berhasil di update.",
+                            backgroundColor: Colors.green,
+                            colorText: Colors.white);
+                      }
                     },
-                    child: const Text("Create Event"),
+                    child: const Text("Update Event"),
                   ),
                 ),
               ],

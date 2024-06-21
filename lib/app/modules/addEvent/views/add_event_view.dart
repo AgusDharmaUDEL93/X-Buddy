@@ -36,16 +36,27 @@ class AddEventView extends GetView<AddEventController> {
                   ),
                 ),
 
-                //Event Category Form
+                //Event Category Form (Dropdown)
                 const SizedBox(height: 15),
                 GetBuilder<AddEventController>(
-                  builder: (controller) => TextFormField(
-                    focusNode: FocusNode(),
-                    controller: controller.eventCategoryController,
+                  builder: (controller) => DropdownButtonFormField<String>(
+                    value: controller.selectedCategory.value.isEmpty
+                        ? null
+                        : controller.selectedCategory.value,
+                    items: controller.categoryList.map((String item) {
+                      return DropdownMenuItem<String>(
+                        value: item,
+                        child: Text(item),
+                      );
+                    }).toList(),
+                    onChanged: (String? newValue) {
+                      controller.selectedCategory.value = newValue.toString();
+                      controller.update();
+                    },
                     decoration: const InputDecoration(
                       label: Text("Event Category"),
                       border: OutlineInputBorder(),
-                      hintText: "Insert Your Event Category",
+                      hintText: "Select Your Event Category",
                     ),
                   ),
                 ),
@@ -182,7 +193,7 @@ class AddEventView extends GetView<AddEventController> {
                       return FilledButton(
                         onPressed: () async {
                           if (controller.eventTitleController.text.isEmpty ||
-                              controller.eventCategoryController.text.isEmpty ||
+                              controller.selectedCategory.value.isEmpty ||
                               controller.eventLocationController.text.isEmpty ||
                               controller.eventDateController.text.isEmpty ||
                               controller.eventTimeController.text.isEmpty ||
@@ -200,7 +211,7 @@ class AddEventView extends GetView<AddEventController> {
                           } else {
                             await controller.saveData(
                               controller.eventTitleController.text,
-                              controller.eventCategoryController.text,
+                              controller.selectedCategory.value,
                               controller.eventLocationController.text,
                               controller.eventDateController.text,
                               controller.eventTimeController.text,
