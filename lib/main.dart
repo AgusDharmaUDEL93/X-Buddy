@@ -7,9 +7,9 @@ import 'package:x_buddy/firebase_options.dart';
 
 import 'app/routes/app_pages.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  getFirebaseInitial();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   var theme = const MaterialTheme(TextTheme());
   runApp(
     GetMaterialApp(
@@ -23,8 +23,4 @@ void main() {
       highContrastDarkTheme: theme.darkHighContrast(),
     ),
   );
-}
-
-void getFirebaseInitial() async {
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 }
