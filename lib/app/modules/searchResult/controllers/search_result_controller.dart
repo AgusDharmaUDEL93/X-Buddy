@@ -19,12 +19,10 @@ class SearchResultController extends GetxController {
 
   Stream<List<Event>> getEvent() {
     print(keywords);
-    return firestore
-        .collection('events')
-        .snapshots()
-        .map((snapshot) => snapshot.docs
-            .map((doc) => Event.fromJson(doc.data()))
-            .where((s) => s.title.contains(keywords))
-            .toList());
+    return firestore.collection('events').snapshots().map((snapshot) => snapshot
+        .docs
+        .map((doc) => Event.fromJson(doc.data()))
+        .where((s) => s.title.toLowerCase().contains(keywords.toLowerCase()))
+        .toList());
   }
 }

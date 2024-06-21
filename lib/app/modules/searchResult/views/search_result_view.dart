@@ -18,8 +18,12 @@ class SearchResultView extends GetView<SearchResultController> {
           SearchAnchor(
             textInputAction: TextInputAction.search,
             viewOnSubmitted: (value) {
+              Get.back();
               Get.toNamed(Routes.SEARCH_RESULT,
                   parameters: {"keywords": value});
+              controller.keywords = value;
+
+              print("here");
             },
             suggestionsBuilder:
                 (BuildContext context, SearchController controller) {

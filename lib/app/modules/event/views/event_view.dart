@@ -25,7 +25,8 @@ class EventView extends GetView<EventController> {
             child: SearchAnchor(
               textInputAction: TextInputAction.search,
               viewOnSubmitted: (value) {
-                print('Submitted: $value');
+                print("Here");
+                Get.back();
                 Get.toNamed(Routes.SEARCH_RESULT,
                     parameters: {"keywords": value});
               },
@@ -40,10 +41,9 @@ class EventView extends GetView<EventController> {
                   ),
                   onSubmitted: (value) {
                     print('Submitted: $value');
+                    Get.back();
                     Get.toNamed(Routes.SEARCH_RESULT,
                         parameters: {"keywords": value});
-                    Get.back();
-                    controller.clear();
                   },
                   onTap: () {
                     controller.openView();
@@ -63,7 +63,6 @@ class EventView extends GetView<EventController> {
                     return ListTile(
                         title: Text(item),
                         onTap: () {
-                          controller.closeView(item);
                           Get.toNamed(Routes.SEARCH_RESULT);
                         });
                   },
