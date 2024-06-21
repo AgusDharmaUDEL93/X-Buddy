@@ -17,7 +17,7 @@ class AddDiscussionController extends GetxController {
   final auth = FirebaseAuth.instance;
 
   void onAddDiscussion() async {
-    if (formKey.currentState!.validate()) {
+    if (!formKey.currentState!.validate()) {
       return;
     }
 

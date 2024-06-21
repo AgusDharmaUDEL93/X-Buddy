@@ -18,6 +18,7 @@ class AddDiscussionView extends GetView<AddDiscussionController> {
                 child: CircularProgressIndicator(),
               )
             : Form(
+                key: controller.formKey,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 16,
