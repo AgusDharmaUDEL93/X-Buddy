@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:x_buddy/app/utils/firebase_humanize_error_code.dart';
 
 class LoginController extends GetxController {
   final formKey = GlobalKey<FormState>();
@@ -22,11 +23,8 @@ class LoginController extends GetxController {
       await auth.signInWithEmailAndPassword(
           email: emailController.text, password: passwordController.text);
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        errorMessage = 'No user found for that email.';
-      } else if (e.code == 'wrong-password') {
-        errorMessage = 'Wrong password provided for that user.';
-      }
+      errorMessage =
+          firebaseHumanizeErrorCode(e.code) ?? "Unexpected Error Occured";
     } catch (e) {
       errorMessage = e.toString();
     }
@@ -35,7 +33,7 @@ class LoginController extends GetxController {
       title: errorMessage == null ? "Succes" : "Error",
       middleText: errorMessage == null
           ? "Success to login on X buddy enjoy"
-          : "Failed to login because : $errorMessage",
+          : "$errorMessage",
       onConfirm: () {
         Get.back();
         Get.back();
