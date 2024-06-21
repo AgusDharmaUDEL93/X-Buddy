@@ -13,17 +13,23 @@ class EventController extends GetxController {
 
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
+  var isLoading = false.obs;
+
   Stream<List<Event>> getPopularEvent() {
     return firestore
         .collection('events')
         .orderBy("participant")
+        .limit(5)
         .snapshots()
-        .map((snapshot) =>
-            snapshot.docs.map((doc) => Event.fromJson(doc.data())).toList());
+        .map((snapshot) => snapshot.docs.map((doc) {
+              var event = Event.fromJson(doc.data());
+              print(event);
+              return Event.fromJson(doc.data());
+            }).toList());
   }
 
   Stream<List<Event>> getEvent() {
-    return firestore.collection('events').snapshots().map((snapshot) =>
+    return firestore.collection('events').limit(5).snapshots().map((snapshot) =>
         snapshot.docs.map((doc) => Event.fromJson(doc.data())).toList());
   }
 

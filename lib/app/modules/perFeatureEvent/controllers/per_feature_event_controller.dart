@@ -1,23 +1,44 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 
-class PerFeatureEventController extends GetxController {
-  //TODO: Implement PerFeatureEventController
+import '../../../data/model/event.dart';
 
-  final count = 0.obs;
+class PerFeatureEventController extends GetxController {
+  var isLoading = false.obs;
+  String? errorMessage;
+  late String type;
+
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
+
   @override
   void onInit() {
     super.onInit();
+    type = Get.parameters["type"].toString();
+
+    print("type");
   }
 
-  @override
-  void onReady() {
-    super.onReady();
+  Stream<List<Event>> getPopularEvent() {
+    return firestore
+        .collection('events')
+        .where("category", isEqualTo: type)
+        .orderBy("participant")
+        .limit(5)
+        .snapshots()
+        .map((snapshot) => snapshot.docs.map((doc) {
+              var event = Event.fromJson(doc.data());
+              print(event);
+              return Event.fromJson(doc.data());
+            }).toList());
   }
 
-  @override
-  void onClose() {
-    super.onClose();
+  Stream<List<Event>> getEvent() {
+    return firestore
+        .collection('events')
+        .where("category", isEqualTo: type)
+        .limit(5)
+        .snapshots()
+        .map((snapshot) =>
+            snapshot.docs.map((doc) => Event.fromJson(doc.data())).toList());
   }
-
-  void increment() => count.value++;
 }
