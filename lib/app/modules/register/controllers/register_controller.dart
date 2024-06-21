@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../utils/firebase_humanize_error_code.dart';
+
 class RegisterController extends GetxController {
   final formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
@@ -27,6 +29,7 @@ class RegisterController extends GetxController {
     try {
       UserCredential result = await auth.createUserWithEmailAndPassword(
           email: emailController.text, password: passwordController.text);
+      await auth.signOut();
       users.doc(result.user?.uid).set({
         "event": [],
         "isVerify": false,
@@ -35,11 +38,8 @@ class RegisterController extends GetxController {
         errorMessage = error.toString();
       });
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'weak-password') {
-        errorMessage = "The password provided is too weak";
-      } else if (e.code == 'email-already-in-use') {
-        errorMessage = "The account already exists for that email.";
-      }
+      errorMessage =
+          firebaseHumanizeErrorCode(e.code) ?? "Unexpected Error Occured";
     } catch (e) {
       errorMessage = e.toString();
     }
@@ -49,7 +49,7 @@ class RegisterController extends GetxController {
       title: errorMessage == null ? "Succes" : "Error",
       middleText: errorMessage == null
           ? "Success to register on X buddy please login to continue"
-          : "Failed to register because : $errorMessage",
+          : "$errorMessage",
       onConfirm: () {
         Get.back();
         Get.back();
