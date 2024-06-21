@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:x_buddy/app/data/model/post.dart';
 import 'package:x_buddy/app/routes/app_pages.dart';
 
-import '../../../widgets/CardDiscussion.dart';
+import '../../../widgets/card_discussion.dart';
 import '../controllers/discussion_controller.dart';
 
 class DiscussionView extends GetView<DiscussionController> {
