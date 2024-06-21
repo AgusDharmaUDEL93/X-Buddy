@@ -69,8 +69,14 @@ class EditEventController extends GetxController {
       String eventDescription,
       File images,
       bool isFileChanged) async {
-    String imageURL = await uploadImages(images, isFileChanged);
+    Get.dialog(
+      const Center(
+        child: CircularProgressIndicator(),
+      ),
+      barrierDismissible: false,
+    );
 
+    String imageURL = await uploadImages(images, isFileChanged);
     final refDoc = FirebaseFirestore.instance.collection('events').doc(keyword);
     await refDoc.update({
       'title': eventTitle,
@@ -81,6 +87,7 @@ class EditEventController extends GetxController {
       'description': eventDescription,
       'image': imageURL,
     });
+    Get.back();
   }
 
   Future<void> updateEventDataWithoutEditImage(
@@ -91,6 +98,12 @@ class EditEventController extends GetxController {
       String eventTime,
       String eventDescription,
       bool isFileChanged) async {
+    Get.dialog(
+      const Center(
+        child: CircularProgressIndicator(),
+      ),
+      barrierDismissible: false,
+    );
     final refDoc = FirebaseFirestore.instance.collection('events').doc(keyword);
     await refDoc.update({
       'title': eventTitle,
@@ -100,6 +113,7 @@ class EditEventController extends GetxController {
       'time': eventTime,
       'description': eventDescription,
     });
+    Get.back();
   }
 
   void datePicker(BuildContext context) async {

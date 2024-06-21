@@ -186,46 +186,53 @@ class EditEventView extends GetView<EditEventController> {
                 const SizedBox(height: 15),
                 SizedBox(
                   width: Get.width,
-                  child: FilledButton(
-                    onPressed: () async {
-                      //Menyimpan data ke database dengan kondisi dengan kondisi tidak edit gambar
-                      print(controller.images.value.path);
-                      if (controller.images.value.path.isEmpty) {
-                        await controller.updateEventDataWithoutEditImage(
-                          controller.eventTitleController.text,
-                          controller.selectedCategory.value,
-                          controller.eventLocationController.text,
-                          controller.eventDateController.text,
-                          controller.eventTimeController.text,
-                          controller.eventDescriptionController.text,
-                          true,
-                        );
-                        print('ini data tanpa edit gambar');
-                        Get.back();
-                        Get.snackbar("Berhasil", "Event berhasil di update.",
-                            backgroundColor: Colors.green,
-                            colorText: Colors.white);
-                      } else {
-                        print('ini data edit gambar');
-                        // menyimpan data ke database dengan kondisi edit gambar
-                        await controller.updateEventDataWithEditImage(
-                          controller.eventTitleController.text,
-                          controller.selectedCategory.value,
-                          controller.eventLocationController.text,
-                          controller.eventDateController.text,
-                          controller.eventTimeController.text,
-                          controller.eventDescriptionController.text,
-                          File(controller.images.value.path),
-                          false,
-                        );
-                        print('ini data edit gambar');
-                        Get.back();
-                        Get.snackbar("Berhasil", "Event berhasil di update.",
-                            backgroundColor: Colors.green,
-                            colorText: Colors.white);
-                      }
+                  child: GetBuilder<EditEventController>(
+                    initState: (_) {},
+                    builder: (_) {
+                      return FilledButton(
+                        onPressed: () async {
+                          //Menyimpan data ke database dengan kondisi dengan kondisi tidak edit gambar
+                          print(controller.images.value.path);
+                          if (controller.images.value.path.isEmpty) {
+                            await controller.updateEventDataWithoutEditImage(
+                              controller.eventTitleController.text,
+                              controller.selectedCategory.value,
+                              controller.eventLocationController.text,
+                              controller.eventDateController.text,
+                              controller.eventTimeController.text,
+                              controller.eventDescriptionController.text,
+                              true,
+                            );
+                            print('ini data tanpa edit gambar');
+                            Get.back();
+                            Get.snackbar(
+                                "Berhasil", "Event berhasil di update.",
+                                backgroundColor: Colors.green,
+                                colorText: Colors.white);
+                          } else {
+                            print('ini data edit gambar');
+                            // menyimpan data ke database dengan kondisi edit gambar
+                            await controller.updateEventDataWithEditImage(
+                              controller.eventTitleController.text,
+                              controller.selectedCategory.value,
+                              controller.eventLocationController.text,
+                              controller.eventDateController.text,
+                              controller.eventTimeController.text,
+                              controller.eventDescriptionController.text,
+                              File(controller.images.value.path),
+                              false,
+                            );
+                            print('ini data edit gambar');
+                            Get.back();
+                            Get.snackbar(
+                                "Berhasil", "Event berhasil di update.",
+                                backgroundColor: Colors.green,
+                                colorText: Colors.white);
+                          }
+                        },
+                        child: const Text("Update Event"),
+                      );
                     },
-                    child: const Text("Update Event"),
                   ),
                 ),
               ],

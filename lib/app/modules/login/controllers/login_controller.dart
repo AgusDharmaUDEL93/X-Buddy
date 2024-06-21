@@ -40,7 +40,6 @@ class LoginController extends GetxController {
       },
     );
   }
-  // //TODO: Implement LoginController
 
   void onChangeVisibilitPassword() {
     isPasswordObscure.value = !isPasswordObscure.value;
@@ -66,4 +65,3 @@ class LoginController extends GetxController {
     return null;
   }
 }
-    return null;
