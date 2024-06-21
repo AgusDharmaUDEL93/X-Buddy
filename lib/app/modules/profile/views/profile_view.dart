@@ -60,7 +60,9 @@ class ProfileView extends GetView<ProfileController> {
                                       width: Get.width,
                                       child: OutlinedButton(
                                         onPressed: () {
-                                          Get.toNamed(Routes.OPEN_VERIFY);
+                                          Get.toNamed(Routes.OPEN_VERIFY)
+                                              ?.whenComplete(
+                                                  () => controller.onRefresh());
                                         },
                                         child: const Text("Verify Account"),
                                       ),
@@ -73,7 +75,8 @@ class ProfileView extends GetView<ProfileController> {
                               : const SizedBox(),
                           CardProfile(
                             onTap: () {
-                              Get.toNamed(Routes.ACCOUNT_SETTING);
+                              Get.toNamed(Routes.ACCOUNT_SETTING)
+                                  ?.whenComplete(() => controller.onRefresh());
                             },
                             title: "Account Setting",
                           ),
@@ -86,7 +89,8 @@ class ProfileView extends GetView<ProfileController> {
                           ),
                           CardProfile(
                             onTap: () {
-                              Get.toNamed(Routes.PASSWORD_SETTING);
+                              Get.toNamed(Routes.PASSWORD_SETTING)
+                                  ?.whenComplete(() => controller.onRefresh());
                             },
                             title: "Password Setting",
                           ),
@@ -99,7 +103,8 @@ class ProfileView extends GetView<ProfileController> {
                           ),
                           CardProfile(
                             onTap: () {
-                              Get.toNamed(Routes.APPLIED_EVENT);
+                              Get.toNamed(Routes.APPLIED_EVENT)
+                                  ?.whenComplete(() => controller.onRefresh());
                             },
                             title: "Followed Event",
                           ),
@@ -115,7 +120,9 @@ class ProfileView extends GetView<ProfileController> {
                                   children: [
                                     CardProfile(
                                       onTap: () {
-                                        Get.toNamed(Routes.YOUR_EVENT);
+                                        Get.toNamed(Routes.YOUR_EVENT)
+                                            ?.whenComplete(
+                                                () => controller.onRefresh());
                                       },
                                       title: "Your Event",
                                     ),
@@ -157,7 +164,8 @@ class ProfileView extends GetView<ProfileController> {
                             width: Get.width,
                             child: OutlinedButton(
                               onPressed: () {
-                                Get.toNamed(Routes.REGISTER);
+                                Get.toNamed(Routes.REGISTER)?.whenComplete(
+                                    () => controller.onRefresh());
                               },
                               child: const Text("Register"),
                             ),
