@@ -17,6 +17,21 @@ class AddDiscussionController extends GetxController {
   final auth = FirebaseAuth.instance;
 
   void onAddDiscussion() async {
+    if (formKey.currentState!.validate()) {
+      return;
+    }
+
+    if (auth.currentUser == null) {
+      Get.defaultDialog(
+        title: "Error",
+        middleText: "Can't add new discussion, please login first!",
+        onConfirm: () {
+          Get.back();
+        },
+      );
+      return;
+    }
+
     isLoading.value = true;
 
     try {

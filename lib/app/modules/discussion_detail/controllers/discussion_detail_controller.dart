@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -43,6 +45,17 @@ class DiscussionDetailController extends GetxController {
 
   void onSubmitComment() async {
     if (!formKey.currentState!.validate()) {
+      return;
+    }
+
+    if (auth.currentUser == null) {
+      Get.defaultDialog(
+        title: "Error",
+        middleText: "Can't comment in this discussion, please login first!",
+        onConfirm: () {
+          Get.back();
+        },
+      );
       return;
     }
 

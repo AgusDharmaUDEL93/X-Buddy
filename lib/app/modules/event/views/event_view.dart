@@ -57,11 +57,12 @@ class EventView extends GetView<EventController> {
                   (int index) {
                     final String item = 'item $index';
                     return ListTile(
-                        title: Text(item),
-                        onTap: () {
-                          controller.closeView(item);
-                          Get.toNamed(Routes.SEARCH_RESULT);
-                        });
+                      title: Text(item),
+                      onTap: () {
+                        controller.closeView(item);
+                        Get.toNamed(Routes.SEARCH_RESULT);
+                      },
+                    );
                   },
                 );
               },

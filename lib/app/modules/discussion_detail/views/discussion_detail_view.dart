@@ -10,7 +10,6 @@ class DiscussionDetailView extends GetView<DiscussionDetailController> {
   const DiscussionDetailView({super.key});
   @override
   Widget build(BuildContext context) {
-    var dummyList = [0, 1, 2, 3, 4];
     return Scaffold(
       appBar: AppBar(),
       body: Obx(
