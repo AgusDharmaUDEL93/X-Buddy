@@ -39,6 +39,8 @@ class CardEvent extends StatelessWidget {
               ),
               child: Image.asset(
                 "assets/img/event 1.jpeg",
+                width: 155,
+                height: 155,
                 fit: BoxFit.cover,
               ),
             ),
