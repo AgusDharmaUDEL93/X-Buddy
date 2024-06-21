@@ -3,31 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class LoginController extends GetxController {
-<<<<<<< HEAD
-  RxBool isLoading = false.obs;
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
-  Future<User?> login(String email, String password) async {
-    try {
-      final credential = await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: email, password: password);
-
-      return credential.user;
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        Get.snackbar("Login", "User not found",
-            colorText: Colors.white,
-            backgroundColor: const Color.fromARGB(131, 253, 65, 65),
-            margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10));
-      } else if (e.code == 'wrong-password') {
-        Get.snackbar("Login", "Password is wrong",
-            colorText: Colors.white,
-            backgroundColor: const Color.fromARGB(131, 253, 65, 65),
-            margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10));
-      }
-    }
-    return null;
-=======
   final formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
@@ -66,29 +41,9 @@ class LoginController extends GetxController {
         Get.back();
       },
     );
->>>>>>> cfca80d6e996eb2f7c9d7c2fb35988252f87338e
   }
   // //TODO: Implement LoginController
 
-<<<<<<< HEAD
-  // final count = 0.obs;
-  // @override
-  // void onInit() {
-  //   super.onInit();
-  // }
-
-  // @override
-  // void onReady() {
-  //   super.onReady();
-  // }
-
-  // @override
-  // void onClose() {
-  //   super.onClose();
-  // }
-
-  // void increment() => count.value++;
-=======
   void onChangeVisibilitPassword() {
     isPasswordObscure.value = !isPasswordObscure.value;
   }
@@ -112,5 +67,4 @@ class LoginController extends GetxController {
     }
     return null;
   }
->>>>>>> cfca80d6e996eb2f7c9d7c2fb35988252f87338e
 }

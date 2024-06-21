@@ -7,12 +7,12 @@ import 'package:x_buddy/app/routes/app_pages.dart';
 import '../controllers/verify_controller.dart';
 
 class VerifyView extends GetView<VerifyController> {
-  const VerifyView({Key? key}) : super(key: key);
+  const VerifyView({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Verify Your Identity"),
+        title: const Text("Verify Your Identity"),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(
@@ -22,22 +22,22 @@ class VerifyView extends GetView<VerifyController> {
           child: Column(
             children: [
               TextFormField(
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     label: Text("Name"),
                     hintText: "Insert Your Name Base Your Identity"),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 16,
               ),
               TextFormField(
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   label: Text("NIK"),
                   hintText: "Insert Your Name Base Your Identity",
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 55,
               ),
               SizedBox(
@@ -46,7 +46,7 @@ class VerifyView extends GetView<VerifyController> {
                   onPressed: () {
                     Get.toNamed(Routes.KTP_VERIFY);
                   },
-                  child: Text("Next"),
+                  child: const Text("Next"),
                 ),
               )
             ],
