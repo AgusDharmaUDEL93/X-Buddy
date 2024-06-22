@@ -1,23 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
+import 'package:x_buddy/app/data/model/post.dart';
 
 class DiscussionController extends GetxController {
-  //TODO: Implement DiscussionController
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-  final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
+  Stream<List<Post>> getDiscussion() {
+    return firestore.collection('posts').snapshots().map((snapshot) =>
+        snapshot.docs.map((doc) => Post.fromJson(doc.data())).toList());
   }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
-  void increment() => count.value++;
 }

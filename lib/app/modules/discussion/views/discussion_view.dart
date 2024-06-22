@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:x_buddy/app/data/model/post.dart';
 import 'package:x_buddy/app/routes/app_pages.dart';
 
 import '../../../widgets/card_discussion.dart';
 import '../controllers/discussion_controller.dart';
 
 class DiscussionView extends GetView<DiscussionController> {
-  const DiscussionView({Key? key}) : super(key: key);
+  const DiscussionView({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,26 +21,53 @@ class DiscussionView extends GetView<DiscussionController> {
             onPressed: () {
               Get.toNamed(Routes.ADD_DISCUSSION);
             },
-            icon: Icon(Icons.add),
+            icon: const Icon(Icons.add),
           ),
         ],
       ),
       body: Padding(
-        padding: EdgeInsets.symmetric(
+        padding: const EdgeInsets.symmetric(
           horizontal: 16,
         ),
-        child: ListView.separated(
-          itemCount: 5,
-          itemBuilder: (context, index) => CardDiscussion(
-            title:
-                'Menggunakan @inject constructor pada interactor class di domain layer',
-            author: "Agus Dharma",
-            description:
-                "Pada domain layer kita tidak disarankan untuk menambahkan framework/library sehingga hanya menggunakan pure kotlin. Namun pada implementasinya dari modul, kita  menggunakan dagger untuk kelas interactor yang berada pada domain layer  dengan menambahkan @inject constructor yang merupakan bagian dari dagger. Apakah ini tidak menyalahi rule dari clean architecture ? terimakasih, mohon penjelasannya",
-          ),
-          separatorBuilder: (context, index) => SizedBox(
-            height: 16,
-          ),
+        child: StreamBuilder<List<Post>>(
+          stream: controller.getDiscussion(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            if (snapshot.hasError) {
+              return const Center(
+                child: Text("Error"),
+              );
+            }
+
+            if (snapshot.data?.length == 0) {
+              return const Center(
+                child: Text("No Discussion"),
+              );
+            }
+            return ListView.separated(
+              itemCount: snapshot.data?.length ?? 0,
+              itemBuilder: (context, index) {
+                return CardDiscussion(
+                  title: snapshot.data?[index].title ?? "No Title",
+                  author: snapshot.data?[index].authorName ?? "Anonim",
+                  description: snapshot.data?[index].description ?? "No Desc",
+                  onTap: () {
+                    Get.toNamed(
+                      Routes.DISCUSSION_DETAIL,
+                      parameters: {"id": snapshot.data?[index].postId ?? ""},
+                    );
+                  },
+                );
+              },
+              separatorBuilder: (context, index) => const SizedBox(
+                height: 16,
+              ),
+            );
+          },
         ),
       ),
     );
