@@ -106,6 +106,17 @@ class EventDetailController extends GetxController {
 
     checkIsJoined();
     isLoading.value = false;
+
+    Get.defaultDialog(
+      title: errorMessage == null ? "Success" : "Error",
+      middleText: errorMessage == null
+          ? "Success to join this event"
+          : "Failed to join because : $errorMessage",
+      onConfirm: () {
+        Get.back();
+        Get.back();
+      },
+    );
   }
 
   void checkIsJoined() async {

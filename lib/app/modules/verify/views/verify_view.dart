@@ -17,11 +17,15 @@ class VerifyView extends GetView<VerifyController> {
       body: Padding(
         padding: const EdgeInsets.symmetric(
           horizontal: 16,
+          vertical: 20,
         ),
         child: Form(
+          key: controller.formKey,
           child: Column(
             children: [
               TextFormField(
+                controller: controller.nameController,
+                validator: controller.onNameValidation,
                 decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     label: Text("Name"),
@@ -31,6 +35,8 @@ class VerifyView extends GetView<VerifyController> {
                 height: 16,
               ),
               TextFormField(
+                controller: controller.nikController,
+                validator: controller.onNikValidation,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   label: Text("NIK"),
@@ -43,9 +49,7 @@ class VerifyView extends GetView<VerifyController> {
               SizedBox(
                 width: Get.width,
                 child: FilledButton(
-                  onPressed: () {
-                    Get.toNamed(Routes.KTP_VERIFY);
-                  },
+                  onPressed: controller.onVerify,
                   child: const Text("Next"),
                 ),
               )

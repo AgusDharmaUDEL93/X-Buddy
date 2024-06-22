@@ -1,23 +1,36 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../routes/app_pages.dart';
+
 class VerifyController extends GetxController {
-  //TODO: Implement VerifyController
+  final formKey = GlobalKey<FormState>();
+  final nameController = TextEditingController();
+  final nikController = TextEditingController();
 
-  final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
+  void onVerify() {
+    if (!formKey.currentState!.validate()) {
+      return;
+    }
+
+    Get.toNamed(Routes.KTP_VERIFY);
   }
 
-  @override
-  void onReady() {
-    super.onReady();
+  String? onNameValidation(String? value) {
+    if (value == null || value.isEmpty) {
+      return "Name can't be empty";
+    }
+    return null;
   }
 
-  @override
-  void onClose() {
-    super.onClose();
-  }
+  String? onNikValidation(String? value) {
+    if (value == null || value.isEmpty) {
+      return "Name can't be empty";
+    }
 
-  void increment() => count.value++;
+    if (value.length < 16) {
+      return "Please enter the correct NIK";
+    }
+    return null;
+  }
 }
