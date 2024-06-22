@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import '../../../data/model/event.dart';
 import '../../../data/model/user.dart' as Usr;
 import '../../../routes/app_pages.dart';
+import '../../../utils/firebase_humanize_error_code.dart';
 
 class EventDetailController extends GetxController {
   var isLoading = false.obs;
@@ -51,65 +52,80 @@ class EventDetailController extends GetxController {
     }
 
     isLoading.value = true;
-
-    if (isJoined.value) {
-      await firestore
-          .collection("events")
-          .doc(eventId)
-          .get()
-          .then((DocumentSnapshot document) async {
-        if (document.exists) {
-          await firestore.collection("events").doc(eventId).update({
-            "participant":
-                (document["participant"] > 0 ? document["participant"] : 1) - 1
-          });
-          await firestore
-              .collection("users")
-              .doc(auth.currentUser?.uid)
-              .update({
-            "followed_event": FieldValue.arrayRemove([eventId])
-          });
-        } else {
-          errorMessage = 'Document does not exist on the database';
-        }
-      });
-    } else {
-      await firestore
-          .collection("events")
-          .doc(eventId)
-          .get()
-          .then((DocumentSnapshot document) async {
-        if (document.exists) {
-          await firestore
-              .collection("events")
-              .doc(eventId)
-              .update({"participant": document["participant"] + 1});
-          await firestore
-              .collection("users")
-              .doc(auth.currentUser?.uid)
-              .update({
-            "followed_event": FieldValue.arrayUnion([eventId])
-          });
-        } else {
-          errorMessage = 'Document does not exist on the database';
-        }
-      });
+    try {
+      if (isJoined.value) {
+        await firestore
+            .collection("events")
+            .doc(eventId)
+            .get()
+            .then((DocumentSnapshot document) async {
+          if (document.exists) {
+            await firestore.collection("events").doc(eventId).update({
+              "participant":
+                  (document["participant"] > 0 ? document["participant"] : 1) -
+                      1
+            });
+            await firestore
+                .collection("users")
+                .doc(auth.currentUser?.uid)
+                .update({
+              "followed_event": FieldValue.arrayRemove([eventId])
+            });
+          } else {
+            errorMessage = 'Document does not exist on the database';
+          }
+        });
+      } else {
+        await firestore
+            .collection("events")
+            .doc(eventId)
+            .get()
+            .then((DocumentSnapshot document) async {
+          if (document.exists) {
+            await firestore
+                .collection("events")
+                .doc(eventId)
+                .update({"participant": document["participant"] + 1});
+            await firestore
+                .collection("users")
+                .doc(auth.currentUser?.uid)
+                .update({
+              "followed_event": FieldValue.arrayUnion([eventId])
+            });
+          } else {
+            errorMessage = 'Document does not exist on the database';
+          }
+        });
+      }
+    } on FirebaseAuthException catch (e) {
+      errorMessage =
+          firebaseHumanizeErrorCode(e.code) ?? "Unexpected Error Occured";
+    } catch (e) {
+      errorMessage = e.toString();
     }
+
     checkIsJoined();
     isLoading.value = false;
   }
 
   void checkIsJoined() async {
-    await firestore
-        .collection("users")
-        .doc(auth.currentUser?.uid)
-        .get()
-        .then((DocumentSnapshot document) {
-      if (document.exists) {
-        isJoined.value = document["followed_event"].contains(eventId);
-      } else {
-        errorMessage = 'Document does not exist on the database';
-      }
-    });
+    try {
+      await firestore
+          .collection("users")
+          .doc(auth.currentUser?.uid)
+          .get()
+          .then((DocumentSnapshot document) {
+        if (document.exists) {
+          isJoined.value = document["followed_event"].contains(eventId);
+        } else {
+          errorMessage = 'Document does not exist on the database';
+        }
+      });
+    } on FirebaseAuthException catch (e) {
+      errorMessage =
+          firebaseHumanizeErrorCode(e.code) ?? "Unexpected Error Occured";
+    } catch (e) {
+      errorMessage = e.toString();
+    }
   }
 }

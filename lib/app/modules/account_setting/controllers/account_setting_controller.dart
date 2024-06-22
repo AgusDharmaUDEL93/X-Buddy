@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../utils/firebase_humanize_error_code.dart';
+
 class AccountSettingController extends GetxController {
   final formKey = GlobalKey<FormState>();
   final nameController = TextEditingController();
@@ -48,29 +50,41 @@ class AccountSettingController extends GetxController {
   }
 
   void onUpdateAccount() async {
-    isLoading.value = true;
-    await firebase
-        .collection("users")
-        .doc(auth.currentUser?.uid)
-        .get()
-        .then((DocumentSnapshot document) async {
-      if (document.exists) {
-        if (document["name"] == nameController.text) {
-          return;
-        }
-        await firebase
-            .collection("users")
-            .doc(auth.currentUser?.uid)
-            .update({"name": nameController.text});
-      } else {
-        errorMessage = 'Document does not exist on the database';
-      }
-    });
+    if (!formKey.currentState!.validate()) {
+      return;
+    }
 
-    if (emailController.text.isNotEmpty ||
-        emailController.text != auth.currentUser?.email) {
-      await auth.currentUser?.verifyBeforeUpdateEmail(emailController.text);
-      await auth.signOut();
+    isLoading.value = true;
+
+    try {
+      await firebase
+          .collection("users")
+          .doc(auth.currentUser?.uid)
+          .get()
+          .then((DocumentSnapshot document) async {
+        if (document.exists) {
+          if (document["name"] == nameController.text) {
+            return;
+          }
+          await firebase
+              .collection("users")
+              .doc(auth.currentUser?.uid)
+              .update({"name": nameController.text});
+        } else {
+          errorMessage = 'Document does not exist on the database';
+        }
+      });
+
+      if (emailController.text.isNotEmpty ||
+          emailController.text != auth.currentUser?.email) {
+        await auth.currentUser?.verifyBeforeUpdateEmail(emailController.text);
+        await auth.signOut();
+      }
+    } on FirebaseAuthException catch (e) {
+      errorMessage =
+          firebaseHumanizeErrorCode(e.code) ?? "Unexpected Error Occured";
+    } catch (e) {
+      errorMessage = e.toString();
     }
 
     isLoading.value = false;

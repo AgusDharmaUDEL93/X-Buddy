@@ -6,6 +6,7 @@ import 'package:x_buddy/app/data/model/post.dart';
 import 'package:x_buddy/app/data/model/user.dart' as Usr;
 
 import '../../../routes/app_pages.dart';
+import '../../../utils/firebase_humanize_error_code.dart';
 
 class AddDiscussionController extends GetxController {
   final formKey = GlobalKey<FormState>();
@@ -39,7 +40,6 @@ class AddDiscussionController extends GetxController {
     isLoading.value = true;
 
     try {
-      print(auth.currentUser?.uid);
       var name = "Anonim";
       var data = await firestore
           .collection("users")
@@ -66,6 +66,9 @@ class AddDiscussionController extends GetxController {
           .collection("posts")
           .doc(docRef.id)
           .update({"post_id": docRef.id});
+    } on FirebaseAuthException catch (e) {
+      errorMessage =
+          firebaseHumanizeErrorCode(e.code) ?? "Unexpected Error Occured";
     } catch (e) {
       errorMessage = e.toString();
     }
