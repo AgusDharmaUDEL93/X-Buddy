@@ -1,26 +1,36 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 
 class ProfileController extends GetxController {
-  //TODO: Implement ProfileController
+  final auth = FirebaseFirestore.instance;
+  var name = ''.obs;
+  var email = ''.obs;
 
-  final count = 0.obs;
-  var isLogin = false.obs;
-  var isVerify = true.obs;
+  var isLogin = true.obs;
+  var isVerify = false.obs;
 
   @override
   void onInit() {
+    getDataProfile();
     super.onInit();
   }
 
-  @override
-  void onReady() {
-    super.onReady();
+  onVerifyAccount() {
+    isVerify.value = true;
   }
 
-  @override
-  void onClose() {
-    super.onClose();
+  getDataProfile() async {
+    try {
+      await auth
+          .collection('users')
+          .doc('ttv1jJfKlSTBkkN2zvYCWhV5XcK2')
+          .get()
+          .then((DocumentSnapshot snapshot) {
+        name.value = snapshot['name'];
+        print(name);
+      });
+    } catch (e) {
+      print(e.toString());
+    }
   }
-
-  void increment() => count.value++;
 }

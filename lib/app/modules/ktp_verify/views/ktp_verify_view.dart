@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:x_buddy/app/modules/profile/controllers/profile_controller.dart';
 
 import '../controllers/ktp_verify_controller.dart';
 
@@ -8,6 +9,7 @@ class KtpVerifyView extends GetView<KtpVerifyController> {
   const KtpVerifyView({super.key});
   @override
   Widget build(BuildContext context) {
+    final verify = Get.put(ProfileController()); // get Profile Controller
     return Scaffold(
       appBar: AppBar(
         title: const Text("KTP Verify"),
@@ -55,6 +57,7 @@ class KtpVerifyView extends GetView<KtpVerifyController> {
                         actions: [
                           TextButton(
                             onPressed: () {
+                              verify.onVerifyAccount();
                               Get.back();
                               Get.back();
                               Get.back();

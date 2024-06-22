@@ -23,9 +23,11 @@ class ProfileView extends GetView<ProfileController> {
                 ? Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        "Giarty",
-                        style: Theme.of(context).textTheme.titleLarge,
+                      Obx(
+                        () => Text(
+                          controller.name.value,
+                          style: Theme.of(context).textTheme.titleLarge,
+                        ),
                       ),
                       Text(
                         "giarty.kireina@gmail.com",
@@ -66,7 +68,8 @@ class ProfileView extends GetView<ProfileController> {
                           : const SizedBox(),
                       CardProfile(
                         onTap: () {
-                          Get.toNamed(Routes.ACCOUNT_SETTING);
+                          Get.toNamed(Routes.ACCOUNT_SETTING)?.whenComplete(
+                              () => controller.onVerifyAccount());
                         },
                         title: "Account Setting",
                       ),
