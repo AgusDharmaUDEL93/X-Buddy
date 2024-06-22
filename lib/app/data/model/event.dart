@@ -9,33 +9,33 @@ Event eventFromJson(String str) => Event.fromJson(json.decode(str));
 String eventToJson(Event data) => json.encode(data.toJson());
 
 class Event {
-    String eventId;
-    String title;
-    String image;
-    String category;
-    String authorUid;
-    String authorName;
-    String location;
-    String date;
-    String time;
-    int participant;
-    String description;
+  String eventId;
+  String title;
+  String image;
+  String category;
+  String authorUid;
+  String authorName;
+  String location;
+  String date;
+  String time;
+  int participant;
+  String description;
 
-    Event({
-        required this.eventId,
-        required this.title,
-        required this.image,
-        required this.category,
-        required this.authorUid,
-        required this.authorName,
-        required this.location,
-        required this.date,
-        required this.time,
-        required this.participant,
-        required this.description,
-    });
+  Event({
+    required this.eventId,
+    required this.title,
+    required this.image,
+    required this.category,
+    required this.authorUid,
+    required this.authorName,
+    required this.location,
+    required this.date,
+    required this.time,
+    required this.participant,
+    required this.description,
+  });
 
-    factory Event.fromJson(Map<String, dynamic> json) => Event(
+  factory Event.fromJson(Map<String, dynamic> json) => Event(
         eventId: json["event_id"],
         title: json["title"],
         image: json["image"],
@@ -45,11 +45,11 @@ class Event {
         location: json["location"],
         date: json["date"],
         time: json["time"],
-        participant: json["participant"],
+        participant: json["participant"] ?? 0,
         description: json["description"],
-    );
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "event_id": eventId,
         "title": title,
         "image": image,
@@ -61,5 +61,5 @@ class Event {
         "time": time,
         "participant": participant,
         "description": description,
-    };
+      };
 }

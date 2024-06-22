@@ -1,19 +1,18 @@
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
 
-import '../controllers/add_event_controller.dart';
+import '../controllers/edit_event_controller.dart';
 
-class AddEventView extends GetView<AddEventController> {
-  const AddEventView({super.key});
+class EditEventView extends GetView<EditEventController> {
+  const EditEventView({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Create Event'),
+        title: const Text('Edit Event'),
       ),
       body: Container(
         width: Get.width,
@@ -24,7 +23,7 @@ class AddEventView extends GetView<AddEventController> {
               children: [
                 //Event Title Form
                 const SizedBox(height: 15),
-                GetBuilder<AddEventController>(
+                GetBuilder<EditEventController>(
                   builder: (controller) => TextFormField(
                     focusNode: FocusNode(),
                     controller: controller.eventTitleController,
@@ -38,7 +37,7 @@ class AddEventView extends GetView<AddEventController> {
 
                 //Event Category Form (Dropdown)
                 const SizedBox(height: 15),
-                GetBuilder<AddEventController>(
+                GetBuilder<EditEventController>(
                   builder: (controller) => DropdownButtonFormField<String>(
                     value: controller.selectedCategory.value.isEmpty
                         ? null
@@ -63,7 +62,7 @@ class AddEventView extends GetView<AddEventController> {
 
                 //Event Location Form
                 const SizedBox(height: 15),
-                GetBuilder<AddEventController>(
+                GetBuilder<EditEventController>(
                   builder: (controller) => TextFormField(
                     focusNode: FocusNode(),
                     controller: controller.eventLocationController,
@@ -77,7 +76,7 @@ class AddEventView extends GetView<AddEventController> {
 
                 //Event Date Form
                 const SizedBox(height: 15),
-                GetBuilder<AddEventController>(
+                GetBuilder<EditEventController>(
                   builder: (controller) => TextFormField(
                     focusNode: FocusNode(),
                     readOnly: true,
@@ -99,7 +98,7 @@ class AddEventView extends GetView<AddEventController> {
 
                 //Event (Time) Form
                 const SizedBox(height: 15),
-                GetBuilder<AddEventController>(
+                GetBuilder<EditEventController>(
                   builder: (controller) => TextFormField(
                     focusNode: FocusNode(),
                     readOnly: true,
@@ -121,7 +120,7 @@ class AddEventView extends GetView<AddEventController> {
 
                 //Event Description Form
                 const SizedBox(height: 15),
-                GetBuilder<AddEventController>(
+                GetBuilder<EditEventController>(
                   builder: (controller) => TextFormField(
                     focusNode: FocusNode(),
                     controller: controller.eventDescriptionController,
@@ -139,45 +138,46 @@ class AddEventView extends GetView<AddEventController> {
 
                 //Menambahkan Container untuk menampung input image
                 const SizedBox(height: 15),
-                GetBuilder<AddEventController>(
+                GetBuilder<EditEventController>(
                   builder: (_) => Row(
                     children: [
-                      controller.images.value.path != ""
-                          ? ClipRRect(
-                              borderRadius: BorderRadius.circular(10),
-                              child: Image.file(
-                                File(controller.images.value.path),
-                                height: 100,
-                                width: Get.width * 0.5,
-                                fit: BoxFit.cover,
-                              ),
-                            )
-                          : GestureDetector(
-                              onTap: () async {
-                                await controller.getImages(true);
-                                controller.update();
-                              },
-                              child: Container(
-                                margin: const EdgeInsets.only(right: 16),
-                                height: 100,
-                                width: Get.width * 0.5,
-                                decoration: BoxDecoration(
-                                  color: Colors.grey[300],
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                child: const Icon(Icons.add_a_photo),
-                              ),
-                            ),
-                      const SizedBox(width: 15),
-                      controller.images.value.path != ""
-                          ? IconButton(
-                              icon: const Icon(Icons.delete, color: Colors.red),
-                              onPressed: () async {
-                                controller.images.value = XFile("");
-                                controller.update();
-                              },
-                            )
-                          : const Text('Pilih Foto'),
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Container(
+                          height: 100,
+                          width: Get.width * 0.5,
+                          decoration: BoxDecoration(
+                            color: Colors.grey[300],
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: controller.images.value.path.isNotEmpty
+                              ? (controller.images.value.path
+                                      .startsWith('http') // Jika path dari URL
+                                  ? CachedNetworkImage(
+                                      imageUrl: controller.images.value.path,
+                                      fit: BoxFit.cover,
+                                      width: Get.width * 0.5,
+                                      errorWidget: (context, url, error) =>
+                                          const Icon(Icons.error),
+                                    )
+                                  : Image.file(
+                                      // Jika path dari file lokal
+                                      File(controller.images.value.path),
+                                      fit: BoxFit.cover,
+                                      height: 100,
+                                      width: Get.width * 0.5,
+                                    ))
+                              : const Icon(Icons
+                                  .add_a_photo), // Jika tidak ada gambar, tampilkan ikon ini
+                        ),
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.edit, color: Colors.blue),
+                        onPressed: () async {
+                          await controller.getImages(true);
+                          controller.update();
+                        },
+                      )
                     ],
                   ),
                 ),
@@ -186,30 +186,33 @@ class AddEventView extends GetView<AddEventController> {
                 const SizedBox(height: 15),
                 SizedBox(
                   width: Get.width,
-                  child: GetBuilder<AddEventController>(
-                    // init: MyController(),
+                  child: GetBuilder<EditEventController>(
                     initState: (_) {},
                     builder: (_) {
                       return FilledButton(
                         onPressed: () async {
-                          if (controller.eventTitleController.text.isEmpty ||
-                              controller.selectedCategory.value.isEmpty ||
-                              controller.eventLocationController.text.isEmpty ||
-                              controller.eventDateController.text.isEmpty ||
-                              controller.eventTimeController.text.isEmpty ||
-                              controller
-                                  .eventDescriptionController.text.isEmpty ||
-                              controller.images.value.path.isEmpty) {
+                          //Menyimpan data ke database dengan kondisi dengan kondisi tidak edit gambar
+                          print(controller.images.value.path);
+                          if (controller.images.value.path.isEmpty) {
+                            await controller.updateEventDataWithoutEditImage(
+                              controller.eventTitleController.text,
+                              controller.selectedCategory.value,
+                              controller.eventLocationController.text,
+                              controller.eventDateController.text,
+                              controller.eventTimeController.text,
+                              controller.eventDescriptionController.text,
+                              true,
+                            );
+                            print('ini data tanpa edit gambar');
+                            Get.back();
                             Get.snackbar(
-                                'Error', 'Lengkapi data terlebih dahulu',
-                                snackPosition: SnackPosition.BOTTOM,
-                                backgroundColor: Colors.red,
-                                colorText: Colors.white,
-                                borderRadius: 10,
-                                margin: const EdgeInsets.all(10),
-                                snackStyle: SnackStyle.FLOATING);
+                                "Berhasil", "Event berhasil di update.",
+                                backgroundColor: Colors.green,
+                                colorText: Colors.white);
                           } else {
-                            await controller.saveData(
+                            print('ini data edit gambar');
+                            // menyimpan data ke database dengan kondisi edit gambar
+                            await controller.updateEventDataWithEditImage(
                               controller.eventTitleController.text,
                               controller.selectedCategory.value,
                               controller.eventLocationController.text,
@@ -217,15 +220,17 @@ class AddEventView extends GetView<AddEventController> {
                               controller.eventTimeController.text,
                               controller.eventDescriptionController.text,
                               File(controller.images.value.path),
+                              false,
                             );
+                            print('ini data edit gambar');
                             Get.back();
                             Get.snackbar(
-                                "Berhasil", "Event berhasil ditambahkan.",
+                                "Berhasil", "Event berhasil di update.",
                                 backgroundColor: Colors.green,
                                 colorText: Colors.white);
                           }
                         },
-                        child: const Text("Create Event"),
+                        child: const Text("Update Event"),
                       );
                     },
                   ),

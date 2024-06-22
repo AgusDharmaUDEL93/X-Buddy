@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -20,6 +21,9 @@ class CardEvent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Validate the image URL
+    bool isValidUrl = Uri.tryParse(image)?.hasAbsolutePath ?? false;
+
     return InkWell(
       onTap: onTap,
       child: Container(
@@ -37,12 +41,21 @@ class CardEvent extends StatelessWidget {
                 topLeft: Radius.circular(5),
                 topRight: Radius.circular(5),
               ),
-              child: Image.network(
-                image,
-                width: 155,
-                height: 155,
-                fit: BoxFit.cover,
-              ),
+              child: isValidUrl
+                  ? CachedNetworkImage(
+                      imageUrl: image,
+                      fit: BoxFit.cover,
+                      width: 155,
+                      height: 155,
+                      errorWidget: (context, url, error) =>
+                          const Icon(Icons.error),
+                    )
+                  : Container(
+                      width: 155,
+                      height: 155,
+                      color: Colors.grey,
+                      child: const Icon(Icons.broken_image),
+                    ),
             ),
             Padding(
               padding: const EdgeInsets.all(10),
