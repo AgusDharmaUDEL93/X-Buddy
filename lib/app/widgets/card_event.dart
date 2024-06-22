@@ -37,8 +37,8 @@ class CardEvent extends StatelessWidget {
                 topLeft: Radius.circular(5),
                 topRight: Radius.circular(5),
               ),
-              child: Image.asset(
-                "assets/img/event 1.jpeg",
+              child: Image.network(
+                image,
                 width: 155,
                 height: 155,
                 fit: BoxFit.cover,
@@ -72,7 +72,7 @@ class CardEvent extends StatelessWidget {
                       title,
                       style: Theme.of(context).textTheme.titleMedium,
                       overflow: TextOverflow.ellipsis,
-                      maxLines: 2,
+                      maxLines: 1,
                     ),
                     const SizedBox(
                       height: 5,

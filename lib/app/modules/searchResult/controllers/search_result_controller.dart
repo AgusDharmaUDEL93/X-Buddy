@@ -1,23 +1,28 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 
-class SearchResultController extends GetxController {
-  //TODO: Implement SearchResultController
+import '../../../data/model/event.dart';
 
-  final count = 0.obs;
+class SearchResultController extends GetxController {
+  var isLoading = false.obs;
+
+  late String keywords;
+
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
+
   @override
   void onInit() {
     super.onInit();
+
+    keywords = Get.parameters["keywords"].toString();
   }
 
-  @override
-  void onReady() {
-    super.onReady();
+  Stream<List<Event>> getEvent() {
+    print(keywords);
+    return firestore.collection('events').snapshots().map((snapshot) => snapshot
+        .docs
+        .map((doc) => Event.fromJson(doc.data()))
+        .where((s) => s.title.toLowerCase().contains(keywords.toLowerCase()))
+        .toList());
   }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
-  void increment() => count.value++;
 }
