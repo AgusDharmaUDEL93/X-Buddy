@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:x_buddy/app/data/model/post.dart';
+import 'package:x_buddy/app/routes/app_pages.dart';
 
 class DiscussionDetailController extends GetxController {
   final formKey = GlobalKey<FormState>();
@@ -54,6 +55,8 @@ class DiscussionDetailController extends GetxController {
         middleText: "Can't comment in this discussion, please login first!",
         onConfirm: () {
           Get.back();
+          Get.back();
+          Get.toNamed(Routes.LOGIN);
         },
       );
       return;
@@ -61,7 +64,6 @@ class DiscussionDetailController extends GetxController {
 
     isLoading.value = true;
     try {
-      print("here");
       var name = "Anonim";
       var data = await firestore
           .collection("users")
@@ -70,7 +72,6 @@ class DiscussionDetailController extends GetxController {
           .then((DocumentSnapshot document) {
         if (document.exists) {
           name = document["name"];
-          print(name);
         } else {
           errorMessage = 'Document does not exist on the database';
         }

@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 
 import '../../../data/model/event.dart';
 import '../../../data/model/user.dart' as Usr;
+import '../../../routes/app_pages.dart';
 
 class EventDetailController extends GetxController {
   var isLoading = false.obs;
@@ -42,6 +43,8 @@ class EventDetailController extends GetxController {
         middleText: "Can't join the event, please login first!",
         onConfirm: () {
           Get.back();
+          Get.back();
+          Get.toNamed(Routes.LOGIN);
         },
       );
       return;

@@ -5,6 +5,8 @@ import 'package:get/get.dart';
 import 'package:x_buddy/app/data/model/post.dart';
 import 'package:x_buddy/app/data/model/user.dart' as Usr;
 
+import '../../../routes/app_pages.dart';
+
 class AddDiscussionController extends GetxController {
   final formKey = GlobalKey<FormState>();
   final titleController = TextEditingController();
@@ -27,6 +29,8 @@ class AddDiscussionController extends GetxController {
         middleText: "Can't add new discussion, please login first!",
         onConfirm: () {
           Get.back();
+          Get.back();
+          Get.toNamed(Routes.LOGIN);
         },
       );
       return;
