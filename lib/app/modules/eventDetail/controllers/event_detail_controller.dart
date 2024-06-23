@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../data/model/event.dart';
 import '../../../data/model/user.dart' as Usr;
@@ -107,16 +109,52 @@ class EventDetailController extends GetxController {
     checkIsJoined();
     isLoading.value = false;
 
-    Get.defaultDialog(
-      title: errorMessage == null ? "Success" : "Error",
-      middleText: errorMessage == null
-          ? "Success to join this event"
-          : "Failed to join because : $errorMessage",
-      onConfirm: () {
-        Get.back();
-        Get.back();
-      },
-    );
+    errorMessage != null
+        ? Get.defaultDialog(
+            title: "Error",
+            middleText: "Failed to join because : $errorMessage",
+            onConfirm: () {
+              Get.back();
+            },
+          )
+        : Get.defaultDialog(
+            title: "Success",
+            middleText:
+                "Success to join this event, are you want to add this to google calendar ?",
+            onConfirm: () async {
+              await firestore
+                  .collection("events")
+                  .doc(eventId)
+                  .get()
+                  .then((DocumentSnapshot document) {
+                if (document.exists) {
+                  DateTime dateRaw = DateFormat("dd-MM-yyyy")
+                      .parse(document["date"].toString().replaceAll(" ", ""));
+                  DateTime timeRaw = DateFormat("HH:mm")
+                      .parse(document["time"].toString().replaceAll(" ", ""));
+
+                  var date = DateFormat("yyyyMMdd").format(dateRaw);
+                  var time = DateFormat("HHmmss").format(timeRaw);
+
+                  var addToCalendar = Uri.parse(
+                      "https://calendar.google.com/calendar/u/0/r/eventedit?dates=20240623T140000/20240623T160000&details=Deskripsi&location=Location+Testing&text=%3CTopic%3E");
+                  launchUrl(addToCalendar);
+                } else {
+                  errorMessage = 'Document does not exist on the database';
+                }
+              });
+              Get.back();
+            },
+            onCancel: () {
+              Get.back();
+            },
+          );
+  }
+
+  Future<void> _launchUrl(Uri url) async {
+    if (!await launchUrl(url)) {
+      throw Exception('Could not launch $url');
+    }
   }
 
   void checkIsJoined() async {
