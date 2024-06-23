@@ -1,6 +1,9 @@
+import 'package:another_flutter_splash_screen/another_flutter_splash_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 
 import 'package:get/get.dart';
+import 'package:x_buddy/app/theme/theme.dart';
 
 import '../modules/account_setting/bindings/account_setting_binding.dart';
 import '../modules/account_setting/views/account_setting_view.dart';
@@ -58,7 +61,20 @@ class AppPages {
   static final routes = [
     GetPage(
       name: _Paths.HOME,
-      page: () => const HomeView(),
+      page: () => FlutterSplashScreen.fadeIn(
+        backgroundColor:
+            SchedulerBinding.instance.platformDispatcher.platformBrightness ==
+                    Brightness.dark
+                ? Colors.black
+                : Colors.white,
+        childWidget: Center(
+          child: Image.asset(
+            "assets/img/logo.png",
+            width: 120,
+          ),
+        ),
+        nextScreen: const HomeView(),
+      ),
       binding: HomeBinding(),
     ),
     GetPage(
@@ -78,11 +94,10 @@ class AppPages {
       binding: ProfileBinding(),
     ),
     GetPage(
-        name: _Paths.EVENT_DETAIL,
-        page: () => const EventDetailView(),
-        binding: EventDetailBinding(),
-        transition: Transition.zoom,
-        transitionDuration: Durations.long2),
+      name: _Paths.EVENT_DETAIL,
+      page: () => const EventDetailView(),
+      binding: EventDetailBinding(),
+    ),
     GetPage(
       name: _Paths.PER_FEATURE_EVENT,
       page: () => const PerFeatureEventView(),
