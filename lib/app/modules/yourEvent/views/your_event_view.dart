@@ -36,6 +36,11 @@ class YourEventView extends GetView<YourEventController> {
                       child: CircularProgressIndicator(
                           color: Theme.of(context).colorScheme.primary));
                 }
+                if (snapshot.data == null || snapshot.data!.isEmpty) {
+                  return const Center(
+                    child: Text("No Event"),
+                  );
+                }
                 if (snapshot.hasError) {
                   print('Error: ${snapshot.error}');
                   print('Snapshot has data: ${snapshot.data}');

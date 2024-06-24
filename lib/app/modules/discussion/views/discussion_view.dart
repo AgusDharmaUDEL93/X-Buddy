@@ -37,6 +37,11 @@ class DiscussionView extends GetView<DiscussionController> {
                 child: CircularProgressIndicator(),
               );
             }
+            if (snapshot.data == null || snapshot.data!.isEmpty) {
+              return const Center(
+                child: Text("No Discussion"),
+              );
+            }
             if (snapshot.hasError) {
               return const Center(
                 child: Text("Error"),

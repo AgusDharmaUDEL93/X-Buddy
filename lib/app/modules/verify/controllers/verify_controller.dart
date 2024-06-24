@@ -25,7 +25,7 @@ class VerifyController extends GetxController {
 
   String? onNikValidation(String? value) {
     if (value == null || value.isEmpty) {
-      return "Name can't be empty";
+      return "NIK can't be empty";
     }
 
     if (value.length < 16) {
